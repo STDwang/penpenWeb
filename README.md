@@ -2,11 +2,11 @@
 
 求职作品集、技术内容与个人实验室。面向机器人与智驾仿真岗位，以已有 C++/Qt 商业仿真平台经验为基础。
 
-**当前：阶段二，本地可运行网站已完成。** 已实现首页、三个工程案例、四个实验项目、关于、简历、PDF 下载与首屏轨迹交互。阶段一设计稿保留在 `design/`；实际网站截图保存在 `previews/site-*.png`。
+**当前：阶段二，在线审阅版本已部署并通过浏览器验证。** 已实现首页、三个工程案例、四个实验项目、关于、简历、PDF 下载与首屏轨迹交互。阶段一设计稿保留在 `design/`；线上实际截图在 `previews/online-*.png`，本地截图在 `previews/site-*.png`。
 
 - 本地预览：[http://127.0.0.1:3000](http://127.0.0.1:3000)
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
-- Vercel Preview：团队读取权限已恢复；创建 `penpen-web` 项目仍返回 403（没有创建项目权限），尚未部署。没有填写推测的在线地址。
+- 在线审阅：[https://penpen-web.vercel.app/](https://penpen-web.vercel.app/)
 
 ## 本地运行
 
@@ -27,11 +27,11 @@ npm run start
 
 ## 实际页面截图
 
-![实际网站首屏](previews/site-desktop-hero.png)
+![线上网站实际首屏](previews/online-desktop-hero.png)
 
-[桌面全页](previews/site-desktop.png) · [手机全页](previews/site-mobile.png) · [平板全页](previews/site-tablet.png)
+[线上桌面全页](previews/online-desktop.png) · [线上手机全页](previews/online-mobile.png) · [线上平板全页](previews/online-tablet.png)
 
-截图来自本地生产构建，属于可运行网站截图，不是 Vercel 部署截图。页面默认暂停在 12/30 秒；浏览器检查中的全页截图启用了减少动态效果。
+以上截图来自实际访问的 Vercel 在线站点。页面默认暂停在 12/30 秒；浏览器检查中的全页截图启用了减少动态效果。[本地构建截图](previews/site-desktop.png)保留用于对照。
 
 ## 原始设计稿
 
@@ -82,17 +82,29 @@ npm run test:e2e
 
 浏览器检查使用本机 Microsoft Edge。其他系统可调整 `code/playwright.config.ts` 的 `channel`，或安装对应 Playwright Chromium 后移除该设置。已验证 1440px、768px、390px 三个尺寸的交互、路由、PDF、404、noindex 和无 JavaScript 降级。
 
+验证在线站点时可以复用同一套检查，并将截图与本地结果分开保存：
+
+```powershell
+cd code
+$env:PLAYWRIGHT_BASE_URL = 'https://penpen-web.vercel.app'
+$env:SCREENSHOT_PREFIX = 'online'
+# 如果本机需要已配置的代理，再设置 PLAYWRIGHT_PROXY；默认不使用代理。
+npm run test:e2e
+```
+
+2026-10-21 线上三尺寸共 9 个浏览器用例通过，详情见[线上验收记录](docs/06-online-verification.md)。
+
 ## 网站技术与部署
 
 Next.js App Router、React、TypeScript、Tailwind CSS；提交 npm 锁文件；本地内容预渲染，首屏 SVG 交互独立加载。只使用本地资源，不在访问时请求 GitHub/CSDN。静态信息无需 JavaScript 即可读取。
 
-GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。Vercel 导入该仓库，Framework 选择 Next.js，Root Directory 设置为 `code/`；安装命令 `npm ci`，构建命令 `npm run build`，其余保留框架默认值。当前阶段只部署 Preview。
+GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。Vercel 导入该仓库，Framework 选择 Next.js，Root Directory 设置为 `code/`；安装命令 `npm ci`，构建命令 `npm run build`，其余保留框架默认值。
 
 生产发布时把 `SITE_URL` 设置为已经验证的正式 origin（例如实际分配的 HTTPS 域名，不含路径）。只有 `VERCEL_ENV=production` 且 `SITE_URL` 已配置时，才启用索引、正式 canonical 和 sitemap。其他构建默认 `noindex, nofollow`，robots 禁止索引，sitemap 留空；无需密钥或数据库。
 
-2026-10-21 重新授权后，默认团队已能读取，但连接创建 `penpen-web` 项目仍返回 `403: You don't have permission to create the project`。创建失败后未继续重复请求，也未更改团队权限。可以由用户在 Vercel 网页创建并关联该项目，然后再继续检查部署；当前尚无线上验证结果。
+在线站点由用户完成导入后提供地址，公开页面、交互与下载已验证。当前 Vercel 管理连接仍未能在已授权团队下查询该项目，因此未宣称核验到部署环境类型或精确提交 SHA。当前在线站点保持 noindex，正式搜索收录在阶段三审阅后配置。
 
-阶段二提供可操作页面和 Vercel Preview 后停下审阅；阶段三处理反馈、同步 DOCX/PDF，再发布正式地址。
+当前停在阶段二在线审阅节点；阶段三处理反馈、同步 DOCX/PDF，并确认正式域名与搜索收录设置。
 
 ## 来源
 

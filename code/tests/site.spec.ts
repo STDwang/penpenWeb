@@ -58,7 +58,10 @@ test("homepage, scene playback, seeking and keyboard selection", async ({
     .toBe(true);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
-    path: resolve("../previews", `site-${testInfo.project.name}.png`),
+    path: resolve(
+      "../previews",
+      `${process.env.SCREENSHOT_PREFIX || "site"}-${testInfo.project.name}.png`,
+    ),
     fullPage: true,
   });
 });
