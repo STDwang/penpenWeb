@@ -1,0 +1,21 @@
+# Stage-two application artifacts
+code/node_modules/
+code/.next/
+code/out/
+code/test-results/
+code/playwright-report/
+code/*.tsbuildinfo
+code/.vercel/
+.vercel/
+node_modules/
+.env*
+!.env.example
+code/.env*
+!code/.env.example
+
+# Local source materials and temporary artifacts
+/work/
+/简历/
+*.log
+.DS_Store
+Thumbs.db
