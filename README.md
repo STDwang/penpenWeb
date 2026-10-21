@@ -4,9 +4,8 @@
 
 **当前：阶段二，在线审阅版本已部署并通过浏览器验证。** 已实现首页、三个工程案例、四个实验项目、关于、简历、PDF 下载与首屏轨迹交互。阶段一设计稿保留在 `design/`；线上实际截图在 `previews/online-*.png`，本地截图在 `previews/site-*.png`。
 
-- 本地预览：[http://127.0.0.1:3000](http://127.0.0.1:3000)
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
-- 在线审阅：[https://penpen-web.vercel.app/](https://penpen-web.vercel.app/)
+- 在线预览：[https://penpen-portfolio.app.workbuddy.host/portfolio/](https://penpen-portfolio.app.workbuddy.host/portfolio/)
 
 ## 本地运行
 
@@ -86,7 +85,7 @@ npm run test:e2e
 
 ```powershell
 cd code
-$env:PLAYWRIGHT_BASE_URL = 'https://penpen-web.vercel.app'
+$env:PLAYWRIGHT_BASE_URL = 'https://penpen-portfolio.app.workbuddy.host/portfolio'
 $env:SCREENSHOT_PREFIX = 'online'
 # 如果本机需要已配置的代理，再设置 PLAYWRIGHT_PROXY；默认不使用代理。
 npm run test:e2e
@@ -98,11 +97,9 @@ npm run test:e2e
 
 Next.js App Router、React、TypeScript、Tailwind CSS；提交 npm 锁文件；本地内容预渲染，首屏 SVG 交互独立加载。只使用本地资源，不在访问时请求 GitHub/CSDN。静态信息无需 JavaScript 即可读取。
 
-GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。Vercel 导入该仓库，Framework 选择 Next.js，Root Directory 设置为 `code/`；安装命令 `npm ci`，构建命令 `npm run build`，其余保留框架默认值。
+GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。当前采用静态导出托管：`next.config.ts` 设置 `output: "export"`、`basePath: "/portfolio"`、`trailingSlash: true`，`npm run build` 生成 `out/`，将导出产物放入托管目录的 `portfolio/` 子路径发布，入口跳转页指向 `/portfolio/`。
 
-生产发布时把 `SITE_URL` 设置为已经验证的正式 origin（例如实际分配的 HTTPS 域名，不含路径）。只有 `VERCEL_ENV=production` 且 `SITE_URL` 已配置时，才启用索引、正式 canonical 和 sitemap。其他构建默认 `noindex, nofollow`，robots 禁止索引，sitemap 留空；无需密钥或数据库。
-
-在线站点由用户完成导入后提供地址，公开页面、交互与下载已验证。当前 Vercel 管理连接仍未能在已授权团队下查询该项目，因此未宣称核验到部署环境类型或精确提交 SHA。当前在线站点保持 noindex，正式搜索收录在阶段三审阅后配置。
+在线站点托管在 WorkBuddy（[在线预览](https://penpen-portfolio.app.workbuddy.host/portfolio/)），公开页面、交互与下载已验证。此前阶段二审阅版本曾部署于 Vercel，现已切换为 WorkBuddy 静态托管。生产发布时把 `SITE_URL` 设置为已验证的正式 origin 并配置索引开关；当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
 
 当前停在阶段二在线审阅节点；阶段三处理反馈、同步 DOCX/PDF，并确认正式域名与搜索收录设置。
 
