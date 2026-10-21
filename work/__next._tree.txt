@@ -1,0 +1,4 @@
+:HL["/penpenWeb/_next/static/chunks/1ikimvg9cqhch.css","style"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"work","h":96,"c":"$Q2"}]]
+0:{"b":"VX9FjtXkVzQnqU3oUchMf","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
