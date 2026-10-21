@@ -5,7 +5,7 @@
 **当前：阶段二，本地可运行网站已完成。** 已实现首页、三个工程案例、四个实验项目、关于、简历、PDF 下载与首屏轨迹交互。阶段一设计稿保留在 `design/`；实际网站截图保存在 `previews/site-*.png`。
 
 - 本地预览：[http://127.0.0.1:3000](http://127.0.0.1:3000)
-- GitHub：`STDwang/penpenWeb`（提交完成后使用下方仓库地址）
+- GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - Vercel Preview：等待连接获得默认团队访问权限；当前返回 403，尚未部署。没有填写推测的在线地址。
 
 ## 本地运行
