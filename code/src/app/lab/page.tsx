@@ -1,5 +1,6 @@
 import { labProjects } from "@/content/projects";
 import { LabCard } from "@/components/projects";
+import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
 import { pageMeta } from "@/lib/site";
 
@@ -24,11 +25,11 @@ export default function LabPage() {
           AI 辅助开发的个人实验。
         </p>
       </div>
-      <div className="lab-grid lab-collection">
+      <ProjectRail label="个人作品">
         {labProjects.map((p) => (
           <LabCard key={p.slug} project={p} />
         ))}
-      </div>
+      </ProjectRail>
       <Contact />
     </main>
   );

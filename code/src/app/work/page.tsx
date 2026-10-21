@@ -1,5 +1,6 @@
 import { workProjects } from "@/content/projects";
 import { WorkCard } from "@/components/projects";
+import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
 import { pageMeta } from "@/lib/site";
 
@@ -22,11 +23,11 @@ export default function WorkPage() {
           来自商业交通仿真平台的工程实践。沿着问题、架构与验证，说明我负责的工作，以及每项设计背后的取舍。
         </p>
       </div>
-      <div className="work-grid collection-grid">
+      <ProjectRail label="工程案例">
         {workProjects.map((p) => (
           <WorkCard key={p.slug} project={p} />
         ))}
-      </div>
+      </ProjectRail>
       <Contact />
     </main>
   );

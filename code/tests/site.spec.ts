@@ -8,7 +8,7 @@ test("homepage, scene playback, seeking and keyboard selection", async ({
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "让复杂系统",
+    "C++ / 仿真平台",
   );
   await expect(page.getByRole("button", { name: "播放演示" })).toBeVisible();
   const progress = page.getByLabel("演示进度（秒）");
@@ -142,11 +142,94 @@ test("server-rendered content and static scene work without JavaScript", async (
   });
   const page = await context.newPage();
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("可验证");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("工程师");
   await expect(page.getByText("固定演示数据 · 非真实仿真输出")).toBeVisible();
   await page.getByRole("link", { name: "查看工程案例", exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "把问题做透",
   );
+  await page
+    .getByRole("heading", { name: "中观仿真与微中观协同" })
+    .getByRole("link")
+    .click();
+  await expect(page).toHaveURL(/\/work\/micro-meso$/);
   await context.close();
+});
+
+test("project galleries scroll by controls, keyboard and touch; evidence stays attributed", async ({
+  page,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const work = page.getByRole("region", { name: "工程案例", exact: true });
+  const track = work.getByRole("list");
+  await work.scrollIntoViewIfNeeded();
+  await expect(
+    work.getByRole("button", { name: "上一项工程案例" }),
+  ).toBeDisabled();
+  await work.getByRole("button", { name: "下一项工程案例" }).click();
+  await expect
+    .poll(() => track.evaluate((e) => e.scrollLeft))
+    .toBeGreaterThan(30);
+  await track.focus();
+  await page.keyboard.press("End");
+  await expect(
+    work.getByRole("button", { name: "下一项工程案例" }),
+  ).toBeDisabled();
+  await page.keyboard.press("Home");
+  await expect.poll(() => track.evaluate((e) => e.scrollLeft)).toBeLessThan(3);
+  await page.keyboard.press("ArrowRight");
+  await expect
+    .poll(() => track.evaluate((e) => e.scrollLeft))
+    .toBeGreaterThan(30);
+  await expect(work.locator(".image-credit")).toHaveCount(3);
+  await expect(work.locator(".image-credit a").first()).toHaveAttribute(
+    "href",
+    /jidatraffic\.com/,
+  );
+  if (testInfo.project.name === "mobile") {
+    // Real Chromium touch input rather than synthetic DOM events.
+    await track.evaluate((e) => e.scrollTo({ left: 0, behavior: "instant" }));
+    const rect = await track.boundingBox();
+    if (!rect) throw new Error("Missing gallery bounds");
+    const cdp = await page.context().newCDPSession(page);
+    const y = Math.min(rect.y + 110, 700);
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchStart",
+      touchPoints: [{ x: rect.x + rect.width - 30, y }],
+    });
+    for (let step = 1; step <= 8; step++) {
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchMove",
+        touchPoints: [{ x: rect.x + rect.width - 30 - step * 28, y }],
+      });
+    }
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchEnd",
+      touchPoints: [],
+    });
+    await expect
+      .poll(() => track.evaluate((e) => e.scrollLeft))
+      .toBeGreaterThan(30);
+    await cdp.detach();
+  }
+  const lab = page.getByRole("region", { name: "个人作品", exact: true });
+  await lab.scrollIntoViewIfNeeded();
+  await lab.getByRole("button", { name: "下一项个人作品" }).click();
+  await expect
+    .poll(() => lab.getByRole("list").evaluate((e) => e.scrollLeft))
+    .toBeGreaterThan(30);
+  await expect(
+    lab.getByRole("link", { name: "项目展示 ↗", exact: true }),
+  ).toHaveAttribute("href", "https://dreamscape-cat.app.workbuddy.host/");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.goto("/work/rail-transit");
+  await expect(
+    page.getByRole("heading", { name: "我负责的工程链路" }),
+  ).toBeVisible();
+  await expect(page.locator("#boundary")).toContainText("不是轨道模块截图");
 });

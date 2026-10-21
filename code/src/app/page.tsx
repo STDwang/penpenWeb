@@ -1,9 +1,11 @@
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMeta, person } from "@/lib/site";
 import { workProjects, labProjects } from "@/content/projects";
 import { SectionTitle, Arrow, TextLink } from "@/components/ui";
-import { WorkCard, LabCard, ProjectVisual } from "@/components/projects";
+import { WorkCard, LabCard } from "@/components/projects";
+import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
 
 const SimulationPlayer = dynamic(
@@ -11,29 +13,32 @@ const SimulationPlayer = dynamic(
 );
 export const metadata = pageMeta(
   "C++ / 仿真平台工程师",
-  "四年交通仿真平台研发经验，关注机器人与智驾仿真工具链。让复杂系统可建模、可运行、可验证。",
+  "四年 C++/Qt 商业交通仿真研发：轨道模块、专业编辑器、微中观协同。关注机器人与智驾仿真工具链。",
   "/",
 );
 
 export default function Home() {
-  const main = workProjects[0];
   return (
-    <main id="main" className="container">
+    <main id="main" className="container home-page">
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="eyebrow accent">SIMULATION / SYSTEMS / VISUALIZATION</p>
-          <p className="hero-identity">王帅鹏 · C++ / 仿真平台工程师</p>
+          <p className="eyebrow hero-kicker">
+            <span className="status-dot" /> C++ ENGINEER · SIMULATION & TOOLS
+          </p>
+          <p className="hero-identity">
+            你好，我是王帅鹏 <span>/ STDwang</span>
+          </p>
           <h1 id="hero-title">
-            让复杂系统
+            C++ / 仿真平台
             <br />
-            可建模、可运行、
-            <br />
-            可验证。
+            <span>工程师。</span>
           </h1>
           <p className="hero-intro">
-            四年交通仿真平台研发经验，
+            <strong>四年商业交通仿真平台研发。</strong>
             <br />
-            关注机器人与智驾仿真工具链。
+            做过轨道模块、专业编辑器与微中观协同。
+            <br />
+            下一站，关注机器人与智驾仿真工具链。
           </p>
           <div className="hero-actions">
             <Link className="button primary" href="/work">
@@ -45,148 +50,216 @@ export default function Home() {
               <Arrow />
             </a>
           </div>
-          <p className="mono hero-stack">
-            C++17 / Qt / 仿真建模 / 性能与稳定性
+          <div className="hero-social">
+            <a href={person.github} target="_blank" rel="noreferrer">
+              GitHub ↗
+            </a>
+            <a href={person.blog} target="_blank" rel="noreferrer">
+              技术博客 ↗
+            </a>
+            <a href="#contact-title">联系我 ↓</a>
+          </div>
+        </div>
+        <div className="hero-evidence">
+          <div className="window-bar">
+            <span className="window-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="mono">EXPERIENCE / TESS NG</span>
+            <span className="window-state">商业产品背景</span>
+          </div>
+          <div className="hero-product-image">
+            <Image
+              src="/images/tessng-editor.webp"
+              width={1600}
+              height={1000}
+              alt="济达官方公开的 TESS NG 软件界面，仅作为参与研发的产品背景"
+              priority
+              sizes="(max-width: 767px) 90vw, 55vw"
+            />
+          </div>
+          <div className="hero-product-info">
+            <span className="mono accent">4 YEARS / C++ · Qt</span>
+            <h2>从编辑建模，到仿真运行。</h2>
+            <p>我负责的部分：业务模块接入、复杂交互、数据链路与回归验证。</p>
+          </div>
+          <p className="hero-source">
+            济达公开三维窗口 · 仅作产品背景 ·{" "}
+            <a
+              href="https://www.jidatraffic.com/features"
+              target="_blank"
+              rel="noreferrer"
+            >
+              官网来源 ↗
+            </a>
           </p>
+        </div>
+      </section>
+
+      <div className="proof-strip" aria-label="核心经验与案例入口">
+        <Link href="/about">
+          <strong>
+            04<span>年</span>
+          </strong>
+          <div>
+            <b>商业仿真研发</b>
+            <p>C++ / Qt · TESSNG 核心产品</p>
+          </div>
+          <Arrow />
+        </Link>
+        <Link href="/work/rail-transit">
+          <strong>
+            25<span>项</span>
+          </strong>
+          <div>
+            <b>轨道模块回归用例</b>
+            <p>UI、数据、运行与 Release 稳定性</p>
+          </div>
+          <Arrow />
+        </Link>
+        <Link href="/work/micro-meso">
+          <strong>
+            跨<span>尺度</span>
+          </strong>
+          <div>
+            <b>微观 / 中观协同</b>
+            <p>路网转换、OD 与评价链路</p>
+          </div>
+          <Arrow />
+        </Link>
+      </div>
+
+      <section
+        id="selected-work"
+        className="section showcase-section"
+        aria-labelledby="engineering-title"
+      >
+        <SectionTitle
+          number="01"
+          label="SELECTED WORK"
+          title="商业仿真里，我具体做了什么。"
+          href="/work"
+          action="全部工程案例"
+          id="engineering-title"
+        />
+        <p className="section-intro">
+          三个案例，分别回答业务如何接入、复杂对象如何编辑、不同仿真尺度如何协同。
+        </p>
+        <ProjectRail label="工程案例">
+          {workProjects.map((p) => (
+            <WorkCard key={p.slug} project={p} />
+          ))}
+        </ProjectRail>
+        <p className="section-footnote">
+          产品画面来自济达公开资料，仅作上下文；个人职责与验证依据见各案例。
+        </p>
+      </section>
+
+      <section
+        id="personal-lab"
+        className="section showcase-section"
+        aria-labelledby="lab-title"
+      >
+        <SectionTitle
+          number="02"
+          label="PERSONAL LAB"
+          title="不止写代码，也把想法做成作品。"
+          href="/lab"
+          action="全部个人项目"
+          id="lab-title"
+        />
+        <p className="section-intro">
+          C++
+          性能可视化是主线，场景生成与交互原型是探索。每个作品都保留实现范围和源码入口。
+        </p>
+        <ProjectRail label="个人作品">
+          {labProjects.map((p) => (
+            <LabCard key={p.slug} project={p} />
+          ))}
+        </ProjectRail>
+      </section>
+
+      <section
+        id="interactive-demo"
+        className="section demo-section"
+        aria-labelledby="demo-title"
+      >
+        <div className="demo-copy">
+          <p className="eyebrow accent">03 / INTERACTIVE SKETCH</p>
+          <h2 id="demo-title">
+            仿真，先让状态
+            <br />
+            变得可观察。
+          </h2>
+          <p>
+            选择车辆、拖动时间轴，查看轨迹如何随时间变化。这是本站的轻量交互示意，不是商业项目实测结果。
+          </p>
+          <div className="tech-tags">
+            <span>SVG</span>
+            <span>固定演示数据</span>
+            <span>键盘可操作</span>
+          </div>
+          <TextLink href="/work/rail-transit">了解真实工程案例</TextLink>
         </div>
         <SimulationPlayer />
       </section>
-      <section className="experience-strip" aria-label="经验摘要">
-        {[
-          { v: "04", t: "年商业仿真研发", d: "从专业编辑器到仿真结果链路" },
-          {
-            v: "跨模块",
-            t: "平台闭环交付",
-            d: "UI · 路网 · 数据 · 模型 · 仿真 · 接口",
-          },
-          {
-            v: "可靠性",
-            t: "贯穿设计与发布",
-            d: "生命周期 · 兼容性 · 回归验证",
-          },
-        ].map((a) => (
-          <div key={a.v}>
-            <strong>{a.v}</strong>
-            <p>{a.t}</p>
-            <span>{a.d}</span>
-          </div>
-        ))}
-      </section>
-      <section className="section" aria-labelledby="engineering-title">
-        <SectionTitle
-          number="01"
-          label="SELECTED ENGINEERING"
-          title="在复杂系统里，把问题做透。"
-          href="/work"
-          action="全部案例"
-        />
-        <article className="featured-work">
-          <Link
-            href="/work/rail-transit"
-            className="visual-link"
-            aria-label="查看轨道交通仿真模块"
-          >
-            <ProjectVisual project={main} />
-          </Link>
-          <div className="featured-copy">
-            <p className="eyebrow accent">{main.eyebrow}</p>
-            <h3 id="engineering-title">
-              <Link href="/work/rail-transit">{main.title}</Link>
-            </h3>
-            <p className="muted">{main.summary}</p>
-            <div className="responsibility">
-              <span className="mono">我的职责</span>
-              <p>{main.role}</p>
-            </div>
-            <p className="mono muted">{main.stack.join(" / ")}</p>
-            <TextLink href="/work/rail-transit">查看架构与技术取舍</TextLink>
-          </div>
-        </article>
-        <div className="work-grid">
-          {workProjects.slice(1).map((p) => (
-            <WorkCard key={p.slug} project={p} />
-          ))}
-        </div>
-      </section>
-      <section className="section capability-section">
-        <SectionTitle
-          number="02"
-          label="ENGINEERING PRACTICE"
-          title="技术能力，有具体问题作证。"
-        />
-        <div className="capability-grid">
-          {[
-            {
-              title: "建模与运行时",
-              skills: "状态机 / 模型接入 / 仿真输出",
-              label: "轨道交通模块",
-              href: "/work/rail-transit",
-            },
-            {
-              title: "专业编辑与可视化",
-              skills: "Qt / QML / Graphics View",
-              label: "图层与拾取系统",
-              href: "/work/layers-picking",
-            },
-            {
-              title: "性能与并发",
-              skills: "区间索引 / LOD / 异步快照",
-              label: "GPUView",
-              href: "/lab/gpuview",
-            },
-            {
-              title: "工程质量与交付",
-              skills: "回归矩阵 / 数据兼容 / 发布",
-              label: "产品研发经历",
-              href: "/about",
-            },
-          ].map((c, i) => (
-            <article key={c.title}>
-              <span className="mono accent">0{i + 1}</span>
-              <h3>{c.title}</h3>
-              <p>{c.skills}</p>
-              <TextLink href={c.href}>{c.label}</TextLink>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="section">
-        <SectionTitle
-          number="03"
-          label="PERSONAL LAB"
-          title="把想法，做成可运行的作品。"
-          href="/lab"
-          action="进入实验室"
-        />
-        <div className="lab-grid featured-lab">
-          {labProjects.slice(0, 2).map((p) => (
-            <LabCard key={p.slug} project={p} />
-          ))}
-        </div>
-        <div className="lab-grid compact-grid">
-          {labProjects.slice(2).map((p) => (
-            <LabCard key={p.slug} project={p} compact />
-          ))}
-        </div>
-      </section>
-      <section className="section experience-section">
+
+      <section
+        className="section experience-section"
+        aria-labelledby="about-title"
+      >
         <SectionTitle
           number="04"
-          label="EXPERIENCE & NEXT"
-          title="下一站，深入智能系统仿真。"
+          label="ABOUT & NEXT"
+          title="让复杂系统可建模、可运行、可验证。"
+          id="about-title"
         />
-        <div className="experience-row">
-          <span className="mono accent">2022.09 — 2026.08</span>
-          <div>
-            <h3>上海济达交通科技有限公司</h3>
-            <p>C++ / Qt 研发工程师 · TESSNG 核心产品研发</p>
+        <div className="about-summary">
+          <div className="profile-terminal">
+            <div className="window-bar">
+              <span className="window-dots">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span className="mono">profile.ts</span>
+            </div>
+            <pre>
+              <code>
+                <span className="terminal-comment">// 从已验证的经验出发</span>
+                {"\n"}
+                <span className="accent">const</span>
+                {" engineer = {\n  name: "}
+                <span className="terminal-string">&quot;王帅鹏&quot;</span>
+                {",\n  experience: "}
+                <span className="terminal-string">
+                  &quot;C++ / Qt 商业仿真&quot;
+                </span>
+                {",\n  focus: ["}
+                <span className="terminal-string">
+                  &quot;建模&quot;, &quot;交互&quot;, &quot;验证&quot;
+                </span>
+                {"],\n  next: "}
+                <span className="terminal-string">
+                  &quot;机器人 / 智驾仿真工具链&quot;
+                </span>
+                {"\n};"}
+              </code>
+            </pre>
           </div>
-        </div>
-        <div className="experience-row">
-          <span className="mono muted">2026 / PERSONAL PRACTICE</span>
-          <div>
-            <h3>性能可视化与交互项目</h3>
-            <p>通过公开代码、测量记录与项目说明，持续积累工程证据。</p>
+          <div className="about-summary-copy">
+            <p className="eyebrow accent">2022.09 — 2026.08</p>
+            <h3>上海济达交通科技有限公司</h3>
+            <p>
+              C++ / Qt
+              研发工程师。工作从专业编辑器延伸到业务模块架构、仿真数据链路和跨模块交付。
+            </p>
+            <p>
+              下一步，希望把成熟平台的架构、交互与验证经验，延伸到机器人与智驾的场景工具和仿真数据链路。
+            </p>
+            <TextLink href="/about">关于我与完整经历</TextLink>
           </div>
         </div>
       </section>

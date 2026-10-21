@@ -41,12 +41,14 @@ export function SectionTitle({
   title,
   href,
   action,
+  id,
 }: {
   number: string;
   label: string;
   title: string;
   href?: string;
   action?: string;
+  id?: string;
 }) {
   return (
     <div className="section-heading">
@@ -55,7 +57,7 @@ export function SectionTitle({
           <span>{number}</span>
           {label}
         </p>
-        <h2>{title}</h2>
+        <h2 id={id}>{title}</h2>
       </div>
       {href && action ? <TextLink href={href}>{action}</TextLink> : null}
     </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type Project, projects, projectPath } from "@/content/projects";
-import { ProjectVisual } from "./projects";
+import { ProjectVisual, ImageCredit } from "./projects";
+import { CaseDiagram } from "./diagrams";
 import { Arrow, TextLink } from "./ui";
 import { Contact } from "./footer";
 
@@ -30,13 +31,21 @@ export function ProjectDetail({ project: p }: { project: Project }) {
           <span>{p.stack.join(" / ")}</span>
         </p>
       </div>
+      <div className="detail-outcome">
+        <span className="eyebrow accent">核心交付</span>
+        <p>{p.outcome}</p>
+      </div>
       <div className="detail-visual">
         <ProjectVisual project={p} priority />
-        <span className="caption">
-          {p.image
-            ? "本人项目实际截图"
-            : "原创结构 / 功能示意 · 非公司实机界面或测量结果"}
-        </span>
+        {p.imageSource ? (
+          <ImageCredit project={p} />
+        ) : (
+          <span className="caption">
+            {p.image
+              ? "本人项目实际截图"
+              : "原创结构 / 功能示意 · 非公司实机界面或测量结果"}
+          </span>
+        )}
       </div>
       <div className="detail-grid">
         <nav className="detail-toc" aria-label="本页目录">
@@ -49,6 +58,15 @@ export function ProjectDetail({ project: p }: { project: Project }) {
           <a href="#boundary">范围与说明</a>
         </nav>
         <div className="prose">
+          {p.diagram ? (
+            <section className="detail-architecture">
+              <h2>我负责的工程链路</h2>
+              <CaseDiagram kind={p.diagram} />
+              <p className="caption">
+                依据个人职责重绘的结构示意，不是公司源代码或性能测量结果。
+              </p>
+            </section>
+          ) : null}
           {p.sections.map((s, i) => (
             <section key={s.title} id={`section-${i + 1}`}>
               <h2>{s.title}</h2>
@@ -91,7 +109,7 @@ export function ProjectDetail({ project: p }: { project: Project }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                {p.slug === "mistloop" ? "打开外部演示" : "打开外部体验"}
+                {p.demoLabel || "打开外部演示"}
                 <Arrow />
               </a>
             ) : null}

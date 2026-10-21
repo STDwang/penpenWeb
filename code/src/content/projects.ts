@@ -9,6 +9,12 @@ export type Project = {
   diagram?: "rail" | "layers" | "meso";
   image?: string;
   imageAlt?: string;
+  imageCaption?: string;
+  imageSource?: string;
+  imageSourceLabel?: string;
+  outcome: string;
+  focus: string;
+  demoLabel?: string;
   source?: string;
   demo?: string;
   demoNote?: string;
@@ -27,6 +33,14 @@ export const projects: Project[] = [
     role: "架构拆分 · 核心研发 · 联调验收",
     stack: ["C++", "Qt", "SQLite", "状态机"],
     diagram: "rail",
+    image: "/images/tessng-network.webp",
+    imageAlt:
+      "TESS NG 官方公开二维路网与车辆仿真画面，仅作产品背景，并非轨道模块截图",
+    imageCaption: "TESS NG 官网公开路网画面 · 产品背景，非轨道模块截图",
+    imageSource: "https://www.jidatraffic.com/features",
+    imageSourceLabel: "济达交通官网",
+    outcome: "建模 → 保存重开 → 运行 → 结果输出",
+    focus: "核心研发 / 25 项回归用例",
     sections: [
       {
         title: "问题：让新业务接入已有平台",
@@ -66,7 +80,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "商业项目案例依据个人简历整理。图为重新绘制的架构示意，不包含公司源码或实机界面；不将交通仿真经历描述为机器人商业研发经历。",
+      "个人职责与 25 项测试依据简历整理。产品画面引用济达官网公开素材，仅说明工作所处的产品背景，不是轨道模块截图，也不代表整套产品由我独立完成。下方架构图为原创示意，不包含公司源码。",
   },
   {
     slug: "layers-picking",
@@ -77,6 +91,14 @@ export const projects: Project[] = [
     role: "架构设计 · 交互实现 · 跨模块验证",
     stack: ["Qt Graphics View", "C++", "SQLite", "交互架构"],
     diagram: "layers",
+    image: "/images/tessng-editor.webp",
+    imageAlt:
+      "济达官网公开的 TESS NG 三维仿真窗口，产品上下文，不是本人图层模块截图",
+    imageCaption: "TESS NG 官网公开三维窗口 · 产品背景，非图层功能截图",
+    imageSource: "https://www.jidatraffic.com/features",
+    imageSourceLabel: "济达交通官网",
+    outcome: "稳定对象身份，贯通层级、选择与保存恢复",
+    focus: "交互架构 / 类型 + ID",
     sections: [
       {
         title: "问题：重叠对象中的选择意图",
@@ -110,7 +132,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "本案例依据简历整理，图层画面是概念结构示意。未公开公司代码或用户场景数据，也没有将编译验证等同于全部业务用例通过。",
+      "本案例职责依据简历整理。产品界面来自济达官网公开素材，不是本人图层功能的验收截图；四层结构图为原创示意。未公开内部代码或客户数据，也不将编译验证等同于全部业务用例通过。",
   },
   {
     slug: "micro-meso",
@@ -121,6 +143,14 @@ export const projects: Project[] = [
     role: "总体架构 · 任务拆分 · 关键模块交付",
     stack: ["C++", "Python", "SQLite", "TessInterfaces"],
     diagram: "meso",
+    image: "/images/tessng-analysis.webp",
+    imageAlt:
+      "济达官网公开的 TESS NG 路网热力图，作为评价可视化背景，并非 TESS MESO 实机截图",
+    imageCaption: "TESS NG 官网公开热力图 · 评价背景，非 TESS MESO 界面",
+    imageSource: "https://www.jidatraffic.com/simulation",
+    imageSourceLabel: "济达交通官网",
+    outcome: "路网转换 → OD 需求 → 结果评价",
+    focus: "协同交付 / 接口复用",
     sections: [
       {
         title: "问题：不同仿真尺度之间的数据链路",
@@ -153,7 +183,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "牵头研发不等于独立完成所有算法。简历未提供性能基准、部署规模或算法精度，本页不补充未经验证的指标。示意图不表达实测数据。",
+      "牵头研发不等于独立完成所有算法。图为济达官网公开的 TESS NG 热力图，仅提供评价可视化背景，不是中观软件实机或本人结果。简历未提供性能基准、部署规模或算法精度，本页不补充未经验证的指标。",
   },
   {
     slug: "gpuview",
@@ -166,6 +196,8 @@ export const projects: Project[] = [
     image: "/images/gpuview.webp",
     imageAlt: "GPUView 实际界面：多轨道教学事件时间线与统计侧栏",
     source: "https://github.com/STDwang/GPUView",
+    outcome: "区间索引 + LOD + 不可变异步快照",
+    focus: "C++ 工程实践 / 教学分析工具",
     sections: [
       {
         title: "从问题到可复现的工具",
@@ -214,7 +246,10 @@ export const projects: Project[] = [
     imageAlt: "Dreamscape 实际游戏截图：猫骑士、绿植废墟与程序化场景",
     source: "https://github.com/STDwang/Dreamscape",
     demo: "https://dreamscape-cat.app.workbuddy.host/",
-    demoNote: "外部体验 · 建议桌面浏览器",
+    demoLabel: "项目展示",
+    demoNote: "外部项目介绍与截图展示，不是浏览器可玩游戏。",
+    outcome: "生成脚本 → 场景 → 实机截图迭代",
+    focus: "程序化场景 / 个人原型",
     sections: [
       {
         title: "项目想法",
@@ -247,9 +282,15 @@ export const projects: Project[] = [
     summary: "Three.js、程序化场景、状态机制与声音交互。",
     role: "想法到可运行原型的 AI 辅助实践",
     stack: ["Three.js", "Vite", "WebGL 2", "程序化音频"],
+    image: "/images/mistloop.webp",
+    imageAlt:
+      "MISTLOOP 在线 Demo 启动后的实际画面：雨雾中的森林、方向提示与圈数状态",
     source: "https://github.com/STDwang/mistloop",
     demo: "https://stdwang.github.io/mistloop/",
-    demoNote: "外部演示 · 本环境尚未完成可玩性验证",
+    demoLabel: "外部 Demo",
+    outcome: "周期性场景、状态规则与声音联动",
+    focus: "WebGL 交互 / 个人原型",
+    demoNote: "已检查入口与启动画面；未验收完整玩法流程。建议桌面浏览器。",
     sections: [
       {
         title: "空间、状态与声音的联动",
@@ -268,12 +309,12 @@ export const projects: Project[] = [
         title: "体验方式",
         paragraphs: [
           "建议在桌面、支持 WebGL 2 的浏览器中打开外部演示。游戏含恐怖氛围，音频应在用户主动点击后启动；本站不会自动加载该游戏或播放声音。",
-          "仓库的目标参考图片不作为运行截图展示。外部演示地址取自 README，本环境尚未完成可玩性验证，因此同时保留源码入口。",
+          "截图来自实际打开公开 Demo 并点击“进入林子”后的初始运行画面，没有使用目标参考图。已验证入口和启动画面，未验收完整玩法、通关或声音流程，因此同时保留源码入口。",
         ],
       },
     ],
     boundary:
-      "个人游戏原型，不作为机器人仿真专业经历。此页使用原创空间示意，未用目标参考图冒充实机。",
+      "个人游戏原型，不作为机器人仿真专业经历。画面来自公开 Demo 的初始运行状态，不是概念图；本次启动检查经过代理，不代表国内直连或完整玩法验收通过。",
   },
   {
     slug: "imageplayer",
@@ -284,6 +325,8 @@ export const projects: Project[] = [
     role: "图像查看与交互工具开发",
     stack: ["C++", "Qt", "图像交互"],
     source: "https://github.com/STDwang/ImagePlayer",
+    outcome: "多视图同步、拖放缩放与像素查看",
+    focus: "C++ / Qt / 早期项目",
     sections: [
       {
         title: "多视图中的一致交互",

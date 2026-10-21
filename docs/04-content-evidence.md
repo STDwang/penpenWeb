@@ -12,7 +12,7 @@
 | 中观与协同 | 简历对应项目 | 与一名同事合作、总体架构、TessInterfaces、转换、OD、结果评价；不写成独立完成全部算法 |
 | 性能和发布 | 简历工作与早期项目 | 生命周期、兼容、回归、国际化、版本交付；“5 倍”仅对应卫星信号处理，不跨项目借用 |
 
-公司界面和源码尚未取得可公开素材，本稿全部采用自行绘制的架构/交互示意。图中站点、车辆、轨迹和时间是设计数据，不是实测结果。
+阶段一商业案例采用自行绘制的架构/交互示意。本轮经用户要求，增加济达官网已公开的三维窗口、二维路网与热力图，只用于产品上下文；图注明确其不是个人模块验收截图。原创结构图保留在详情。未使用内部公司源码或客户数据。图中自绘站点、车辆、轨迹和时间是设计数据，不是实测结果。具体资源与用途见 `design/references.md` 本轮修订记录。
 
 ## 个人项目
 
@@ -28,15 +28,15 @@
 
 - 来源：[README](https://github.com/STDwang/Dreamscape/blob/main/README.md)。文件 SHA：`7f1f5048d7f2b2fd96a2834611f50a1bd3907673`。
 - 内容：程序化角色/场景、Godot、Blender、GDScript、交互原型；不描述为机器人仿真经验。
-- 演示地址：`https://dreamscape-cat.app.workbuddy.host/`；此前 HTTP 检查返回 200，只证明页面可达，不代表已验证完整玩法。
+- 演示地址：`https://dreamscape-cat.app.workbuddy.host/`；核对后确认为静态项目介绍与截图展示，不是浏览器可玩游戏。本站按钮改为“项目展示”。
 - 图片：README 链接的 `screenshots/latest_ingame.png`，本地 `design/assets/dreamscape-ingame.png`。已视觉检查，保留原图。远端路径是可变的，本地快照作为本次设计依据。
 
 ### MISTLOOP
 
 - 来源：[README](https://github.com/STDwang/mistloop/blob/main/README.md)。文件 SHA：`0fe705b055973ef17ba0eeb280bd03d7e4777c27`。
 - 内容：Vite/Three.js、周期性程序化场景、状态机制、程序化音频；不能宣称为已有机器人或渲染引擎专业商业经验。
-- README 演示地址：`https://stdwang.github.io/mistloop/`。本次环境连接超时，尚未完成可玩性验收。
-- 仓库 `.dream-loop/target-*.png` 是目标参考画面，未用作运行截图。阶段一以紧凑文字入口呈现；阶段二取得实际运行截图后再增加预览。
+- README 演示地址：`https://stdwang.github.io/mistloop/`。本轮通过已配置代理打开页面并点击“进入林子”，取得初始运行截图；未验证完整玩法、声音、通关或大陆直连。
+- 仓库 `.dream-loop/target-*.png` 是目标参考画面，未用作运行截图。本轮预览使用在线 Demo 初始运行画面，保存于 `code/public/images/mistloop.webp`。
 
 ### ImagePlayer
 

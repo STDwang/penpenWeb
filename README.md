@@ -2,11 +2,11 @@
 
 求职作品集、技术内容与个人实验室。面向机器人与智驾仿真岗位，以已有 C++/Qt 商业仿真平台经验为基础。
 
-**当前：阶段二，在线审阅版本已部署并通过浏览器验证。** 已实现首页、三个工程案例、四个实验项目、关于、简历、PDF 下载与首屏轨迹交互。阶段一设计稿保留在 `design/`；线上实际截图在 `previews/online-*.png`，本地截图在 `previews/site-*.png`。
+**当前：阶段二 UI 修订，已部署上线。** 本轮按用户反馈强化岗位与商业成果、加入济达公开产品画面，并把工程案例和个人作品改为原生横向画廊。已保留全部详情、简历下载和轨迹交互。新截图为 `previews/refresh-*.png`；历史线上截图仍为 `online-*.png`。
 
-- 本地预览：[http://127.0.0.1:3000](http://127.0.0.1:3000)
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
-- 在线审阅：[https://penpen-web.vercel.app/](https://penpen-web.vercel.app/)
+- 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）
+- WorkBuddy 镜像：[https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)
 
 ## 本地运行
 
@@ -26,6 +26,16 @@ npm run start
 ```
 
 ## 实际页面截图
+
+### 本轮本地审阅版
+
+![UI 修订版桌面首屏](previews/refresh-desktop-hero.png)
+
+[桌面全页](previews/refresh-desktop.png) · [手机首屏](previews/refresh-mobile-hero.png) · [手机全页](previews/refresh-mobile.png) · [平板全页](previews/refresh-tablet.png)
+
+来源为本机实际浏览器渲染，不是设计稿或线上截图。横向卡片支持触摸、触控板、左右按钮和键盘 Home/End；未增加轮播依赖。参考取舍、素材来源、验证范围与审阅要点见 [本轮审阅记录](docs/07-ui-refresh.md)。
+
+### 历史线上版本
 
 ![线上网站实际首屏](previews/online-desktop-hero.png)
 
@@ -70,7 +80,7 @@ node design/check-mockups.mjs
 
 ## 内容维护与验证
 
-项目内容集中在 `code/src/content/projects.ts`。商业案例与个人项目共用内容结构，页面与详情路由在构建时生成。图片在 `code/public/images/`；公开 PDF 在 `code/public/resume/`。下载文件是原版简历的副本，本地 DOCX/PDF 源文件未修改。
+项目内容集中在 `code/src/content/projects.ts`。商业案例与个人项目共用内容结构，页面与详情路由在构建时生成。新增/维护卡片的 `focus`（重点）、`outcome`（交付链路）、图片及来源字段即可同步列表与详情。图片在 `code/public/images/`；公开 PDF 在 `code/public/resume/`。下载文件是原版简历的副本，本地 DOCX/PDF 源文件未修改。
 
 ```powershell
 cd code
@@ -86,7 +96,7 @@ npm run test:e2e
 
 ```powershell
 cd code
-$env:PLAYWRIGHT_BASE_URL = 'https://penpen-web.vercel.app'
+$env:PLAYWRIGHT_BASE_URL = 'https://stdwang.github.io/penpenWeb'
 $env:SCREENSHOT_PREFIX = 'online'
 # 如果本机需要已配置的代理，再设置 PLAYWRIGHT_PROXY；默认不使用代理。
 npm run test:e2e
@@ -98,13 +108,15 @@ npm run test:e2e
 
 Next.js App Router、React、TypeScript、Tailwind CSS；提交 npm 锁文件；本地内容预渲染，首屏 SVG 交互独立加载。只使用本地资源，不在访问时请求 GitHub/CSDN。静态信息无需 JavaScript 即可读取。
 
-GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。Vercel 导入该仓库，Framework 选择 Next.js，Root Directory 设置为 `code/`；安装命令 `npm ci`，构建命令 `npm run build`，其余保留框架默认值。
+GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。当前采用静态导出托管：`next.config.ts` 设置 `output: "export"`，子路径由 `NEXT_PUBLIC_BASE_PATH` 环境变量控制，默认 `/portfolio`（WorkBuddy 托管）；GitHub Pages 构建时设为 `/penpenWeb`（`MSYS_NO_PATHCONV=1 NEXT_PUBLIC_BASE_PATH=/penpenWeb npm run build`），产物推送 `gh-pages` 分支发布。
+
+在线站点：GitHub Pages 为主站（[在线预览](https://stdwang.github.io/penpenWeb/)），WorkBuddy 为镜像（[镜像链接](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)）。此前阶段二审阅版本曾部署于 Vercel，现已切换。当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
 
 生产发布时把 `SITE_URL` 设置为已经验证的正式 origin（例如实际分配的 HTTPS 域名，不含路径）。只有 `VERCEL_ENV=production` 且 `SITE_URL` 已配置时，才启用索引、正式 canonical 和 sitemap。其他构建默认 `noindex, nofollow`，robots 禁止索引，sitemap 留空；无需密钥或数据库。
 
 在线站点由用户完成导入后提供地址，公开页面、交互与下载已验证。当前 Vercel 管理连接仍未能在已授权团队下查询该项目，因此未宣称核验到部署环境类型或精确提交 SHA。当前在线站点保持 noindex，正式搜索收录在阶段三审阅后配置。
 
-当前停在阶段二在线审阅节点；阶段三处理反馈、同步 DOCX/PDF，并确认正式域名与搜索收录设置。
+当前停在阶段二 UI 修订的本地审阅节点；本轮未改变托管平台、索引状态或简历。视觉确认后再同步线上版本。阶段三仍需处理反馈、同步 DOCX/PDF，并确认正式域名与搜索收录设置。
 
 ## 来源
 
