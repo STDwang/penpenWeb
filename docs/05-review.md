@@ -52,3 +52,12 @@
 - GitHub：已创建并推送公开仓库 `https://github.com/STDwang/penpenWeb`，主分支为 `main`。初始应用提交 `02d9eda`，README 中附本地生产构建截图与运行步骤。
 
 当前停在阶段二审阅范围，后续简历源文件修改与正式上线仍属于阶段三。
+
+### 重新授权后的部署检查
+
+- 用户回复“已授权”后，默认团队的项目列表读取成功，项目列表为空。
+- 请求创建 `penpen-web`，关联 `STDwang/penpenWeb`，Root Directory 为 `code/`，目标为 Preview。
+- Vercel 拒绝创建，返回 `403: You don't have permission to create the project`。没有创建出项目或部署，不能把团队读取成功解释为具有创建权限；接口未提供可确定的自动修复方式。
+- 本机没有现成的 Vercel CLI 登录凭据；现有浏览器控制连接也未能打开导入页，未通过其他身份绕过权限。
+- 找到本机已启用的网络代理，仅对 Git 推送命令使用该代理，成功补推文档提交 `6ae171c`；未修改系统或全局 Git 网络设置。
+- GitHub 应用、README 与截图已同步；Vercel 仍需解决项目创建权限或由用户先在网页建立关联项目。

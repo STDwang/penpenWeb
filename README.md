@@ -6,7 +6,7 @@
 
 - 本地预览：[http://127.0.0.1:3000](http://127.0.0.1:3000)
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
-- Vercel Preview：等待连接获得默认团队访问权限；当前返回 403，尚未部署。没有填写推测的在线地址。
+- Vercel Preview：团队读取权限已恢复；创建 `penpen-web` 项目仍返回 403（没有创建项目权限），尚未部署。没有填写推测的在线地址。
 
 ## 本地运行
 
@@ -90,7 +90,7 @@ GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。Verc
 
 生产发布时把 `SITE_URL` 设置为已经验证的正式 origin（例如实际分配的 HTTPS 域名，不含路径）。只有 `VERCEL_ENV=production` 且 `SITE_URL` 已配置时，才启用索引、正式 canonical 和 sitemap。其他构建默认 `noindex, nofollow`，robots 禁止索引，sitemap 留空；无需密钥或数据库。
 
-当前 Vercel 连接可以识别账户，但对默认团队缺少授权；需用户在插件连接中完成团队授权后继续。没有使用其他账户或更改团队权限来绕过该限制。
+2026-10-21 重新授权后，默认团队已能读取，但连接创建 `penpen-web` 项目仍返回 `403: You don't have permission to create the project`。创建失败后未继续重复请求，也未更改团队权限。可以由用户在 Vercel 网页创建并关联该项目，然后再继续检查部署；当前尚无线上验证结果。
 
 阶段二提供可操作页面和 Vercel Preview 后停下审阅；阶段三处理反馈、同步 DOCX/PDF，再发布正式地址。
 
