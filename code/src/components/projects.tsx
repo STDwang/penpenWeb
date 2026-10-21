@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { type Project, projectPath } from "@/content/projects";
 import { Arrow, TextLink } from "./ui";
+import { asset } from "@/lib/asset";
 import { CaseDiagram, ExperimentDiagram } from "./diagrams";
 
 export function ProjectVisual({
@@ -15,7 +16,7 @@ export function ProjectVisual({
     return (
       <div className={`project-image image-${project.slug}`}>
         <Image
-          src={project.image}
+          src={asset(project.image)}
           alt={project.imageAlt || project.title}
           width={1600}
           height={1000}

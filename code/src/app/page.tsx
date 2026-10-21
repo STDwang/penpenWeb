@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { asset } from "@/lib/asset";
 import Image from "next/image";
 import Link from "next/link";
 import { pageMeta, person } from "@/lib/site";
@@ -72,7 +73,7 @@ export default function Home() {
           </div>
           <div className="hero-product-image">
             <Image
-              src="/images/tessng-editor.webp"
+              src={asset("/images/tessng-editor.webp")}
               width={1600}
               height={1000}
               alt="济达官方公开的 TESS NG 软件界面，仅作为参与研发的产品背景"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { asset } from "@/lib/asset";
 
 export const person = {
   name: "王帅鹏",
@@ -37,7 +38,7 @@ export function pageMeta(
       url: new URL(path, siteUrl).href,
       type: "website",
       locale: "zh_CN",
-      images: [{ url: "/social-card.png", width: 1200, height: 630 }],
+      images: [{ url: asset("/social-card.png"), width: 1200, height: 630 }],
     },
   };
 }

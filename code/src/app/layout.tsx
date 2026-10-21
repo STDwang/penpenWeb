@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { indexable, siteUrl } from "@/lib/site";
+import { asset } from "@/lib/asset";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,10 +15,10 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     type: "website",
     title: "王帅鹏 · C++ / 仿真平台工程师",
-    images: ["/social-card.png"],
+    images: [asset("/social-card.png")],
   },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: asset("/icon.svg") },
 };
 
 export default function RootLayout({
