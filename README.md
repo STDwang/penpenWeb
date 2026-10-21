@@ -112,9 +112,7 @@ GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。当�
 
 在线站点：GitHub Pages 为主站（[在线预览](https://stdwang.github.io/penpenWeb/)），WorkBuddy 为镜像（[镜像链接](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)）。此前阶段二审阅版本曾部署于 Vercel，现已切换。当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
 
-生产发布时把 `SITE_URL` 设置为已经验证的正式 origin（例如实际分配的 HTTPS 域名，不含路径）。只有 `VERCEL_ENV=production` 且 `SITE_URL` 已配置时，才启用索引、正式 canonical 和 sitemap。其他构建默认 `noindex, nofollow`，robots 禁止索引，sitemap 留空；无需密钥或数据库。
-
-在线站点由用户完成导入后提供地址，公开页面、交互与下载已验证。当前 Vercel 管理连接仍未能在已授权团队下查询该项目，因此未宣称核验到部署环境类型或精确提交 SHA。当前在线站点保持 noindex，正式搜索收录在阶段三审阅后配置。
+在线站点托管在 WorkBuddy（[在线预览](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)），公开页面、交互与下载已验证。此前阶段二审阅版本曾部署于 Vercel，现已切换为 WorkBuddy 静态托管。生产发布时把 `SITE_URL` 设置为已验证的正式 origin 并配置索引开关；当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
 
 当前停在阶段二 UI 修订的本地审阅节点；本轮未改变托管平台、索引状态或简历。视觉确认后再同步线上版本。阶段三仍需处理反馈、同步 DOCX/PDF，并确认正式域名与搜索收录设置。
 
