@@ -29,7 +29,7 @@ export function Header() {
     return () => document.removeEventListener("keydown", close);
   }, [open]);
   return (
-    <header className="site-header container">
+    <header className="site-header">
       <Logo />
       <nav
         className={`main-nav ${open ? "is-open" : ""}`}

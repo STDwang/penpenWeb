@@ -11,6 +11,15 @@ test("homepage, scene playback, seeking and keyboard selection", async ({
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(sitePath("/"));
+  const header = page.getByRole("banner");
+  const headerBounds = await header.boundingBox();
+  if (!headerBounds) throw new Error("Missing header bounds");
+  expect(headerBounds.x).toBeCloseTo(0, 0);
+  expect(headerBounds.width).toBeCloseTo(await page.evaluate(() => document.documentElement.clientWidth), 0);
+  const logoBounds = await header.locator(".logo").boundingBox();
+  const mainBounds = await page.locator("main").boundingBox();
+  expect(logoBounds?.x).toBeCloseTo(mainBounds?.x ?? -1, 0);
+  await expect(header).toHaveCSS("backdrop-filter", "blur(36px) saturate(1.65)");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "C++ / 仿真平台",
   );
