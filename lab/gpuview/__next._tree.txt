@@ -1,5 +1,5 @@
-:HL["/portfolio/_next/static/chunks/1k1qz8t54xjim.css","style"]
+:HL["/penpenWeb/_next/static/chunks/1k1qz8t54xjim.css","style"]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"gpuview","s":[]},"h":65632,"c":"$Q3"}]]
 1:[["children",{"s":"lab","h":131168,"c":"$Q2"}]]
-0:{"b":"apMYI-OpirSTt-83jYL36","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
+0:{"b":"7RhO_GjjC6BI-YQt53Lxh","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
