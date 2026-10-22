@@ -28,6 +28,14 @@ npm run build
 
 ## 实际页面截图
 
+### 当前 GitHub Pages 线上版本
+
+![线上弥散渐变玻璃拟态首页](previews/released-pages-desktop-hero.png)
+
+[线上桌面全页](previews/released-pages-desktop.png) · [线上手机全页](previews/released-pages-mobile.png) · [线上平板全页](previews/released-pages-tablet.png) · [线上 ImagePlayer 详情](previews/released-pages-imageplayer-desktop.png)
+
+来自 2026-10-22 实际访问的 GitHub Pages 部署，而非本地构建或设计稿。线上三尺寸 15 项浏览器检查通过；检查经本机已有代理，不代表大陆直连稳定性。WorkBuddy 镜像尚未同步；具体提交与检查范围见 [发布记录](docs/09-release.md)。
+
 ### 本轮本地审阅版
 
 ![弥散渐变玻璃拟态桌面首页](previews/glass-desktop-hero.png)

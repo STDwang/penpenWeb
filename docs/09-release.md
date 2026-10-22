@@ -20,3 +20,18 @@
 本地类型检查、17 页静态构建以及 1440、768、390px 共 15 项浏览器检查通过。ImagePlayer 默认分支已更新为 `486ab35e096c9d12fd1f994782d9aef575b659f0`，远端确认仅包含 README 与三张脱敏截图。
 
 网站提交与线上核验在完成后追加；未完成的平台不标记为已上线。
+
+## GitHub 发布
+
+- 应用源码：`2d9a0627`，已推送 `main`。
+- Pages 产物：`f08b102e0a78ba43341d78420f2990f0014e821a`，已推送 `gh-pages`。GitHub Pages API 返回 `built`，部署错误为空。
+- 地址：<https://stdwang.github.io/penpenWeb/>。
+- 已检查实际线上首屏，静态弥散渐变、半透明面板和轨道模块真实截图均已显示；线上截图使用 `previews/released-pages-*.png`，与本地预览分开保存。
+- 浏览器检查使用本机已有代理，不能由此保证大陆无代理网络的稳定性。
+- 线上三尺寸共 15 项浏览器检查全部通过（3.1 分钟）：首屏、播放/拖动/键盘选择、横向卡片触摸与键盘、四案例顺序、新排放详情、ImagePlayer 图库、图片加载、PDF 下载、404、noindex 和无 JavaScript 降级。检查对象为实际 Pages 地址，不是本地预览。
+
+## WorkBuddy 状态
+
+只读访问现有应用地址返回 200，但页面仍不包含新轨道截图及排放案例，因此未自动同步。不将 GitHub Pages 发布成功表述为 WorkBuddy 已完成更新。
+
+已生成忽略目录内的独立 ZIP，包含 `portfolio/` 静态目录，共 115 项；核对首页图片和 PDF 的 `/portfolio/` 前缀。ZIP 和部署说明留在本地 `work/releases/`，没有把临时发布检出或任何认证配置提交仓库。桌面求职目录的 DOCX/PDF 未修改，待 WorkBuddy 部署完成后继续。
