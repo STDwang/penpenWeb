@@ -1,4 +1,4 @@
-:HL["/penpenWeb/_next/static/chunks/3bg8v46qf45ls.css","style"]
+:HL["/portfolio/_next/static/chunks/1k1qz8t54xjim.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"resume","h":96,"c":"$Q2"}]]
-0:{"b":"tERjSZJbfB_-t9BHQl-zQ","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"apMYI-OpirSTt-83jYL36","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
