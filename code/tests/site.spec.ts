@@ -1,12 +1,16 @@
 import { test, expect } from "@playwright/test";
 import { resolve } from "node:path";
 
+// Browser navigation and public assets must both include the static-host subpath.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/portfolio";
+const sitePath = (path: string) => `${basePath}${path}`;
+
 test("homepage, scene playback, seeking and keyboard selection", async ({
   page,
 }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto(sitePath("/"));
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "C++ / 仿真平台",
   );
@@ -41,7 +45,12 @@ test("homepage, scene playback, seeking and keyboard selection", async ({
   ).toBe(true);
   expect(errors).toEqual([]);
   await page.reload();
-  await page.locator(".lab-card img").first().scrollIntoViewIfNeeded();
+  // Offscreen rail slides remain lazy: visit every image before asserting load.
+  for (const img of await page.locator("img").all()) {
+    await img.scrollIntoViewIfNeeded();
+    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+  }
+  await page.locator(".rail-track").evaluateAll((tracks) => tracks.forEach((track) => track.scrollTo({ left: 0, behavior: "instant" })));
   await expect
     .poll(() =>
       page
@@ -70,7 +79,8 @@ test("real navigation, detail routes, PDF and noindex", async ({
   page,
   request,
 }, testInfo) => {
-  await page.goto("/");
+  await page.goto(sitePath("/"));
+  await expect(page.getByRole("link", { name: "下载简历", exact: true })).toHaveAttribute("href", sitePath("/resume/wang-shuaipeng.pdf"));
   if (testInfo.project.name === "mobile") {
     const menu = page.getByRole("button", { name: "打开导航" });
     await menu.click();
@@ -82,7 +92,7 @@ test("real navigation, detail routes, PDF and noindex", async ({
     await expect(menu).toHaveAttribute("aria-expanded", "false");
   }
   await page.getByRole("link", { name: "查看工程案例", exact: true }).click();
-  await expect(page).toHaveURL(/\/work$/);
+  await expect(page).toHaveURL(/\/work\/?$/);
   await page
     .getByRole("heading", { name: "轨道交通仿真模块" })
     .getByRole("link")
@@ -92,6 +102,7 @@ test("real navigation, detail routes, PDF and noindex", async ({
   );
   for (const route of [
     "/work/layers-picking",
+    "/work/emissions",
     "/work/micro-meso",
     "/lab",
     "/lab/gpuview",
@@ -101,7 +112,7 @@ test("real navigation, detail routes, PDF and noindex", async ({
     "/about",
     "/resume",
   ]) {
-    const response = await page.goto(route);
+    const response = await page.goto(sitePath(route));
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     expect(
@@ -115,18 +126,18 @@ test("real navigation, detail routes, PDF and noindex", async ({
       /.+/,
     );
   }
-  const pdf = await request.get("/resume/wang-shuaipeng.pdf");
+  const pdf = await request.get(sitePath("/resume/wang-shuaipeng.pdf"));
   expect(pdf.status()).toBe(200);
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
     /noindex/,
   );
-  expect(await (await request.get("/robots.txt")).text()).toContain(
+  expect(await (await request.get(sitePath("/robots.txt"))).text()).toContain(
     "Disallow: /",
   );
-  expect((await request.get("/work/not-a-case")).status()).toBe(404);
-  const missing = await page.goto("/not-a-real-page");
+  expect((await request.get(sitePath("/work/not-a-case"))).status()).toBe(404);
+  const missing = await page.goto(sitePath("/not-a-real-page"));
   expect(missing?.status()).toBe(404);
   await expect(
     page.getByRole("heading", { name: "这条路径还没有建好。" }),
@@ -141,7 +152,7 @@ test("server-rendered content and static scene work without JavaScript", async (
     viewport: { width: 390, height: 844 },
   });
   const page = await context.newPage();
-  await page.goto("/");
+  await page.goto(sitePath("/"));
   await expect(page.getByRole("heading", { level: 1 })).toContainText("工程师");
   await expect(page.getByText("固定演示数据 · 非真实仿真输出")).toBeVisible();
   await page.getByRole("link", { name: "查看工程案例", exact: true }).click();
@@ -152,7 +163,7 @@ test("server-rendered content and static scene work without JavaScript", async (
     .getByRole("heading", { name: "中观仿真与微中观协同" })
     .getByRole("link")
     .click();
-  await expect(page).toHaveURL(/\/work\/micro-meso$/);
+  await expect(page).toHaveURL(/\/work\/micro-meso\/?$/);
   await context.close();
 });
 
@@ -160,7 +171,7 @@ test("project galleries scroll by controls, keyboard and touch; evidence stays a
   page,
 }, testInfo) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto(sitePath("/"));
   const work = page.getByRole("region", { name: "工程案例", exact: true });
   const track = work.getByRole("list");
   await work.scrollIntoViewIfNeeded();
@@ -182,11 +193,17 @@ test("project galleries scroll by controls, keyboard and touch; evidence stays a
   await expect
     .poll(() => track.evaluate((e) => e.scrollLeft))
     .toBeGreaterThan(30);
-  await expect(work.locator(".image-credit")).toHaveCount(3);
-  await expect(work.locator(".image-credit a").first()).toHaveAttribute(
-    "href",
-    /jidatraffic\.com/,
-  );
+  await expect(work.locator(".image-credit")).toHaveCount(4);
+  await expect(work.locator(".work-card h3")).toHaveText([
+    "轨道交通仿真模块", "编辑图层与复杂场景拾取", "排放模块与结果可视化", "中观仿真与微中观协同",
+  ]);
+  const filenames = ["rail-transit", "layers-picking", "emissions", "micro-meso"];
+  for (let i = 0; i < filenames.length; i++) {
+    await expect(work.locator(".work-card img").nth(i)).toHaveAttribute("src", sitePath(`/images/${filenames[i]}.webp`));
+  }
+  for (const credit of await work.locator(".image-credit").all()) {
+    await expect(credit).toContainText("本人提供");
+  }
   if (testInfo.project.name === "mobile") {
     // Real Chromium touch input rather than synthetic DOM events.
     await track.evaluate((e) => e.scrollTo({ left: 0, behavior: "instant" }));
@@ -227,9 +244,34 @@ test("project galleries scroll by controls, keyboard and touch; evidence stays a
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.goto("/work/rail-transit");
+  await page.goto(sitePath("/work/rail-transit"));
   await expect(
     page.getByRole("heading", { name: "我负责的工程链路" }),
   ).toBeVisible();
-  await expect(page.locator("#boundary")).toContainText("不是轨道模块截图");
+  await expect(page.locator("#boundary")).toContainText("对应负责的轨道交通模块");
+});
+
+test("module images and ImagePlayer screenshot gallery use local sanitized assets", async ({ page, request }, testInfo) => {
+  for (const name of ["rail-transit", "layers-picking", "emissions", "micro-meso", "imageplayer", "imageplayer-photo", "imageplayer-medical"]) {
+    const image = await request.get(sitePath(`/images/${name}.webp`));
+    expect(image.status()).toBe(200);
+    expect(image.headers()["content-type"]).toContain("image/webp");
+  }
+  await page.goto(sitePath("/lab/imageplayer/"));
+  const gallery = page.getByRole("region", { name: "ImagePlayer 运行截图", exact: true });
+  await expect(gallery.getByRole("listitem")).toHaveCount(2);
+  await expect(page.locator(".image-imageplayer img")).toHaveAttribute("src", sitePath("/images/imageplayer.webp"));
+  await expect(page.locator("#boundary")).toContainText("非医疗诊断软件");
+  await gallery.scrollIntoViewIfNeeded();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await gallery.getByRole("list").focus();
+  await page.keyboard.press("End");
+  await expect(gallery.getByRole("button", { name: "下一项ImagePlayer 运行截图" })).toBeDisabled();
+  const medical = gallery.getByRole("link", { name: /查看完整截图：.*网上示例牙片/ });
+  await expect(medical).toHaveAttribute("href", sitePath("/images/imageplayer-medical.webp"));
+  await expect(medical.locator("img")).toBeVisible();
+  await expect.poll(() => medical.locator("img").evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: resolve("../previews", `${process.env.SCREENSHOT_PREFIX || "site"}-imageplayer-${testInfo.project.name}.png`), fullPage: true });
 });

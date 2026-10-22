@@ -18,9 +18,9 @@ export function ProjectVisual({
         <Image
           src={asset(project.image)}
           alt={project.imageAlt || project.title}
-          width={1600}
-          height={1000}
-          priority={priority}
+          width={project.imageSize?.[0] ?? 1600}
+          height={project.imageSize?.[1] ?? 1000}
+          preload={priority}
           sizes="(max-width: 767px) 90vw, (max-width: 1199px) 60vw, 620px"
         />
       </div>
@@ -30,18 +30,22 @@ export function ProjectVisual({
 }
 
 export function ImageCredit({ project }: { project: Project }) {
-  if (!project.imageSource) return null;
+  if (!project.imageCaption && !project.imageSource) return null;
   return (
     <p className="image-credit">
-      {project.imageCaption} ·{" "}
-      <a
-        href={project.imageSource}
-        aria-label={`${project.title}的图片来源：${project.imageSourceLabel}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        来源 ↗
-      </a>
+      {project.imageCaption}
+      {project.imageSource ? (
+        <> ·{" "}
+          <a
+            href={project.imageSource}
+            aria-label={`${project.title}的图片来源：${project.imageSourceLabel}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            来源 ↗
+          </a>
+        </>
+      ) : null}
     </p>
   );
 }
@@ -55,7 +59,9 @@ export function WorkCard({ project }: { project: Project }) {
         aria-label={`查看${project.title}`}
       >
         <ProjectVisual project={project} />
-        <span className="visual-badge">商业研发 · TESSNG</span>
+        <span className="visual-badge">
+          商业研发 · {project.slug === "micro-meso" ? "TESS MESO" : "TESS NG"}
+        </span>
         <span className="visual-open" aria-hidden="true">
           <Arrow />
         </span>
@@ -106,6 +112,7 @@ export function LabCard({ project }: { project: Project }) {
           <Arrow />
         </span>
       </Link>
+      <ImageCredit project={project} />
       <div className="lab-card-copy card-copy">
         <p className="eyebrow accent">{project.focus}</p>
         <h3>

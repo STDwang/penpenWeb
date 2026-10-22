@@ -1,9 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { type Project, projects, projectPath } from "@/content/projects";
 import { ProjectVisual, ImageCredit } from "./projects";
 import { CaseDiagram } from "./diagrams";
 import { Arrow, TextLink } from "./ui";
 import { Contact } from "./footer";
+import { ProjectRail } from "./project-rail";
 
 export function ProjectDetail({ project: p }: { project: Project }) {
   const category = p.category === "work" ? "工程案例" : "个人实验室";
@@ -37,7 +40,7 @@ export function ProjectDetail({ project: p }: { project: Project }) {
       </div>
       <div className="detail-visual">
         <ProjectVisual project={p} priority />
-        {p.imageSource ? (
+        {p.imageSource || p.imageCaption ? (
           <ImageCredit project={p} />
         ) : (
           <span className="caption">
@@ -46,7 +49,27 @@ export function ProjectDetail({ project: p }: { project: Project }) {
               : "原创结构 / 功能示意 · 非公司实机界面或测量结果"}
           </span>
         )}
+        {p.image ? (
+          <a className="text-link" href={asset(p.image)} target="_blank" rel="noreferrer">
+            查看完整截图 ↗
+          </a>
+        ) : null}
       </div>
+      {p.screenshots?.length ? (
+        <section className="screenshot-gallery" aria-labelledby="screenshots-title">
+          <h2 id="screenshots-title">更多运行画面</h2>
+          <ProjectRail label={`${p.title} 运行截图`}>
+            {p.screenshots.map((shot) => (
+              <figure className="screenshot-card" key={shot.image}>
+                <a href={asset(shot.image)} target="_blank" rel="noreferrer" aria-label={`查看完整截图：${shot.alt}`}>
+                  <Image src={asset(shot.image)} alt={shot.alt} width={1600} height={900} sizes="(max-width: 767px) 90vw, 620px" />
+                </a>
+                <figcaption>{shot.caption} <a href={asset(shot.image)} target="_blank" rel="noreferrer">查看完整截图 ↗</a></figcaption>
+              </figure>
+            ))}
+          </ProjectRail>
+        </section>
+      ) : null}
       <div className="detail-grid">
         <nav className="detail-toc" aria-label="本页目录">
           <span className="eyebrow">ON THIS PAGE</span>

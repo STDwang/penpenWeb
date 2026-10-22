@@ -8,7 +8,7 @@ export const person = {
   email: "1946262980@qq.com",
   github: "https://github.com/STDwang",
   blog: "https://blog.csdn.net/qq_47898198",
-  resume: "/resume/wang-shuaipeng.pdf",
+  resume: asset("/resume/wang-shuaipeng.pdf"),
 };
 
 // Only a verified production domain enables indexing. Preview builds stay noindex.

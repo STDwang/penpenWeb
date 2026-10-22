@@ -69,15 +69,15 @@ export default function Home() {
               <i />
             </span>
             <span className="mono">EXPERIENCE / TESS NG</span>
-            <span className="window-state">商业产品背景</span>
+            <span className="window-state">本人负责模块 · 实际截图</span>
           </div>
           <div className="hero-product-image">
             <Image
-              src={asset("/images/tessng-editor.webp")}
+              src={asset("/images/rail-transit.webp")}
               width={1600}
-              height={1000}
-              alt="济达官方公开的 TESS NG 软件界面，仅作为参与研发的产品背景"
-              priority
+              height={900}
+              alt="本人负责的 TESS NG 轨道交通模块：轨道、站台与列车"
+              preload
               sizes="(max-width: 767px) 90vw, 55vw"
             />
           </div>
@@ -87,14 +87,7 @@ export default function Home() {
             <p>我负责的部分：业务模块接入、复杂交互、数据链路与回归验证。</p>
           </div>
           <p className="hero-source">
-            济达公开三维窗口 · 仅作产品背景 ·{" "}
-            <a
-              href="https://www.jidatraffic.com/features"
-              target="_blank"
-              rel="noreferrer"
-            >
-              官网来源 ↗
-            </a>
+            本人提供 · 轨道交通模块运行截图 · <Link href="/work/rail-transit">查看我的职责 ↗</Link>
           </p>
         </div>
       </section>
@@ -146,7 +139,7 @@ export default function Home() {
           id="engineering-title"
         />
         <p className="section-intro">
-          三个案例，分别回答业务如何接入、复杂对象如何编辑、不同仿真尺度如何协同。
+          四个案例：轨道交通、复杂对象拾取、排放可视化，以及微中观协同。
         </p>
         <ProjectRail label="工程案例">
           {workProjects.map((p) => (
@@ -154,7 +147,7 @@ export default function Home() {
           ))}
         </ProjectRail>
         <p className="section-footnote">
-          产品画面来自济达公开资料，仅作上下文；个人职责与验证依据见各案例。
+          画面由本人提供，对应负责的模块；保留产品水印，个人职责与验证边界见各案例。
         </p>
       </section>
 

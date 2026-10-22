@@ -8,10 +8,12 @@ export type Project = {
   stack: string[];
   diagram?: "rail" | "layers" | "meso";
   image?: string;
+  imageSize?: [number, number];
   imageAlt?: string;
   imageCaption?: string;
   imageSource?: string;
   imageSourceLabel?: string;
+  screenshots?: { image: string; alt: string; caption: string }[];
   outcome: string;
   focus: string;
   demoLabel?: string;
@@ -33,12 +35,10 @@ export const projects: Project[] = [
     role: "架构拆分 · 核心研发 · 联调验收",
     stack: ["C++", "Qt", "SQLite", "状态机"],
     diagram: "rail",
-    image: "/images/tessng-network.webp",
-    imageAlt:
-      "TESS NG 官方公开二维路网与车辆仿真画面，仅作产品背景，并非轨道模块截图",
-    imageCaption: "TESS NG 官网公开路网画面 · 产品背景，非轨道模块截图",
-    imageSource: "https://www.jidatraffic.com/features",
-    imageSourceLabel: "济达交通官网",
+    image: "/images/rail-transit.webp",
+    imageSize: [1600, 900],
+    imageAlt: "TESS NG 轨道交通模块：三组站台、到发线与列车运行画面",
+    imageCaption: "本人提供 · 轨道交通模块实际截图 · 已裁去本地路径",
     outcome: "建模 → 保存重开 → 运行 → 结果输出",
     focus: "核心研发 / 25 项回归用例",
     sections: [
@@ -80,7 +80,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "个人职责与 25 项测试依据简历整理。产品画面引用济达官网公开素材，仅说明工作所处的产品背景，不是轨道模块截图，也不代表整套产品由我独立完成。下方架构图为原创示意，不包含公司源码。",
+      "个人职责与 25 项测试依据简历整理。截图由本人提供，对应负责的轨道交通模块，不代表整套 TESS NG 产品由我独立完成。已裁去标题栏本地路径及多余空白；结构图为原创示意，不包含公司源码。",
   },
   {
     slug: "layers-picking",
@@ -91,12 +91,10 @@ export const projects: Project[] = [
     role: "架构设计 · 交互实现 · 跨模块验证",
     stack: ["Qt Graphics View", "C++", "SQLite", "交互架构"],
     diagram: "layers",
-    image: "/images/tessng-editor.webp",
-    imageAlt:
-      "济达官网公开的 TESS NG 三维仿真窗口，产品上下文，不是本人图层模块截图",
-    imageCaption: "TESS NG 官网公开三维窗口 · 产品背景，非图层功能截图",
-    imageSource: "https://www.jidatraffic.com/features",
-    imageSourceLabel: "济达交通官网",
+    image: "/images/layers-picking.webp",
+    imageSize: [1600, 900],
+    imageAlt: "复杂交叉口中的连接段候选菜单、图层信息与选中高亮",
+    imageCaption: "本人提供 · 复杂场景拾取实际截图 · 保留候选菜单与高亮",
     outcome: "稳定对象身份，贯通层级、选择与保存恢复",
     focus: "交互架构 / 类型 + ID",
     sections: [
@@ -132,7 +130,44 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "本案例职责依据简历整理。产品界面来自济达官网公开素材，不是本人图层功能的验收截图；四层结构图为原创示意。未公开内部代码或客户数据，也不将编译验证等同于全部业务用例通过。",
+      "职责依据简历整理，截图由本人提供，展示负责的复杂场景拾取交互；四层结构图为原创示意。标题栏路径与底部桌面浮层已裁去，未公开内部代码；不将编译验证等同于全部业务用例通过。",
+  },
+  {
+    slug: "emissions",
+    category: "work",
+    title: "排放模块与结果可视化",
+    eyebrow: "仿真业务 / 排放分析",
+    summary: "让仿真过程中的排放信息，同时呈现在空间热力图与实时图表中。",
+    role: "排放模块研发 · 结果可视化集成",
+    stack: ["C++", "Qt", "热力图", "实时图表"],
+    image: "/images/emissions.webp",
+    imageSize: [1600, 900],
+    imageAlt: "TESS NG 排放模块：路口排放热力图与 CO、CO2、NOx、PM2.5 实时曲线",
+    imageCaption: "本人提供 · 排放模块实际截图 · 热力图与实时图表",
+    outcome: "仿真运行 → 空间分布 → 排放曲线",
+    focus: "业务模块 / 结果可观察性",
+    sections: [
+      {
+        title: "问题：把仿真结果变得可观察",
+        paragraphs: [
+          "排放信息既有空间分布，也随仿真时间变化。仅展示单一结果难以同时观察路口热点和时间趋势，需要让地图中的热力图与实时图表共同表达当前仿真过程。",
+        ],
+      },
+      {
+        title: "我的工作与界面证据",
+        paragraphs: [
+          "负责排放模块研发与结果可视化集成。提供的实际运行截图展示了路网热力图、实时排放图表，以及新增排放和累计排放切换入口。",
+          "画面中可见 CO、CO2、NOx、PM2.5 等曲线。这些画面用于说明模块的结果展示方式，不据此推断模型精度、性能提升或实际减排效果。",
+        ],
+      },
+      {
+        title: "展示范围与验证口径",
+        paragraphs: [
+          "当前展示依据为本人提供的模块运行截图。本页不补写未经确认的排放算法、标定方法、测试规模或量化收益；模型方法与数据口径应在具体业务场景中单独说明。",
+        ],
+      },
+    ],
+    boundary: "截图由本人提供，展示负责的排放模块，不代表独立完成整个交通仿真平台或所有排放算法。标题栏本地路径已裁去；曲线为界面示例，不作为精度评估、环境监测结论或减排效果证明。",
   },
   {
     slug: "micro-meso",
@@ -143,12 +178,10 @@ export const projects: Project[] = [
     role: "总体架构 · 任务拆分 · 关键模块交付",
     stack: ["C++", "Python", "SQLite", "TessInterfaces"],
     diagram: "meso",
-    image: "/images/tessng-analysis.webp",
-    imageAlt:
-      "济达官网公开的 TESS NG 路网热力图，作为评价可视化背景，并非 TESS MESO 实机截图",
-    imageCaption: "TESS NG 官网公开热力图 · 评价背景，非 TESS MESO 界面",
-    imageSource: "https://www.jidatraffic.com/simulation",
-    imageSourceLabel: "济达交通官网",
+    image: "/images/micro-meso.webp",
+    imageSize: [1600, 900],
+    imageAlt: "TESS MESO 中观仿真实际界面：区域路网、交通状态颜色与图层面板",
+    imageCaption: "本人提供 · TESS MESO 实际截图 · 保留济达交通水印",
     outcome: "路网转换 → OD 需求 → 结果评价",
     focus: "协同交付 / 接口复用",
     sections: [
@@ -183,7 +216,7 @@ export const projects: Project[] = [
       },
     ],
     boundary:
-      "牵头研发不等于独立完成所有算法。图为济达官网公开的 TESS NG 热力图，仅提供评价可视化背景，不是中观软件实机或本人结果。简历未提供性能基准、部署规模或算法精度，本页不补充未经验证的指标。",
+      "牵头研发不等于独立完成所有算法。图为本人提供的 TESS MESO 中观软件实际截图，保留济达交通水印，裁去标题栏本地路径。简历未提供性能基准、部署规模或算法精度，本页不从路网画面推断这些指标。",
   },
   {
     slug: "gpuview",
@@ -321,29 +354,46 @@ export const projects: Project[] = [
     category: "lab",
     title: "ImagePlayer",
     eyebrow: "早期项目 / 图像工具",
-    summary: "C++ / Qt 多视图图像工具与专业交互实践。",
+    summary: "多视图对比、图像取反与鸟瞰导航，让图像处理前后的差异直观可见。",
     role: "图像查看与交互工具开发",
-    stack: ["C++", "Qt", "图像交互"],
+    stack: ["C++11", "Qt Quick / QML", "QImage", "QCustomPlot"],
+    image: "/images/imageplayer.webp",
+    imageSize: [1600, 900],
+    imageAlt: "ImagePlayer 实际界面：玩偶照片原图与取反结果的双视图对比、鸟瞰缩略图",
+    imageCaption: "本人提供 · 实际运行截图 · 本地路径已遮盖，原图水印保留",
+    screenshots: [
+      {
+        image: "/images/imageplayer-photo.webp",
+        alt: "ImagePlayer 双视图显示摄影原图和取反结果，每个视图带鸟瞰缩略图",
+        caption: "摄影示例 · 原图与取反结果对照，保留鸟瞰图及像素状态栏。",
+      },
+      {
+        image: "/images/imageplayer-medical.webp",
+        alt: "ImagePlayer 显示网上示例牙片与取反结果，附带文字信息已遮盖",
+        caption: "网上示例牙片 · 用户提供；仅展示图像取反，不用于医疗诊断。路径及影像内文字已遮盖。",
+      },
+    ],
     source: "https://github.com/STDwang/ImagePlayer",
-    outcome: "多视图同步、拖放缩放与像素查看",
+    outcome: "动态布局 → 拖放缩放 → 取反对比 → 像素查看",
     focus: "C++ / Qt / 早期项目",
     sections: [
       {
         title: "多视图中的一致交互",
         paragraphs: [
-          "基于 C++ / Qt 实现多视图图像查看工具。公开 README 列出动态布局、图像拖放、滚轮缩放、视图尺寸与位置同步、像素坐标和灰度值显示以及图片保存。",
+          "基于 C++ / Qt Quick 实现多视图图像查看工具。QML 组织动态布局、拖放和以鼠标位置为中心的缩放；鸟瞰图显示当前视野，底部状态栏反馈像素坐标与数值。",
+          "本页三张画面均为本人提供的运行截图，展示玩偶、摄影与网上示例牙片的原图/取反对照。普通彩色图像的像素数值当前取红色通道，不表述为所有格式的通用灰度测量。",
         ],
       },
       {
         title: "从工具交互理解专业软件",
         paragraphs: [
-          "简历还记录了 ROI 裁剪矫正、以鼠标为中心的缩放拖拽、鸟瞰图和 Plot Profile 等早期探索。这些内容属于个人项目经历，公开代码的具体覆盖范围以仓库实现为准。",
+          "C++ 图像处理经信号槽与 QML 界面联动，提供图像读取、保存、取反和直方图数据。截图来自本地工作版，普通图片取反修复尚未合入公开默认分支；代码包含 RAW 8/16 位处理及 RAW 自动亮度路径。去噪入口尚未接通后端，不列为已实现功能。",
           "这个项目是我积累专业编辑器输入、图像显示与数据联动经验的起点之一，随后在交通仿真平台中继续处理更复杂的选择和显示问题。",
         ],
       },
     ],
     boundary:
-      "README 自述 Public Domain，本站未独立完成许可证文件核验，统一标注公开代码；不借用 README 引用的第三方状态徽章证明项目构建状态。",
+      "早期个人图像工具，非医疗诊断软件。示例图片由本人提供，牙片据本人说明来自网上；本地路径与影像内文字已遮盖，玩偶图片原水印保留。图像素材不包含在代码的再授权承诺中；未核验统一许可证，标注为公开代码，不用第三方徽章证明构建状态。",
   },
 ];
 

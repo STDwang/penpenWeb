@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
   "工程案例",
-  "交通仿真平台的轨道模块、专业编辑系统与微中观协同：架构、职责、技术取舍和验证。",
+  "交通仿真平台的轨道模块、专业编辑系统、排放可视化与微中观协同：实际界面、个人职责和验证。",
   "/work",
 );
 export default function WorkPage() {
