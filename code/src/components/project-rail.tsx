@@ -9,6 +9,13 @@ import {
   type ReactNode,
 } from "react";
 
+type RailState = {
+  index: number;
+  start: boolean;
+  end: boolean;
+  ratio: number;
+};
+
 export function ProjectRail({
   label,
   children,
@@ -18,10 +25,11 @@ export function ProjectRail({
 }) {
   const track = useRef<HTMLDivElement>(null);
   const count = Children.count(children);
-  const [position, setPosition] = useState({
+  const [state, setState] = useState<RailState>({
     index: 1,
     start: true,
     end: count < 2,
+    ratio: 0,
   });
 
   const measure = useCallback(() => {
@@ -37,10 +45,14 @@ export function ProjectRail({
       end && max > 0
         ? count
         : Math.min(count, Math.round(el.scrollLeft / step) + 1);
-    setPosition((old) =>
-      old.index === index && old.start === start && old.end === end
+    const ratio = max > 0 ? Math.min(1, Math.max(0, el.scrollLeft / max)) : 0;
+    setState((old) =>
+      old.index === index &&
+      old.start === start &&
+      old.end === end &&
+      Math.abs(old.ratio - ratio) < 0.005
         ? old
-        : { index, start, end },
+        : { index, start, end, ratio },
     );
   }, [count]);
 
@@ -79,13 +91,13 @@ export function ProjectRail({
         </p>
         <div className="rail-controls">
           <span className="mono" aria-live="polite" aria-atomic="true">
-            {String(position.index).padStart(2, "0")} /{" "}
+            {String(state.index).padStart(2, "0")} /{" "}
             {String(count).padStart(2, "0")}
           </span>
           <button
             type="button"
             aria-label={`上一项${label}`}
-            disabled={position.start}
+            disabled={state.start}
             onClick={() => move(-1)}
           >
             ←
@@ -93,7 +105,7 @@ export function ProjectRail({
           <button
             type="button"
             aria-label={`下一项${label}`}
-            disabled={position.end}
+            disabled={state.end}
             onClick={() => move(1)}
           >
             →
@@ -126,6 +138,9 @@ export function ProjectRail({
             {child}
           </div>
         ))}
+      </div>
+      <div className="rail-progress" aria-hidden="true">
+        <span style={{ transform: `scaleX(${state.ratio || 0.001})` }} />
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { projects, projectPath } from "@/content/projects";
-import { indexable, productionUrl } from "@/lib/site";
+import { absoluteUrl, indexable } from "@/lib/site";
 
 // 静态导出（output: "export"）要求元数据路由显式声明为静态
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  if (!indexable || !productionUrl) return [];
+  if (!indexable) return [];
   return [
     "/",
     "/work",
@@ -14,5 +14,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/resume",
     ...projects.map(projectPath),
-  ].map((path) => ({ url: new URL(path, productionUrl).href }));
+  ].map((path) => ({ url: absoluteUrl(path) }));
 }

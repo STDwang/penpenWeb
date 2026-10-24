@@ -16,20 +16,40 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
   const pathname = usePathname();
+
+  // A route change must never leave the mobile panel open behind the new page.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     if (!open) return;
-    const close = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setOpen(false);
         toggle.current?.focus();
       }
     };
-    document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
+    const onPointer = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (target && !header.current?.contains(target)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    // Keep the page behind the panel still while it covers the viewport.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [open]);
+
   return (
-    <header className="site-header">
+    <header className="site-header" ref={header}>
       <Logo />
       <nav
         className={`main-nav ${open ? "is-open" : ""}`}
@@ -53,7 +73,7 @@ export function Header() {
           </Link>
         ))}
       </nav>
-      <Link className="header-resume" href="/resume">
+      <Link className="header-resume" href="/resume" onClick={() => setOpen(false)}>
         简历
         <Arrow />
       </Link>

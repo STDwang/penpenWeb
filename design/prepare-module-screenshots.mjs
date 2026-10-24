@@ -14,18 +14,22 @@ if (!input) throw new Error("Pass the directory containing the private input PNG
 const output = resolve(root, "code/public/images");
 await mkdir(output, { recursive: true });
 
+// Every output is a full 16:9 frame. The source crops are wider than 16:9, so the
+// frame is filled by cropping the far edges ("cover") instead of padding the shot
+// with empty bands ("contain"). Padding put a dark strip above and below a bright
+// application canvas and wasted roughly 40% of the flagship screenshot.
 const shots = [
-  { name: "rail-transit", crop: { left: 0, top: 26, width: 1920, height: 710 } },
-  { name: "layers-picking", crop: { left: 0, top: 26, width: 1914, height: 930 } },
-  { name: "emissions", crop: { left: 0, top: 26, width: 1918, height: 950 } },
-  { name: "micro-meso", crop: { left: 0, top: 26, width: 1920, height: 974 } },
-  { name: "imageplayer", crop: { left: 6, top: 2, width: 1599, height: 819 }, masks: [
+  { name: "rail-transit", crop: { left: 0, top: 26, width: 1920, height: 622 }, position: "top" },
+  { name: "layers-picking", crop: { left: 0, top: 26, width: 1914, height: 900 }, position: "top" },
+  { name: "emissions", crop: { left: 0, top: 26, width: 1918, height: 930 }, position: "top" },
+  { name: "micro-meso", crop: { left: 0, top: 26, width: 1920, height: 950 }, position: "top" },
+  { name: "imageplayer", crop: { left: 6, top: 2, width: 1599, height: 819 }, position: "top", masks: [
     [400, 2, 980, 33], [610, 70, 490, 77],
   ] },
-  { name: "imageplayer-photo", crop: { left: 0, top: 0, width: 1600, height: 819 }, masks: [
+  { name: "imageplayer-photo", crop: { left: 0, top: 0, width: 1600, height: 819 }, position: "top", masks: [
     [470, 0, 900, 35],
   ] },
-  { name: "imageplayer-medical", crop: { left: 0, top: 4, width: 1594, height: 817 }, masks: [
+  { name: "imageplayer-medical", crop: { left: 0, top: 4, width: 1594, height: 817 }, position: "top", masks: [
     [560, 0, 800, 35], [600, 70, 385, 70],
     [570, 145, 240, 170], [1360, 145, 234, 170],
     [130, 95, 80, 50], [775, 510, 35, 70], [1540, 510, 54, 70],
@@ -44,7 +48,9 @@ for (const shot of shots) {
   }
   // Separate pipelines apply redactions before resizing. No originals/metadata embedded.
   const sanitized = await pipeline.png().toBuffer();
-  await sharp(sanitized).resize(1600, 900, { fit: "contain", background: "#121b29" })
-    .webp({ quality: 90 }).toFile(resolve(output, `${shot.name}.webp`));
-  console.log(`${shot.name}.webp: 1600x900, sanitized`);
+  await sharp(sanitized)
+    .resize(1600, 900, { fit: "cover", position: shot.position ?? "top" })
+    .webp({ quality: 88 })
+    .toFile(resolve(output, `${shot.name}.webp`));
+  console.log(`${shot.name}.webp: 1600x900, sanitized, cover/${shot.position ?? "top"}`);
 }

@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 // Browser navigation and public assets must both include the static-host subpath.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/portfolio";
 const sitePath = (path: string) => `${basePath}${path}`;
+// A build that received SITE_URL is the production build and may be indexed.
+const indexable = process.env.EXPECT_INDEXABLE === "1";
 
 test("homepage, scene playback, seeking and keyboard selection", async ({
   page,
@@ -140,11 +142,15 @@ test("real navigation, detail routes, PDF and noindex", async ({
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    /noindex/,
+    indexable ? /index/ : /noindex/,
   );
-  expect(await (await request.get(sitePath("/robots.txt"))).text()).toContain(
-    "Disallow: /",
-  );
+  const robots = await (await request.get(sitePath("/robots.txt"))).text();
+  expect(robots).toContain(indexable ? "Allow: /" : "Disallow: /");
+  if (indexable) {
+    expect(robots).toContain("Sitemap:");
+    const sitemap = await (await request.get(sitePath("/sitemap.xml"))).text();
+    expect(sitemap).toContain("<loc>");
+  }
   expect((await request.get(sitePath("/work/not-a-case"))).status()).toBe(404);
   const missing = await page.goto(sitePath("/not-a-real-page"));
   expect(missing?.status()).toBe(404);
@@ -258,6 +264,57 @@ test("project galleries scroll by controls, keyboard and touch; evidence stays a
     page.getByRole("heading", { name: "我负责的工程链路" }),
   ).toBeVisible();
   await expect(page.locator("#boundary")).toContainText("对应负责的轨道交通模块");
+});
+
+test("interaction feedback: link hover, gallery progress, menu dismissal, toc marker, lightbox", async ({
+  page,
+}, testInfo) => {
+  await page.goto(sitePath("/"));
+
+  // Text links carry most primary actions and must answer to hover.
+  const sectionLink = page.locator(".section-heading > .text-link").first();
+  await sectionLink.scrollIntoViewIfNeeded();
+  const resting = await sectionLink.evaluate((el) => getComputedStyle(el).color);
+  await sectionLink.hover();
+  await expect
+    .poll(async () => sectionLink.evaluate((el) => getComputedStyle(el).color))
+    .not.toBe(resting);
+
+  // The gallery reports its own position.
+  const work = page.getByRole("region", { name: "工程案例", exact: true });
+  await work.scrollIntoViewIfNeeded();
+  const progress = work.locator(".rail-progress span");
+  await expect(progress).toBeVisible();
+  const initial = await progress.evaluate((el) => el.getBoundingClientRect().width);
+  expect(initial).toBeGreaterThan(0);
+  await work.getByRole("button", { name: "下一项工程案例" }).click();
+  await expect
+    .poll(async () => progress.evaluate((el) => el.getBoundingClientRect().width))
+    .toBeGreaterThan(initial);
+
+  // The mobile panel closes when the pointer lands outside of it.
+  if (testInfo.project.name === "mobile") {
+    const menu = page.getByRole("button", { name: "打开导航" });
+    await menu.click();
+    await expect(page.getByRole("navigation", { name: "主导航" })).toBeVisible();
+    await page.mouse.click(12, 700);
+    await expect(page.getByRole("navigation", { name: "主导航" })).toBeHidden();
+    await expect(menu).toHaveAttribute("aria-expanded", "false");
+  }
+
+  // Detail page: the table of contents marks the current section and the
+  // screenshot opens in an in-page lightbox.
+  await page.goto(sitePath("/work/rail-transit"));
+  const toc = page.locator(".detail-toc");
+  await expect(toc).toBeVisible();
+  await expect(toc.locator("a").first()).toHaveAttribute("aria-current", "true");
+  const trigger = page.locator(".lightbox-trigger");
+  await trigger.scrollIntoViewIfNeeded();
+  await trigger.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.locator(".lightbox-figure img")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toBeHidden();
 });
 
 test("module images and ImagePlayer screenshot gallery use local sanitized assets", async ({ page, request }, testInfo) => {

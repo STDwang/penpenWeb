@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 const routes = [
   {
@@ -70,7 +70,9 @@ function position(points: number[][], fraction: number) {
   return { x: 0, y: 0, angle: 0 };
 }
 
-function RoadMap() {
+// The road network never changes, so it must not be rebuilt on every playback
+// frame while only the vehicle markers move.
+const RoadMap = memo(function RoadMap() {
   const roads = [
     "M-40 208H208Q252 208 282 185L364 117Q390 94 390 60V-30",
     "M390 500V281Q390 208 465 208H720",
@@ -149,7 +151,7 @@ function RoadMap() {
       </text>
     </svg>
   );
-}
+});
 
 export default function SimulationPlayer() {
   const [time, setTime] = useState(12);

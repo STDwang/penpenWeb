@@ -35,6 +35,24 @@ export function TextLink({
     </Link>
   );
 }
+
+/** One eyebrow format for the whole site: optional index number plus label. */
+export function Eyebrow({
+  number,
+  label,
+  className = "",
+}: {
+  number?: string;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <p className={`eyebrow ${className}`.trim()}>
+      {number ? <span>{number}</span> : null}
+      {label}
+    </p>
+  );
+}
 export function SectionTitle({
   number,
   label,
@@ -53,10 +71,7 @@ export function SectionTitle({
   return (
     <div className="section-heading">
       <div>
-        <p className="eyebrow">
-          <span>{number}</span>
-          {label}
-        </p>
+        <Eyebrow number={number} label={label} />
         <h2 id={id}>{title}</h2>
       </div>
       {href && action ? <TextLink href={href}>{action}</TextLink> : null}

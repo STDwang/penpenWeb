@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageMeta, person } from "@/lib/site";
 import { workProjects, labProjects } from "@/content/projects";
-import { SectionTitle, Arrow, TextLink } from "@/components/ui";
+import { SectionTitle, Arrow, TextLink, Eyebrow } from "@/components/ui";
 import { WorkCard, LabCard } from "@/components/projects";
 import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
@@ -115,7 +115,7 @@ export default function Home() {
         </Link>
         <Link href="/work/micro-meso">
           <strong>
-            跨<span>尺度</span>
+            2<span>尺度</span>
           </strong>
           <div>
             <b>微观 / 中观协同</b>
@@ -181,7 +181,7 @@ export default function Home() {
         aria-labelledby="demo-title"
       >
         <div className="demo-copy">
-          <p className="eyebrow accent">03 / INTERACTIVE SKETCH</p>
+          <Eyebrow number="03" label="INTERACTIVE SKETCH" />
           <h2 id="demo-title">
             仿真，先让状态
             <br />

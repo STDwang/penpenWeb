@@ -3,6 +3,7 @@ import { WorkCard } from "@/components/projects";
 import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
 import { pageMeta } from "@/lib/site";
+import { Eyebrow } from "@/components/ui";
 
 export const metadata = pageMeta(
   "工程案例",
@@ -13,7 +14,7 @@ export default function WorkPage() {
   return (
     <main id="main" className="container">
       <div className="page-intro">
-        <p className="eyebrow accent">SELECTED ENGINEERING / 01</p>
+        <Eyebrow label="SELECTED ENGINEERING" className="accent" />
         <h1>
           在复杂系统里，
           <br />

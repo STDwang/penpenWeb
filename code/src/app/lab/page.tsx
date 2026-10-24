@@ -3,6 +3,7 @@ import { LabCard } from "@/components/projects";
 import { ProjectRail } from "@/components/project-rail";
 import { Contact } from "@/components/footer";
 import { pageMeta } from "@/lib/site";
+import { Eyebrow } from "@/components/ui";
 
 export const metadata = pageMeta(
   "个人实验室",
@@ -13,7 +14,7 @@ export default function LabPage() {
   return (
     <main id="main" className="container">
       <div className="page-intro">
-        <p className="eyebrow accent">PERSONAL LAB / 02</p>
+        <Eyebrow label="PERSONAL LAB" className="accent" />
         <h1>
           把想法，
           <br />

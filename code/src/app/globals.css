@@ -2325,3 +2325,288 @@ html {
     transform: none;
   }
 }
+
+/* ============================================================
+   Interaction and density polish · 2026-10-24
+   Three radius tiers, readable small text, full-frame media,
+   consistent link feedback, gallery progress, table of contents
+   marker, in-page lightbox, frosted mobile navigation.
+   ============================================================ */
+
+:root {
+  /* Radius tiers: panels, controls, chips. */
+  --radius-panel: 14px;
+  --radius-control: 8px;
+  --radius-chip: 4px;
+  /* Slightly lifted secondary text so 12px captions stay readable. */
+  --subtle: #93a7b1;
+}
+
+/* --- radius tiers ------------------------------------------------- */
+.button,
+.header-resume,
+.scene,
+.timeline,
+.play-button,
+.case-diagram,
+.experiment-diagram,
+.about-aside,
+.resume-sheet,
+.detail-visual .project-image {
+  border-radius: var(--radius-control);
+}
+.selection-readout,
+.scene-badge,
+.tech-tags span,
+.visual-badge {
+  border-radius: var(--radius-chip);
+}
+.hero-evidence,
+.portfolio-card,
+.profile-terminal,
+.contact-box,
+.screenshot-card,
+.detail-outcome {
+  border-radius: var(--radius-panel);
+}
+
+/* --- readable small text ------------------------------------------- */
+.caption {
+  font-size: 12px;
+}
+.image-credit,
+.detail-visual .image-credit,
+.hero-source,
+.proof-strip p {
+  font-size: 12px;
+}
+.window-bar .mono {
+  font-size: 10px;
+}
+.scene-top,
+.scene-disclaimer,
+.visual-badge,
+.selection-readout,
+.selection-readout .mono {
+  font-size: 11px;
+}
+.hero-product-info p {
+  font-size: 13px;
+}
+.hero-intro strong {
+  font-weight: 500;
+}
+
+/* --- full frame media ---------------------------------------------- */
+/* The sanitized screenshots are exact 16:9 frames, so the media box follows
+   the frame instead of cropping it or padding it with empty bands. */
+.hero-product-image {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #111a27;
+}
+.portfolio-card .project-image img {
+  object-fit: contain;
+}
+.detail-visual {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.detail-visual .project-image {
+  max-height: none;
+}
+.detail-visual .project-image img {
+  max-height: none;
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* --- link feedback -------------------------------------------------- */
+/* .text-link carries most of the primary actions on the site and had no
+   hover response at all beyond the arrow nudge. */
+.text-link {
+  transition: color 0.2s;
+}
+.text-link:hover {
+  color: var(--accent);
+}
+.section-heading > .text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --- gallery progress ------------------------------------------------ */
+.rail-progress {
+  height: 2px;
+  margin-top: -10px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.rail-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #8fd8ff);
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+
+/* --- detail table of contents ---------------------------------------- */
+.detail-toc a {
+  position: relative;
+  padding-left: 14px;
+  transition: color 0.2s;
+}
+.detail-toc a.is-active {
+  color: var(--accent);
+}
+.detail-toc a.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* --- in-page lightbox -------------------------------------------------- */
+.lightbox-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.lightbox-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+.detail-shot {
+  position: relative;
+}
+.zoom-hint {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 5px 11px;
+  border-radius: var(--radius-chip);
+  background: #0b1019dd;
+  border: 1px solid #8297a166;
+  color: var(--accent);
+  font-size: 12px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background: #05080df2;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.lightbox-figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+.lightbox-figure img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 110px);
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  box-shadow: 0 30px 80px #0009;
+}
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+}
+.lightbox-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- detail outcome ---------------------------------------------------- */
+.detail-outcome {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: 22px;
+}
+.detail-outcome .eyebrow {
+  margin: 0;
+}
+
+/* --- colour cohesion ---------------------------------------------------- */
+.tech-tags span {
+  color: #cfe3e6;
+  background: #71e2d40f;
+  border-color: #71e2d42e;
+}
+
+/* --- calmer hero frame ---------------------------------------------------- */
+.hero-evidence {
+  transform: none;
+}
+.hero-evidence:hover {
+  transform: none;
+}
+
+/* --- header aligns with the content column ------------------------------ */
+/* The frosted bar spans the viewport, but its content must sit on the same
+   left edge as the page column. The container insets by 40px below 1200px
+   while the header still used 56px, which pushed the logo out of line. */
+@media (max-width: 1199px) {
+  .site-header {
+    padding-inline: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .site-header {
+    padding-inline: 24px;
+  }
+}
+
+/* --- mobile navigation as a frosted panel ---------------------------------- */
+@media (max-width: 767px) {
+  .main-nav {
+    background:
+      var(--frost-grain),
+      linear-gradient(160deg, #e3fbff1a, #d7f5ff05 55%, #d8d1ff12),
+      #0e1a29d9;
+    border-color: #c1e3f552;
+    box-shadow: 0 24px 44px #02081159;
+    -webkit-backdrop-filter: blur(28px) saturate(1.4);
+    backdrop-filter: blur(28px) saturate(1.4);
+  }
+  .detail-outcome {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .zoom-hint {
+    right: 10px;
+    bottom: 10px;
+    font-size: 11px;
+  }
+  .lightbox {
+    padding: 16px;
+  }
+}

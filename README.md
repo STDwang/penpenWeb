@@ -2,7 +2,7 @@
 
 求职作品集、技术内容与个人实验室。面向机器人与智驾仿真岗位，以已有 C++/Qt 商业仿真平台经验为基础。
 
-**当前：真实截图与弥散渐变玻璃拟态发布版。** 四个商业案例按轨道交通、复杂拾取、排放、中观顺序展示用户提供的实际界面；ImagePlayer 增加玩偶、摄影、示例牙片三张画面及横向截图图库。深色背景增加静态弥散渐变和半透明玻璃面板，手机降低模糊开销，不增加动画或轮播依赖。[发布状态与核验记录](docs/09-release.md)。WorkBuddy 需恢复电脑控制后同步，现有镜像链接可能仍为旧版。
+**当前：真实截图满帧 + 交互反馈补齐版（尚未发布）。** 商业截图按素材流水线重新裁切为满帧 16:9，首屏、卡片与详情页不再被补白稀释；`.text-link` 补上 hover 反馈，移动端菜单支持点击外部关闭与滚动锁定，画廊增加可视进度条，详情页目录跟随滚动高亮并支持站内大图查看。索引开关与托管平台解耦，设置 `SITE_URL` 后 canonical、分享卡片与 sitemap 指向生产域名。[本轮分析与计划](docs/10-ui-interaction-plan.md)。线上仍为上一版，WorkBuddy 镜像待同步。
 
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）
@@ -27,6 +27,14 @@ npm run build
 产物为 `code/out/`，托管时挂载到与 `NEXT_PUBLIC_BASE_PATH` 一致的子路径。静态导出不使用 `next start`。
 
 ## 实际页面截图
+
+### 本轮本地审阅版（满帧截图与交互反馈，尚未发布）
+
+![满帧截图与交互反馈版桌面首页](previews/polish-desktop-hero.png)
+
+[桌面全页](previews/polish-desktop.png) · [手机全页](previews/polish-mobile.png) · [平板全页](previews/polish-tablet.png) · [ImagePlayer 桌面详情](previews/polish-imageplayer-desktop.png) · [ImagePlayer 手机详情](previews/polish-imageplayer-mobile.png) · [ImagePlayer 平板详情](previews/polish-imageplayer-tablet.png)
+
+本机实际浏览器渲染的本地生产产物。商业截图改为满帧 16:9，首屏、卡片与详情页不再被补白稀释；链接 hover、移动菜单、画廊进度条、详情目录高亮与站内大图查看已补齐。三尺寸 18 项浏览器检查通过，生产与预览两种索引模式各验证一轮。分析与计划见 [本轮文档](docs/10-ui-interaction-plan.md)。
 
 ### 当前 GitHub Pages 线上版本
 
@@ -132,7 +140,18 @@ npm run test:e2e
 
 Next.js App Router、React、TypeScript、Tailwind CSS；提交 npm 锁文件；本地内容预渲染，首屏 SVG 交互独立加载。只使用本地资源，不在访问时请求 GitHub/CSDN。静态信息无需 JavaScript 即可读取。
 
-GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。当前采用静态导出托管：`next.config.ts` 设置 `output: "export"`，子路径由 `NEXT_PUBLIC_BASE_PATH` 环境变量控制，默认 `/portfolio`（WorkBuddy 托管）；GitHub Pages 构建时设为 `/penpenWeb`（`MSYS_NO_PATHCONV=1 NEXT_PUBLIC_BASE_PATH=/penpenWeb npm run build`），产物推送 `gh-pages` 分支发布。
+GitHub 仓库：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)。当前采用静态导出托管：`next.config.ts` 设置 `output: "export"`，子路径由 `NEXT_PUBLIC_BASE_PATH` 环境变量控制，默认 `/portfolio`（WorkBuddy 托管）；GitHub Pages 构建时设为 `/penpenWeb`，产物推送 `gh-pages` 分支发布。
+
+发布时同时设置 `SITE_URL`，否则站点保持 `noindex, nofollow`、canonical 与分享卡片会指向 localhost：
+
+```powershell
+cd code
+$env:NEXT_PUBLIC_BASE_PATH = '/penpenWeb'
+$env:SITE_URL = 'https://stdwang.github.io/penpenWeb'
+npm run build
+```
+
+不带 `SITE_URL` 的本地与预览构建继续输出 `noindex, nofollow` 和空 sitemap。
 
 在线站点：GitHub Pages 为主站（[在线预览](https://stdwang.github.io/penpenWeb/)），WorkBuddy 为镜像（[镜像链接](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)）。此前阶段二审阅版本曾部署于 Vercel，现已切换。当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
 

@@ -7,6 +7,8 @@ import { CaseDiagram } from "./diagrams";
 import { Arrow, TextLink } from "./ui";
 import { Contact } from "./footer";
 import { ProjectRail } from "./project-rail";
+import { DetailToc } from "./detail-toc";
+import { Lightbox } from "./lightbox";
 
 export function ProjectDetail({ project: p }: { project: Project }) {
   const category = p.category === "work" ? "工程案例" : "个人实验室";
@@ -39,7 +41,20 @@ export function ProjectDetail({ project: p }: { project: Project }) {
         <p>{p.outcome}</p>
       </div>
       <div className="detail-visual">
-        <ProjectVisual project={p} priority />
+        {p.image ? (
+          <Lightbox
+            src={asset(p.image)}
+            alt={p.imageAlt || p.title}
+            label={`${p.title} 完整截图`}
+          >
+            <div className="detail-shot">
+              <ProjectVisual project={p} priority />
+              <span className="zoom-hint">放大查看 ↗</span>
+            </div>
+          </Lightbox>
+        ) : (
+          <ProjectVisual project={p} priority />
+        )}
         {p.imageSource || p.imageCaption ? (
           <ImageCredit project={p} />
         ) : (
@@ -51,7 +66,7 @@ export function ProjectDetail({ project: p }: { project: Project }) {
         )}
         {p.image ? (
           <a className="text-link" href={asset(p.image)} target="_blank" rel="noreferrer">
-            查看完整截图 ↗
+            在新窗口打开原图 ↗
           </a>
         ) : null}
       </div>
@@ -71,15 +86,15 @@ export function ProjectDetail({ project: p }: { project: Project }) {
         </section>
       ) : null}
       <div className="detail-grid">
-        <nav className="detail-toc" aria-label="本页目录">
-          <span className="eyebrow">ON THIS PAGE</span>
-          {p.sections.map((s, i) => (
-            <a key={s.title} href={`#section-${i + 1}`}>
-              {s.title}
-            </a>
-          ))}
-          <a href="#boundary">范围与说明</a>
-        </nav>
+        <DetailToc
+          items={[
+            ...p.sections.map((s, i) => ({
+              id: `section-${i + 1}`,
+              label: s.title,
+            })),
+            { id: "boundary", label: "范围与说明" },
+          ]}
+        />
         <div className="prose">
           {p.diagram ? (
             <section className="detail-architecture">
