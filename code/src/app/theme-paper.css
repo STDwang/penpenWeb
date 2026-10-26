@@ -1,0 +1,300 @@
+/* ============================================================
+   Premium paper theme · 2026-10-26
+   Paper ground, editorial serif display, white frosted glass.
+   Imported last so it wins over both the base and the future layer.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  --paper: #f4f2ef;
+  --paper-warm: #fbfaf8;
+  --paper-deep: #ece9e4;
+
+  /* Frosted glass on paper */
+  --glass-1: rgba(255, 255, 255, 0.58);
+  --glass-2: rgba(255, 255, 255, 0.74);
+  --glass-3: rgba(255, 255, 255, 0.9);
+  --glass-line: rgba(23, 20, 15, 0.09);
+  --glass-line-strong: rgba(23, 20, 15, 0.17);
+  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 26px 60px -32px rgba(35, 29, 23, 0.45);
+  --glass-shadow-lift: 0 34px 84px -34px rgba(35, 29, 23, 0.5);
+  --glass-blur: 26px;
+}
+
+/* Paper ground: a faint warm bloom instead of the old coloured auras. */
+body {
+  background: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 84% 4%, #ffffffe6 0%, transparent 38%),
+    radial-gradient(ellipse at 4% 88%, #f0e9dd7a 0%, transparent 40%);
+  color: var(--text);
+  font-family: var(--font-sans), "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* --- type ---------------------------------------------------------- */
+/* Latin display type is a high-contrast serif, Chinese falls through to a
+   light Song. The interface stays on the neutral grotesque. */
+h1,
+h2 {
+  font-family: var(--font-display), var(--font-display-cn), "Songti SC", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+.future-intro-copy h1,
+.about-stage h2,
+.stage-heading h1,
+.stage-heading h2 {
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+.future-intro-copy h1 em,
+.about-stage h2 em,
+.stage-heading h1 span,
+.stage-heading h2 span {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 300;
+  color: var(--muted);
+}
+.mono,
+.eyebrow,
+.future-overline {
+  font-family: var(--font-sans), Consolas, "SFMono-Regular", monospace;
+}
+
+/* --- white frosted glass -------------------------------------------- */
+.site-header {
+  background:
+    var(--frost-grain),
+    linear-gradient(150deg, #ffffffe0, #ffffffe6 52%, #fffaf2f2);
+  border-bottom-color: var(--glass-line);
+  box-shadow: var(--glass-inset), 0 12px 38px -26px rgba(35, 29, 23, 0.4);
+  -webkit-backdrop-filter: blur(30px) saturate(1.5);
+  backdrop-filter: blur(30px) saturate(1.5);
+}
+
+.hero-evidence,
+.portfolio-card,
+.profile-terminal,
+.contact-box,
+.screenshot-card,
+.detail-outcome {
+  background:
+    var(--frost-grain),
+    linear-gradient(150deg, #ffffffd9, #ffffffab 46%, #fff6ecab);
+  border-color: var(--glass-line);
+  box-shadow: var(--glass-inset), var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+}
+
+.portfolio-card:hover,
+.portfolio-card:focus-within {
+  border-color: rgba(13, 106, 97, 0.42);
+  box-shadow: var(--glass-inset), var(--glass-shadow-lift);
+}
+
+.window-bar {
+  background: #f4f2ef99;
+  border-bottom-color: var(--glass-line);
+}
+.image-credit {
+  background: #17140f0f;
+}
+
+/* --- future stage ---------------------------------------------------- */
+.stage-meta,
+.stage-nav {
+  border-color: var(--glass-line);
+}
+.stage-nav button {
+  border-right-color: var(--glass-line);
+  color: var(--muted);
+}
+.stage-nav button:hover,
+.stage-nav button.is-active {
+  background: rgba(13, 106, 97, 0.07);
+  color: var(--text);
+}
+.stage-nav button::before {
+  background: var(--accent);
+}
+.stage-avatar::before {
+  border-color: var(--glass-line);
+}
+.stage-avatar::after {
+  background: linear-gradient(0deg, #f4f2efb3 0, transparent 24%, transparent 88%, #f4f2ef1f);
+}
+.avatar-caption {
+  color: var(--muted);
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--glass-line);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  text-shadow: none;
+}
+/* The cut-out ends in a straight line; fade it into the paper instead. */
+.character-canvas {
+  -webkit-mask-image: linear-gradient(#000 82%, transparent 99%);
+  mask-image: linear-gradient(#000 82%, transparent 99%);
+}
+.avatar-next {
+  border: 1px solid var(--glass-line-strong);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.avatar-next:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+.avatar-mode {
+  border: 1px solid var(--glass-line-strong);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.avatar-mode:hover,
+.avatar-mode[aria-pressed="true"] {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* --- feature cards ---------------------------------------------------- */
+.feature-card {
+  background:
+    var(--frost-grain),
+    linear-gradient(150deg, #ffffffe0, #ffffffb8 52%, #fff6ecb8);
+  border-color: var(--glass-line);
+  color: var(--text);
+  box-shadow: var(--glass-inset), 0 30px 70px -32px rgba(35, 29, 23, 0.5);
+  filter: none;
+}
+.feature-card.is-current {
+  border-color: rgba(13, 106, 97, 0.5);
+  box-shadow: var(--glass-inset), 0 0 0 1px rgba(13, 106, 97, 0.16), 0 36px 86px -34px rgba(35, 29, 23, 0.55);
+}
+.feature-card:hover {
+  filter: none;
+}
+.feature-card-shade {
+  background: linear-gradient(180deg, #17140f00 0%, transparent 32%, #17140f8c 100%);
+}
+.feature-card-index {
+  color: #ffffff;
+}
+.feature-card-type {
+  color: #d9f3ee;
+}
+.feature-deck::before {
+  background: radial-gradient(ellipse at center 80%, #bcd8d333, transparent 55%);
+}
+.feature-deck-axis {
+  background: linear-gradient(90deg, transparent, rgba(23, 20, 15, 0.22), transparent);
+}
+.feature-main {
+  background: var(--glass-1);
+  border-color: var(--glass-line);
+}
+.feature-media {
+  background: var(--paper-deep);
+}
+.feature-copy,
+.feature-bottom,
+.feature-caption,
+.feature-index button {
+  border-color: var(--glass-line);
+}
+.feature-controls button {
+  border-color: var(--glass-line-strong);
+  color: var(--text);
+}
+.feature-controls button:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+.feature-facts {
+  border-top-color: var(--glass-line);
+}
+.feature-facts strong {
+  color: var(--text);
+}
+.feature-tags span {
+  border-color: rgba(13, 106, 97, 0.3);
+  color: var(--accent);
+}
+.feature-open {
+  border-left-color: var(--glass-line-strong);
+  color: var(--accent);
+}
+.feature-open:hover {
+  color: var(--ink);
+}
+.showcase-note {
+  color: var(--subtle);
+}
+
+/* --- misc surfaces ------------------------------------------------------ */
+.lightbox {
+  background: #f4f2eff2;
+}
+.lightbox-figure img {
+  box-shadow: 0 40px 100px -40px rgba(35, 29, 23, 0.6);
+}
+.lightbox-close {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--glass-line-strong);
+  color: var(--text);
+}
+.lightbox-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.zoom-hint {
+  background: #ffffffeb;
+  border-color: var(--glass-line-strong);
+  color: var(--accent);
+}
+.detail-toc a.is-active {
+  color: var(--accent);
+}
+.rail-progress {
+  background: var(--glass-line);
+}
+.rail-progress span {
+  background: linear-gradient(90deg, var(--accent), #4fb3a8);
+}
+.rail-progress span {
+  background: linear-gradient(90deg, #0d6a61, #46a99e);
+}
+
+/* The paper grain reads as texture on white; keep it faint. */
+:root {
+  --frost-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' opacity='.045' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header,
+  .hero-evidence,
+  .portfolio-card,
+  .profile-terminal,
+  .contact-box,
+  .screenshot-card,
+  .detail-outcome,
+  .feature-card {
+    background: var(--paper-warm);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

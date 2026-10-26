@@ -1,9 +1,35 @@
 import type { Metadata } from "next";
+import { Bodoni_Moda, Inter, Noto_Serif_SC } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { indexable, siteUrl, absoluteUrl } from "@/lib/site";
 import { asset } from "@/lib/asset";
 import "./globals.css";
+import "./future.css";
+import "./theme-paper.css";
+import "./scene.css";
+import "./theme-dark.css";
+
+// Editorial display type: a high-contrast serif for Latin, a light Song for
+// Chinese, and a neutral grotesque for the interface.
+const display = Bodoni_Moda({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-display",
+  display: "swap",
+});
+const displayCn = Noto_Serif_SC({
+  subsets: ["latin"],
+  weight: ["300"],
+  variable: "--font-display-cn",
+  display: "swap",
+});
+const sans = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -26,7 +52,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" data-scroll-behavior="smooth" suppressHydrationWarning className={`${display.variable} ${displayCn.variable} ${sans.variable}`}>
+      <head><script dangerouslySetInnerHTML={{ __html: "try{document.documentElement.dataset.theme=localStorage.getItem('portfolio-theme')==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}" }} /></head>
       <body>
         <a className="skip-link" href="#main">
           跳至主要内容

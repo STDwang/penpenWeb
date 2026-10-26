@@ -16,6 +16,9 @@ code/.env*
 # Local source materials and temporary artifacts
 /work/
 /简历/
+/character-kit/
+/character-kit-v1.zip
+/previews/character-white-proxy-*.png
 *.log
 .DS_Store
 Thumbs.db

@@ -1,35 +1,23 @@
+import Link from "next/link";
 import { workProjects } from "@/content/projects";
-import { WorkCard } from "@/components/projects";
-import { ProjectRail } from "@/components/project-rail";
-import { Contact } from "@/components/footer";
+import { FeatureCarousel } from "@/components/feature-carousel";
 import { pageMeta } from "@/lib/site";
-import { Eyebrow } from "@/components/ui";
 
 export const metadata = pageMeta(
   "工程案例",
   "交通仿真平台的轨道模块、专业编辑系统、排放可视化与微中观协同：实际界面、个人职责和验证。",
   "/work",
 );
+
 export default function WorkPage() {
   return (
-    <main id="main" className="container">
-      <div className="page-intro">
-        <Eyebrow label="SELECTED ENGINEERING" className="accent" />
-        <h1>
-          在复杂系统里，
-          <br />
-          把问题做透。
-        </h1>
-        <p>
-          来自商业交通仿真平台的工程实践。沿着问题、架构与验证，说明我负责的工作，以及每项设计背后的取舍。
-        </p>
+    <main id="main" className="container showcase-page">
+      <div className="stage-heading">
+        <div><p className="future-overline">01 / SELECTED ENGINEERING</p><h1>工作成果<span>，从问题到交付。</span></h1></div>
+        <Link href="/#lab">继续看个人项目 ↗</Link>
       </div>
-      <ProjectRail label="工程案例">
-        {workProjects.map((p) => (
-          <WorkCard key={p.slug} project={p} />
-        ))}
-      </ProjectRail>
-      <Contact />
+      <FeatureCarousel projects={workProjects} label="工程案例" />
+      <p className="showcase-note">画面由本人提供，对应负责的模块；具体职责、验证范围与素材说明见各案例详情。</p>
     </main>
   );
 }
