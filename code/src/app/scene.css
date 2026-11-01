@@ -79,6 +79,39 @@
 }
 .scene-frame.is-active { opacity: 1; }
 @keyframes studio-idle { from { transform: translateY(0) scale(1); } to { transform: translateY(-3px) scale(1.006); } }
+
+/* Cyber-mech interaction layer: the android answers the pointer and every
+   station change with light. Idle = a slow power-core breathing; hover =
+   the armour glow rises; station switch = a scan band sweeps and the
+   framing re-settles; the pointer parallaxes the whole stage slightly. */
+html.js .scene-home .stage-avatar {
+  transform: translate3d(calc(var(--mx, 0) * 9px), calc(var(--my, 0) * 6px), 0);
+  transition: transform .3s ease-out;
+}
+.scene-mech-glow {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    radial-gradient(34% 26% at 50% 44%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 72%),
+    radial-gradient(20% 16% at 50% 27%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 74%);
+  mix-blend-mode: screen; filter: blur(7px);
+  opacity: .22; animation: mech-breathe 5.6s ease-in-out infinite;
+  transition: opacity .6s ease;
+}
+.scene-home:hover .scene-mech-glow { opacity: .5; }
+@keyframes mech-breathe { 0%, 100% { opacity: .18; } 50% { opacity: .34; } }
+.scene-scan {
+  position: absolute; inset: -10% 0; z-index: 3; pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--accent) 16%, transparent) 44%, color-mix(in srgb, #fff 32%, transparent) 50%, color-mix(in srgb, var(--accent) 16%, transparent) 56%, transparent 100%);
+  animation: mech-scan 1.05s .12s ease-out both;
+}
+@keyframes mech-scan {
+  0% { transform: translateY(-85%); opacity: 0; }
+  14% { opacity: .85; }
+  100% { transform: translateY(85%); opacity: 0; }
+}
+@media (pointer: coarse) {
+  html.js .scene-home .stage-avatar { transform: none; transition: none; }
+}
 .scene-home[data-pose="work"] .scene-camera { transform: translate3d(-29%, 17%, 0) scale(1.54); }
 .scene-home[data-pose="lab"] .scene-camera { transform: translate3d(0, -13%, 0) scale(1.54); }
 .scene-home[data-pose="contact"] .scene-camera { transform: translate3d(-23%, 18%, 0) scale(1.47); }
@@ -144,7 +177,8 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   transition: opacity .55s ease, transform .7s cubic-bezier(.2,.7,.15,1);
   animation: none;
 }
-.scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { opacity: 1; pointer-events: auto; transform: translateY(38px); }
+html.js .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab),
+html:not(.js) .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { opacity: 1; pointer-events: auto; transform: translateY(38px); }
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .scene-screen-top { display: none; }
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading {
   position: absolute; top: 10px; left: -254px; width: 230px;
@@ -160,7 +194,7 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   box-shadow: var(--glass-inset), 0 34px 90px -38px var(--scene-ink-d);
   backdrop-filter: blur(24px) saturate(1.15);
 }
-.scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-deck { height: clamp(195px, 26vh, 240px); border-radius: 12px; }
+.scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-deck { height: clamp(180px, 23vh, 218px); border-radius: 12px; }
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-card { top: 0; width: 72%; height: 100%; border-radius: 12px; }
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-card-title,
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-card-type { display: none; }
@@ -190,7 +224,7 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   }
   .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading h2 { font-size: clamp(22px, 2.5vw, 29px); }
   .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading > a { font-size: 10px; }
-  .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { transform: translateY(65px); }
+  html.js .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { transform: translateY(65px); }
 }
 @media (max-width: 767px) {
   .scene-camera { transform: translate3d(0, 5%, 0) scale(.94); }
@@ -219,7 +253,7 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   .scene-home .scene-screen .feature-caption h2 { font-size: 19px; }
   .scene-home .scene-screen .feature-credit { max-width: 55%; }
   html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) { top: 295px; bottom: 66px; width: 100%; max-height: none; margin: 0; padding: 0; overflow-y: auto; }
-  .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { transform: none; }
+  html.js .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) { transform: none; }
   .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading { position: static; width: 100%; display: block; padding: 8px 5px 5px; }
   .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading h2 { font-size: 22px; }
   .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .feature-carousel { padding: 9px; border-radius: 15px; }
@@ -234,6 +268,8 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
 }
 @media (prefers-reduced-motion: reduce) {
   .scene-camera, .scene-frame { transition: none; animation: none; }
+  html.js .scene-home .stage-avatar { transform: none; transition: none; }
+  .scene-mech-glow, .scene-scan { display: none; }
   .scene-transition { display: none; }
   .scene-home .stage-panel:not([hidden]) { animation: none; }
 }
@@ -340,9 +376,18 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   .scene-home .feature-card-detail { left: 12px; bottom: 11px; padding-top: 5px; font-size: 10px; }
 }
 
-/* The entire three-card arrangement stays inside the viewport. */
+/* The entire three-card arrangement stays inside the viewport and docks to
+   the bottom band, so the portrait keeps its face, glasses, watch and headset
+   in the clear while the shelf carries the cards. */
 html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
   width: min(1120px, calc(100% - 72px));
+  margin: auto 0 26px;
+  max-height: 60%;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+}
+html.js .scene-home[data-pose="present"] .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
+  transform: translateY(0);
 }
 .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) .stage-heading {
   position: relative; top: auto; left: auto; width: 100%;
@@ -405,8 +450,9 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
 }
 
 /* The device each station frames, measured on the rendered scene. */
-.scene-home[data-scene="work"] .device-chip { --dx: 51%; --dy: 18.4%; }
-.scene-home[data-scene="lab"] .device-chip { --dx: 64.2%; --dy: 35%; }
+.scene-home[data-scene="work"] .device-chip { --dx: 51%; --dy: 26%; }
+.scene-home[data-scene="work"][data-pose="present"] .device-chip { --dx: 51%; --dy: 28%; }
+.scene-home[data-scene="lab"] .device-chip { --dx: 68.5%; --dy: 16%; }
 .scene-home[data-scene="contact"] .device-chip { --dx: 20.8%; --dy: 22.2%; }
 
 .scene-station-list { display: flex; flex-direction: column; }
@@ -429,7 +475,7 @@ html.js .scene-home .scene-screen:is(.scene-screen-work, .scene-screen-lab) {
 /* During the wrist insert the camera is on the watch itself; once it settles
    back to the wide shot the same card points at the bare wrist. */
 .scene-home[data-scene="lab"][data-pose="lab"] .device-chip { --dx: 61.4%; --dy: 39.8%; }
-.scene-home[data-scene="lab"][data-pose="present"] .device-chip { --dx: 75.2%; --dy: 63.2%; }
+.scene-home[data-scene="lab"][data-pose="present"] .device-chip { --dx: 73%; --dy: 28%; }
 
 /* A compact camera strip stays reachable from every station, so the visitor
    can always move the camera again without going back to the panorama. */

@@ -16,13 +16,13 @@ const stages = [
 ];
 
 const sceneFrames = [
-  "/images/white-studio-intro.png",
-  "/images/white-studio-glasses.png",
-  "/images/white-studio-watch.png",
-  "/images/white-studio-headset.png",
-  "/images/white-studio-present.png",
+  "/images/robot-studio-intro.png",
+  "/images/robot-studio-glasses.png",
+  "/images/robot-studio-watch.png",
+  "/images/robot-studio-headset.png",
+  "/images/robot-studio-present.png",
 ];
-const darkSceneFrames = sceneFrames.map((frame) => frame.replace("white-studio", "dark-studio"));
+const darkSceneFrames = sceneFrames.map((frame) => frame.replace("robot-studio", "robot-dark"));
 
 // Camera stations. Each one moves the background camera onto one of the
 // devices the character wears and reveals the matching section of the site.
@@ -62,6 +62,17 @@ export function HomeStage() {
   const [availableFrames, setAvailableFrames] = useState<Set<number>>(() => new Set([0]));
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const actionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stageRef = useRef<HTMLElement>(null);
+
+  // Pointer parallax for the mech stage: write CSS vars straight onto the
+  // element so moving the mouse never triggers a React re-render.
+  function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
+    const el = stageRef.current;
+    if (!el || window.matchMedia("(pointer: coarse)").matches) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", ((event.clientX - rect.left) / rect.width - 0.5).toFixed(4));
+    el.style.setProperty("--my", ((event.clientY - rect.top) / rect.height - 0.5).toFixed(4));
+  }
 
   useEffect(() => {
     const syncTheme = () => setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
@@ -103,7 +114,7 @@ export function HomeStage() {
   }
 
   return (
-    <main id="main" className="future-home scene-home" data-scene={stages[stage].id} data-pose={shot === 4 ? "present" : stages[shot].id} data-item={item}>
+    <main id="main" ref={stageRef} onPointerMove={handlePointerMove} className="future-home scene-home" data-scene={stages[stage].id} data-pose={shot === 4 ? "present" : stages[shot].id} data-item={item}>
       <div className="scene-atmosphere" aria-hidden="true"><span className="scene-orbit scene-orbit-one" /><span className="scene-orbit scene-orbit-two" /><span className="scene-horizon" /></div>
       <div className="future-stage container">
         <nav className="scene-camera-strip" aria-label="快速切换机位">
@@ -138,6 +149,8 @@ export function HomeStage() {
                 />
               ) : null
             ))}
+            <div className="scene-mech-glow" aria-hidden="true" />
+            <div className="scene-scan" key={`mech-scan-${shot}-${stage}`} aria-hidden="true" />
           </div>
           <div className="scene-transition" aria-hidden="true"><span className="scene-transition-light" /><span className="scene-transition-scan" /><span className="scene-transition-ring" /></div>
         </div>
