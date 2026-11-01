@@ -4,7 +4,7 @@ import { TextLink } from "./ui";
 export function Contact() {
   return (
     <section className="contact-box" aria-labelledby="contact-title">
-      <p className="eyebrow">LET’S BUILD RELIABLE SYSTEMS</p>
+      <p className="eyebrow">联系方式</p>
       <h2 id="contact-title">有合适的仿真平台机会，欢迎聊聊。</h2>
       <div className="contact-links">
         <a href="tel:13849489395">{person.phone}</a>
@@ -17,9 +17,7 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="site-footer container">
-      <span className="mono">
-        © {new Date().getFullYear()} 王帅鹏 / STDwang
-      </span>
+      <span>© {new Date().getFullYear()} 王帅鹏 / STDwang</span>
       <div>
         <TextLink href={person.github} external>
           GitHub

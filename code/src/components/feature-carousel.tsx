@@ -119,7 +119,7 @@ export function FeatureCarousel({
               >
                 {media}
                 <span className="feature-card-copy">
-                  <span className="feature-card-eyebrow mono">{String(position + 1).padStart(2, "0")} / {item.eyebrow}</span>
+                  <span className="feature-card-eyebrow mono">{item.eyebrow}</span>
                   <strong role="heading" aria-level={3}>{item.title}</strong>
                   <span className="feature-card-summary">{item.summary}</span>
                   <span className="feature-card-stack mono">{item.stack.slice(0, 3).join(" / ")}</span>
@@ -143,7 +143,7 @@ export function FeatureCarousel({
               <span className="feature-card-shade" />
               <span className="feature-card-index mono">{String(position + 1).padStart(2, "0")}</span>
               <span className="feature-card-title">{item.title}</span>
-              <span className="feature-card-type mono">{item.category === "work" ? "ENGINEERING" : "PERSONAL LAB"}</span>
+              <span className="feature-card-type">{item.category === "work" ? "工程案例" : "个人项目"}</span>
             </button>
           );
         })}
@@ -152,16 +152,16 @@ export function FeatureCarousel({
 
       {!integrated && <div className="feature-caption" aria-live="polite" aria-atomic="true">
         <div className="feature-caption-main">
-          <p className="future-overline">{project.eyebrow}</p>
           <h2>{project.title}</h2>
           <p>{project.summary}</p>
           <div className="feature-caption-meta">
+            <span>{project.eyebrow}</span>
             <span>{project.role}</span>
             <span>{project.stack.slice(0, 3).join(" / ")}</span>
           </div>
           {project.source || project.demo ? <div className="feature-external">
-            {project.source ? <a href={project.source} target="_blank" rel="noreferrer">查看源码 ↗</a> : null}
-            {project.demo ? <a href={project.demo} target="_blank" rel="noreferrer">{project.demoLabel || "项目演示"} ↗</a> : null}
+            {project.source ? <a href={project.source} target="_blank" rel="noreferrer">查看源码<Arrow /></a> : null}
+            {project.demo ? <a href={project.demo} target="_blank" rel="noreferrer">{project.demoLabel || "项目演示"}<Arrow /></a> : null}
           </div> : null}
         </div>
         <Link className="feature-open" href={projectPath(project)} aria-label={`查看${project.title}详情`}>

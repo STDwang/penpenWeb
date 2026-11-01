@@ -47,7 +47,7 @@ export function DetailToc({ items }: { items: TocItem[] }) {
 
   return (
     <nav className="detail-toc" aria-label="本页目录">
-      <span className="eyebrow">ON THIS PAGE</span>
+      <span className="eyebrow">本页目录</span>
       {items.map((item) => (
         <a
           key={item.id}

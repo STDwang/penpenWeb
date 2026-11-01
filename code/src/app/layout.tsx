@@ -53,7 +53,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN" data-scroll-behavior="smooth" suppressHydrationWarning className={`${display.variable} ${displayCn.variable} ${sans.variable}`}>
-      <head><script dangerouslySetInnerHTML={{ __html: "try{document.documentElement.dataset.theme=localStorage.getItem('portfolio-theme')==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}" }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');document.documentElement.classList.add('js');try{document.documentElement.dataset.theme=localStorage.getItem('portfolio-theme')==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}" }} /></head>
       <body>
         <a className="skip-link" href="#main">
           跳至主要内容

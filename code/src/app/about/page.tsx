@@ -11,7 +11,6 @@ export default function About() {
   return (
     <main id="main" className="container">
       <div className="page-intro">
-        <p className="eyebrow accent">ABOUT / EXPERIENCE & NEXT</p>
         <h1>
           从交通仿真出发，
           <br />
@@ -67,7 +66,7 @@ export default function About() {
           </section>
         </div>
         <aside className="about-aside">
-          <p className="eyebrow accent">AT A GLANCE</p>
+          <p className="eyebrow accent">速览</p>
           <h2>C++ / 仿真平台工程师</h2>
           <p>
             交通仿真 · 专业编辑器 · 跨模块交付
