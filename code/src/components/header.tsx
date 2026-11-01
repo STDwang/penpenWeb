@@ -7,6 +7,7 @@ import { Arrow, Logo } from "./ui";
 import { person } from "@/lib/site";
 
 const nav = [
+  { href: "/", homeHref: "/#intro", label: "主页" },
   { href: "/work", homeHref: "/#work", label: "工作成果" },
   { href: "/lab", homeHref: "/#lab", label: "个人项目" },
   { href: "/about", homeHref: "/#contact", label: "关于" },
@@ -76,7 +77,7 @@ export function Header() {
             key={item.href}
             href={item.href}
             aria-current={
-              !item.external && pathname.startsWith(item.href)
+              !item.external && (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
                 ? "page"
                 : undefined
             }

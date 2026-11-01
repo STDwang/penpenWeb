@@ -24,10 +24,42 @@ const sceneFrames = [
 ];
 const darkSceneFrames = sceneFrames.map((frame) => frame.replace("white-studio", "dark-studio"));
 
+// Camera stations. Each one moves the background camera onto one of the
+// devices the character wears and reveals the matching section of the site.
+const stations = [
+  { id: "intro", index: 0, kicker: "PANORAMA", label: "全景", note: "人物与场景的整体建立" },
+  { id: "work", index: 1, kicker: "OPTICAL DISPLAY", label: "眼镜视野", note: "工程案例在镜片上展开" },
+  { id: "lab", index: 2, kicker: "WRIST DISPLAY", label: "腕表界面", note: "个人项目在表盘上展开" },
+  { id: "contact", index: 3, kicker: "SPATIAL PROJECTION", label: "耳机投影", note: "经历与联系在投影上展开" },
+];
+
+// The compact summary that sits on the device surface itself.
+const deviceCards: Record<number, { kicker: string; title: string; line: string; metric: string }> = {
+  1: {
+    kicker: "OPTICAL DISPLAY / 01",
+    title: "工作成果",
+    line: "轨道模块 · 专业编辑器 · 排放可视化 · 微中观协同",
+    metric: "04 CASES",
+  },
+  2: {
+    kicker: "WRIST DISPLAY / 02",
+    title: "个人项目",
+    line: "GPUView 性能可视化 · Dreamscape · MISTLOOP · ImagePlayer",
+    metric: "04 PROJECTS",
+  },
+  3: {
+    kicker: "SPATIAL PROJECTION / 03",
+    title: "关于与联系",
+    line: "C++ / Qt 仿真平台 · 机器人与智驾仿真工具链",
+    metric: "OPEN TO WORK",
+  },
+};
+
 export function HomeStage() {
   const [stage, setStage] = useState(0);
   const [item, setItem] = useState(0);
   const [shot, setShot] = useState(0);
+  const [availableFrames, setAvailableFrames] = useState<Set<number>>(() => new Set([0]));
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const actionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -54,6 +86,11 @@ export function HomeStage() {
 
   function go(next: number, updateUrl = true) {
     if (actionTimer.current) clearTimeout(actionTimer.current);
+    setAvailableFrames((current) => {
+      const frames = new Set(current).add(next);
+      if (next === 1 || next === 2) frames.add(4);
+      return frames;
+    });
     setStage(next);
     const presentsProjects = next === 1 || next === 2;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -74,14 +111,49 @@ export function HomeStage() {
           <span>ENGINEERING THE NEXT WORLD</span>
         </div>
 
+        <nav className="scene-camera-strip" aria-label="快速切换机位">
+          {stations.map((station) => (
+            <button
+              key={station.id}
+              type="button"
+              className={station.index === stage ? "is-active" : undefined}
+              aria-pressed={station.index === stage}
+              onClick={() => go(station.index)}
+            >
+              {station.label}
+            </button>
+          ))}
+        </nav>
+
         <div className={`stage-avatar stage-avatar-${stage}`} aria-hidden="true">
           <div className="scene-camera">
             {(theme === "dark" ? darkSceneFrames : sceneFrames).map((frame, index) => (
-              <img key={index} className={`scene-frame${shot === index ? " is-active" : ""}`} src={asset(frame)} alt="" draggable={false} />
+              <img
+                key={index}
+                className={`scene-frame${shot === index ? " is-active" : ""}`}
+                src={availableFrames.has(index) ? asset(frame) : undefined}
+                alt=""
+                draggable={false}
+                fetchPriority={shot === index ? "high" : "low"}
+                decoding="async"
+                onLoad={() => {
+                  if (index === 0) setAvailableFrames((current) => current.has(4) ? current : new Set(current).add(4));
+                }}
+              />
             ))}
           </div>
           <div className="scene-transition" aria-hidden="true"><span className="scene-transition-light" /><span className="scene-transition-scan" /><span className="scene-transition-ring" /></div>
         </div>
+
+        {deviceCards[stage] ? (
+          <div className={`device-chip device-chip-${stage}`} aria-hidden="true">
+            <span className="device-chip-kicker mono">{deviceCards[stage].kicker}</span>
+            <strong>{deviceCards[stage].title}</strong>
+            <p>{deviceCards[stage].line}</p>
+            <span className="device-chip-metric mono">{deviceCards[stage].metric}</span>
+            <span className="device-chip-pin" />
+          </div>
+        ) : null}
 
         <section className="stage-panel intro-panel" aria-labelledby="future-title" hidden={stage !== 0}>
           <div className="future-intro-copy">
@@ -92,12 +164,36 @@ export function HomeStage() {
               四年 C++ / Qt 商业仿真研发，做过轨道模块、专业编辑器与微中观协同。
               正在把建模、交互与验证经验延伸到机器人和智驾仿真工具链。
             </p>
+            <div className="future-actions">
+              <Link className="button primary" href="/work">探索工作成果 <Arrow /></Link>
+              <Link className="button" href="/resume">下载简历 <Arrow /></Link>
+            </div>
             <div className="future-stat-line">
               <span><strong>04</strong> 年商业研发</span>
               <span><strong>25</strong> 项轨道模块回归用例</span>
               <span><strong>02</strong> 种仿真尺度协同</span>
             </div>
           </div>
+          <aside className="scene-intro-side" aria-label="相机机位">
+            <span className="scene-side-kicker">CAMERA STATIONS</span>
+            <p>点击任意机位，镜头会推向对应的装置。</p>
+            <div className="scene-station-list">
+              {stations.map((station) => (
+                <button
+                  key={station.id}
+                  type="button"
+                  className={station.index === stage ? "is-active" : undefined}
+                  aria-pressed={station.index === stage}
+                  onClick={() => go(station.index)}
+                >
+                  <span>{station.kicker}</span>
+                  <strong>{station.label}</strong>
+                  <Arrow />
+                </button>
+              ))}
+            </div>
+            <span className="scene-side-foot">GitHub · CSDN · 邮箱均可在「关于与联系」中直接触达。</span>
+          </aside>
         </section>
 
         <section className="stage-panel collection-panel scene-screen scene-screen-work" aria-labelledby="work-stage-title" hidden={stage !== 1}>

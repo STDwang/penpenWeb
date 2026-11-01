@@ -55,6 +55,37 @@ test("header navigation drives device scenes on the homepage", async ({ page }, 
   await page.getByRole("navigation", { name: "主导航" }).getByRole("link", { name: "个人项目" }).click();
   await expect(page.locator(".scene-home")).toHaveAttribute("data-scene", "lab");
   await expect(page.locator(".scene-screen-lab")).toBeVisible();
+  if (testInfo.project.name === "mobile") await page.getByRole("button", { name: "打开导航" }).click();
+  await page.getByRole("navigation", { name: "主导航" }).getByRole("link", { name: "主页" }).click();
+  await expect(page.locator(".scene-home")).toHaveAttribute("data-scene", "intro");
+  await expect(page).toHaveURL(/#intro$/);
+});
+
+test("camera stations move the scene and reveal the device readout", async ({ page }, testInfo) => {
+  await page.goto(sitePath("/"));
+  // The station rail is hidden on phones, where the header drives the camera.
+  if (testInfo.project.name === "mobile") return;
+
+  const rail = page.getByRole("complementary", { name: "相机机位" });
+  await expect(rail).toBeVisible();
+  await expect(page.locator(".device-chip")).toHaveCount(0);
+
+  await rail.getByRole("button", { name: /眼镜视野/ }).click();
+  await expect(page.locator(".scene-home")).toHaveAttribute("data-scene", "work");
+  await expect(page.locator(".device-chip")).toBeVisible();
+  await expect(page.locator(".device-chip")).toContainText("工作成果");
+  await expect(page.locator(".scene-status")).toContainText("眼镜视野");
+
+  // The compact strip stays reachable from every station.
+  const strip = page.getByRole("navigation", { name: "快速切换机位" });
+  await strip.getByRole("button", { name: "耳机投影" }).click();
+  await expect(page.locator(".scene-home")).toHaveAttribute("data-scene", "contact");
+  await expect(page.locator(".device-chip")).toContainText("关于与联系");
+  await expect(page.locator(".scene-status")).toContainText("耳机投影");
+
+  await strip.getByRole("button", { name: "全景" }).click();
+  await expect(page.locator(".scene-home")).toHaveAttribute("data-scene", "intro");
+  await expect(page.locator(".device-chip")).toHaveCount(0);
 });
 
 test("work and lab pages let visitors choose projects and open evidence", async ({ page, request }, testInfo) => {
