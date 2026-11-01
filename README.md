@@ -28,14 +28,6 @@ npm run build
 
 ## 实际页面截图
 
-### 全幅分镜舞台（角色即背景 + 相机机位，尚未发布）
-
-![全幅分镜舞台桌面首页](previews/stageb-intro.png)
-
-[全景](previews/stageb-intro.png) · [眼镜机位](previews/stageb-work.png) · [腕表机位](previews/stageb-lab.png) · [耳机投影机位](previews/stageb-contact.png) · [手机版](previews/stageb-mobile-intro.png) · [暗色主题](previews/stageb-dark-contact.png)
-
-人物居中并铺满整个视口作为背景；顶部导航与右侧机位栏都能驱动镜头，镜头推向眼镜、手表或头戴投影，对应装置旁出现精简读数、旁边停靠完整的磨砂玻璃内容卡。高级白为主主题，暗色主题保留为可切换的备选。[分析与计划](docs/10-ui-interaction-plan.md) · [实施记录](docs/12-paper-theme-stage-a.md)
-
 ### 本轮本地审阅版（满帧截图与交互反馈，尚未发布）
 
 ![满帧截图与交互反馈版桌面首页](previews/polish-desktop-hero.png)

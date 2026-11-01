@@ -14,6 +14,7 @@ export default function Resume() {
     <main id="main" className="container">
       <div className="resume-top">
         <div className="page-intro">
+          <p className="eyebrow accent">RESUME / WANG SHUAIPENG</p>
           <h1>王帅鹏</h1>
           <p>C++ / 仿真平台工程师 · 四年研发经验 · 上海</p>
           <div className="resume-contact">
