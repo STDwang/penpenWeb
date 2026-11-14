@@ -2,6 +2,7 @@
 code/node_modules/
 code/.next/
 code/out/
+code/.hallmark/
 code/test-results/
 code/playwright-report/
 code/*.tsbuildinfo

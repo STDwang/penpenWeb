@@ -7,10 +7,11 @@ import { Arrow, Logo } from "./ui";
 import { person } from "@/lib/site";
 
 const nav = [
-  { href: "/work", homeHref: "/#work", label: "工作成果" },
-  { href: "/lab", homeHref: "/#lab", label: "个人项目" },
-  { href: "/about", homeHref: "/#contact", label: "关于" },
-  { href: person.blog, label: "博客", external: true },
+  { href: "/work", homeHref: "/#work", label: "工作成果", index: "01" },
+  { href: "/lab", homeHref: "/#lab", label: "个人项目", index: "02" },
+  { href: "/games", label: "游戏橱窗", index: "03" },
+  { href: "/about", homeHref: "/#contact", label: "关于", index: "04" },
+  { href: person.blog, label: "博客", external: true, index: "05" },
 ];
 
 export function Header() {
@@ -70,7 +71,7 @@ export function Header() {
         aria-label="主导航"
       >
         {nav.map((item) => pathname === "/" && item.homeHref ? (
-          <a key={item.href} href={`#${item.homeHref.split("#")[1]}`} onClick={() => setOpen(false)}>{item.label}</a>
+          <a key={item.href} href={`#${item.homeHref.split("#")[1]}`} onClick={() => setOpen(false)}><span className="mono nb-nav-index">{item.index}</span>{item.label}</a>
         ) : (
           <Link
             key={item.href}
@@ -83,6 +84,7 @@ export function Header() {
             onClick={() => setOpen(false)}
             {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
           >
+            <span className="mono nb-nav-index">{item.index}</span>
             {item.label}
             {item.external ? <Arrow /> : null}
           </Link>

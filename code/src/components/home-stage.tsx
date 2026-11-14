@@ -9,10 +9,21 @@ import { Arrow } from "./ui";
 import { FeatureCarousel } from "./feature-carousel";
 
 const stages = [
-  { id: "intro" },
-  { id: "work" },
-  { id: "lab" },
-  { id: "contact" },
+  { id: "intro", label: "开场", index: "00" },
+  { id: "work", label: "工作成果", index: "01" },
+  { id: "lab", label: "个人项目", index: "02" },
+  { id: "contact", label: "关于", index: "03" },
+];
+
+const ticker = [
+  "C++ / QT", "TRAFFIC SIMULATION", "GODOT 4.7", "BLENDER BPY",
+  "THREE.JS / WEBGL2", "COCOS CREATOR 3.8", "NEXT.JS", "PROCEDURAL ASSETS",
+];
+
+const quickLinks = [
+  { label: "工作成果", index: "01 / ENGINEERING", target: 1 },
+  { label: "个人项目", index: "02 / PERSONAL LAB", target: 2 },
+  { label: "关于与联系", index: "03 / ABOUT", target: 3 },
 ];
 
 const sceneFrames = [
@@ -70,7 +81,7 @@ export function HomeStage() {
       <div className="scene-atmosphere" aria-hidden="true"><span className="scene-orbit scene-orbit-one" /><span className="scene-orbit scene-orbit-two" /><span className="scene-horizon" /></div>
       <div className="future-stage container">
         <div className="stage-meta mono">
-          <span>WANG SHUAIPENG <i /> PORTFOLIO / 2026</span>
+          <span>FOLIO / 2026 <i /> WANG SHUAIPENG</span>
           <span>ENGINEERING THE NEXT WORLD</span>
         </div>
 
@@ -88,16 +99,35 @@ export function HomeStage() {
             <p className="future-overline">C++ ENGINEER <span>/</span> SIMULATION SYSTEMS</p>
             <p className="future-name">王帅鹏 <span>— STDwang</span></p>
             <h1 id="future-title">让复杂世界，<br /><em>运行得更清晰。</em></h1>
+            <span className="nb-sticker">4 GAMES TO PLAY</span>
             <p className="future-intro-text">
               四年 C++ / Qt 商业仿真研发，做过轨道模块、专业编辑器与微中观协同。
               正在把建模、交互与验证经验延伸到机器人和智驾仿真工具链。
             </p>
+            <div className="future-actions">
+              <Link className="button primary" href="/games">打开游戏橱窗 <Arrow /></Link>
+              <Link className="button" href="/work">查看工程案例 <Arrow /></Link>
+            </div>
             <div className="future-stat-line">
               <span><strong>04</strong> 年商业研发</span>
               <span><strong>25</strong> 项轨道模块回归用例</span>
               <span><strong>02</strong> 种仿真尺度协同</span>
             </div>
           </div>
+
+          <aside className="scene-intro-side" aria-label="首页快捷索引">
+            <span className="scene-side-kicker mono">INDEX / 档案索引</span>
+            <p>从任意一条线索开始，或者直接去试玩。</p>
+            {quickLinks.map((link) => (
+              <button type="button" key={link.label} onClick={() => go(link.target)}>
+                <span>{link.index}</span>
+                <strong>{link.label}</strong>
+                <Arrow />
+              </button>
+            ))}
+            <Link className="button primary" href="/games">4 款游戏 · 打开即玩 <Arrow /></Link>
+            <span className="scene-side-foot mono">BROWSER ONLY / NO INSTALL</span>
+          </aside>
         </section>
 
         <section className="stage-panel collection-panel scene-screen scene-screen-work" aria-labelledby="work-stage-title" hidden={stage !== 1}>
@@ -128,9 +158,31 @@ export function HomeStage() {
         </section>
 
         <div className="scene-status mono" aria-live="polite"><span className="scene-status-dot" /> CAMERA / {stage === 0 ? "全景" : stage === 1 ? "眼镜视野" : stage === 2 ? "腕表界面" : "耳机投影"}</div>
+
+        <div className="nb-ticker" aria-hidden="true">
+          <div className="nb-ticker-track">
+            {[...ticker, ...ticker].map((word, index) => <span className="nb-ticker-item" key={`${word}-${index}`}>{word}</span>)}
+          </div>
+        </div>
+
+        <nav className="stage-nav" aria-label="首页场景切换">
+          {stages.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              className={stage === index ? "is-active" : ""}
+              aria-pressed={stage === index}
+              onClick={() => go(index)}
+            >
+              <span>{item.index}</span>
+              <strong>{item.label}</strong>
+            </button>
+          ))}
+        </nav>
+
         <noscript>
           <div className="stage-noscript">
-            <Link href="/work">工作成果 ↗</Link><Link href="/lab">个人项目 ↗</Link><Link href="/about">关于与联系 ↗</Link>
+            <Link href="/work">工作成果 ↗</Link><Link href="/lab">个人项目 ↗</Link><Link href="/games">游戏橱窗 ↗</Link><Link href="/about">关于与联系 ↗</Link>
           </div>
           <style>{".future-home{height:auto;min-height:calc(100dvh - 81px)}.stage-panel.intro-panel{min-height:650px}"}</style>
         </noscript>
