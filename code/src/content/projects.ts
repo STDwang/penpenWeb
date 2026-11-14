@@ -278,9 +278,9 @@ export const projects: Project[] = [
     image: "/images/dreamscape.webp",
     imageAlt: "Dreamscape 实际游戏截图：猫骑士、绿植废墟与程序化场景",
     source: "https://github.com/STDwang/Dreamscape",
-    demo: "https://dreamscape-cat.app.workbuddy.host/",
+    demo: "https://stdwang.github.io/dreamscape/",
     demoLabel: "项目展示",
-    demoNote: "外部项目介绍与截图展示，不是浏览器可玩游戏。",
+    demoNote: "浏览器直接试玩；全部游戏合集见游戏橱窗 stdwang.github.io",
     outcome: "生成脚本 → 场景 → 实机截图迭代",
     focus: "程序化场景 / 个人原型",
     sections: [
