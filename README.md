@@ -2,11 +2,15 @@
 
 求职作品集、技术内容与个人实验室。面向机器人与智驾仿真岗位，以已有 C++/Qt 商业仿真平台经验为基础。
 
-**当前：真实截图满帧 + 交互反馈补齐版（尚未发布）。** 商业截图按素材流水线重新裁切为满帧 16:9，首屏、卡片与详情页不再被补白稀释；`.text-link` 补上 hover 反馈，移动端菜单支持点击外部关闭与滚动锁定，画廊增加可视进度条，详情页目录跟随滚动高亮并支持站内大图查看。索引开关与托管平台解耦，设置 `SITE_URL` 后 canonical、分享卡片与 sitemap 指向生产域名。[本轮分析与计划](docs/10-ui-interaction-plan.md)。线上仍为上一版，WorkBuddy 镜像待同步。
+**当前：Blueprint Brutalism 改版 + 游戏橱窗整合（已上线，2026-11-15）。** 参考 xmmxovo.online 的新粗野语言重做视觉与交互：2px 黑框与硬阴影、按压式按钮、超粗展示字、荧光色块、点阵蓝图底纹、跑马灯、四幕场景切换台、滚动揭示与阅读进度条；新增 `/games` 游戏档案页与导航入口，四款游戏（含两款源码私有）由单一清单 `code/src/content/games.json` 同时驱动作品集与游戏橱窗。所有动效都在 `prefers-reduced-motion` 下降级，内容默认可见、不依赖 JS 才能显示。GitHub Pages 主站与 WorkBuddy 镜像均已同步；国内访问另有独立的游戏橱窗备用入口。
 
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）
-- WorkBuddy 镜像：[https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)
+- 国内镜像（同一应用同时承载游戏橱窗与作品集）：[作品集 /portfolio/](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/portfolio/?sharecode=QLTHCY272K) ｜ [游戏橱窗 /](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)
+- 游戏档案：[https://stdwang.github.io/penpenWeb/games/](https://stdwang.github.io/penpenWeb/games/)（4 款游戏的技术路线与试玩入口）
+- 游戏橱窗：[https://stdwang.github.io/](https://stdwang.github.io/)（4 款游戏浏览器直接试玩；两款源码私有的游戏只发布构建产物）
+- 国内备用入口：[https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)（WorkBuddy 应用镜像，含全部 4 款游戏构建产物；分享时请保留 `?sharecode=` 参数）
+- 游戏清单：`code/src/content/games.json` 是唯一数据源。修改后运行 `npm run games:sync`（可用 `SHOWCASE_DIR` 指定橱窗仓库路径）同步橱窗的 `games.json` 与封面；`backupBase` / `backupShare` 控制国内备用入口，镜像自身会自动隐藏该链接。
 
 ## 本地运行
 
@@ -153,11 +157,11 @@ npm run build
 
 不带 `SITE_URL` 的本地与预览构建继续输出 `noindex, nofollow` 和空 sitemap。
 
-在线站点：GitHub Pages 为主站（[在线预览](https://stdwang.github.io/penpenWeb/)），WorkBuddy 为镜像（[镜像链接](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)）。此前阶段二审阅版本曾部署于 Vercel，现已切换。当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
+在线站点：GitHub Pages 为主站（[在线预览](https://stdwang.github.io/penpenWeb/)），国内入口为 WorkBuddy 应用镜像（[作品集 /portfolio/](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/portfolio/?sharecode=QLTHCY272K)）。同一个镜像应用的根路径是[游戏橱窗](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)，四款游戏的构建产物都在其中。分享时务必保留 `?sharecode=` 参数，平台会校验每个请求。此前阶段二审阅版本曾部署于 Vercel，现已切换；仓库 homepage 元数据也已从失效的 Vercel 地址改为 Pages 地址。
 
-在线站点托管在 WorkBuddy（[在线预览](https://penpen-portfolio.app.workbuddy.host/portfolio/?sharecode=ZGOW7OHTCI)），公开页面、交互与下载已验证。此前阶段二审阅版本曾部署于 Vercel，现已切换为 WorkBuddy 静态托管。生产发布时把 `SITE_URL` 设置为已验证的正式 origin 并配置索引开关；当前在线站点保持 `noindex, nofollow`，正式搜索收录在阶段三审阅后配置。
+当前在线站点按既有策略保持 `noindex, nofollow`、空 sitemap（构建未设置 `SITE_URL`），正式搜索收录在阶段三审阅后配置。上一轮使用的 `penpen-portfolio.app.workbuddy.host` 为历史应用链接，本轮发布工具把作品集与游戏橱窗收敛到同一个新应用，旧链接仍是旧版内容，后续统一使用上面的新链接。
 
-本轮同步 GitHub 源码和 Pages，WorkBuddy 镜像仍待通过已有应用重新发布。没有变更托管平台、索引开关或桌面简历；简历优化按要求安排在部署完成之后。精确发布状态见 [发布记录](docs/09-release.md)。
+本轮已同步 GitHub 源码、`gh-pages` 产物、游戏橱窗仓库与国内镜像；未变更索引开关或桌面简历。精确发布状态见 [发布记录](docs/09-release.md)。
 
 ## 来源
 

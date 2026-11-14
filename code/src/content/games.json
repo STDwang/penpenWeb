@@ -1,8 +1,9 @@
 {
   "version": 1,
-  "note": "游戏清单唯一数据源。修改后运行 npm run games:sync 同步到游戏橱窗仓库。backupBase 为空时页面不展示备用入口。",
+  "note": "游戏清单唯一数据源。修改后运行 npm run games:sync 同步到游戏橱窗仓库。backupBase 为空时页面不展示备用入口；backupShare 是 WorkBuddy 分享码查询串，拼在每个备用游戏地址后以便首次访问即可通过授权。",
   "primaryBase": "https://stdwang.github.io/",
-  "backupBase": "",
+  "backupBase": "https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/",
+  "backupShare": "?sharecode=QLTHCY272K",
   "backupLabel": "国内备用入口",
   "notice": "源码未公开的游戏仅提供构建产物供在线试玩；请勿反编译、二次分发或用于商业用途。",
   "games": [

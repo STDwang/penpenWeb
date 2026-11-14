@@ -24,6 +24,7 @@ export type GameCatalog = {
   note: string;
   primaryBase: string;
   backupBase: string;
+  backupShare: string;
   backupLabel: string;
   notice: string;
   games: Game[];
@@ -34,9 +35,13 @@ export const games = catalog.games;
 
 /** 试玩地址。备用入口尚未发布时返回空，页面据此隐藏该链接。 */
 export function playUrl(game: Game, kind: "primary" | "backup" = "primary"): string {
-  const base = kind === "primary" ? catalog.primaryBase : catalog.backupBase;
-  if (!base) return "";
-  return `${base.replace(/\/$/, "")}/${game.slug}/`;
+  if (kind === "backup") {
+    if (!catalog.backupBase) return "";
+    // WorkBuddy 分享码必须出现在每个游戏地址上，否则从未访问过镜像首页的浏览器会被 403 拦下。
+    return `${catalog.backupBase.replace(/\/$/, "")}/${game.slug}/${catalog.backupShare ?? ""}`;
+  }
+  if (!catalog.primaryBase) return "";
+  return `${catalog.primaryBase.replace(/\/$/, "")}/${game.slug}/`;
 }
 
 /** 封面在作品集里使用本地副本，避免国内访问主站图片造成等待。 */
@@ -50,5 +55,5 @@ export function showcaseUrl(): string {
 }
 
 export function showcaseBackupUrl(): string {
-  return catalog.backupBase;
+  return catalog.backupBase ? `${catalog.backupBase.replace(/\/$/, "")}/${catalog.backupShare ?? ""}` : "";
 }

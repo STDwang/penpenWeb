@@ -35,3 +35,42 @@
 只读访问现有应用地址返回 200，但页面仍不包含新轨道截图及排放案例，因此未自动同步。不将 GitHub Pages 发布成功表述为 WorkBuddy 已完成更新。
 
 已生成忽略目录内的独立 ZIP，包含 `portfolio/` 静态目录，共 115 项；核对首页图片和 PDF 的 `/portfolio/` 前缀。ZIP 和部署说明留在本地 `work/releases/`，没有把临时发布检出或任何认证配置提交仓库。桌面求职目录的 DOCX/PDF 未修改，待 WorkBuddy 部署完成后继续。
+
+---
+
+# 2026-11-15 发布记录：Blueprint Brutalism 改版 + 游戏橱窗整合
+
+## 发布范围
+
+- 参考 xmmxovo.online 的 Neo-Brutalism 语言重做视觉与交互，新增 `code/src/app/brutal.css` 覆盖层与 `code/src/components/site-motion.tsx`；原有 6 个样式文件未改，可一键回滚。
+- 新增 `/games` 游戏档案页与导航入口，四款游戏（含两款源码私有）由 `code/src/content/games.json` 单一数据源驱动作品集与游戏橱窗；`npm run games:sync` 同步橱窗清单与封面。
+- 游戏橱窗 `STDwang.github.io` 首页改为从清单动态渲染，补返回作品集导航、国内镜像入口、私有声明、`robots.txt` 与 `NOTICE.md`。
+- 两个私有游戏仓库仍保持 private，公开仓库只放构建产物。
+
+## 部署结果
+
+| 目标 | 地址 | 说明 |
+| --- | --- | --- |
+| 作品集主站 | <https://stdwang.github.io/penpenWeb/> | `gh-pages` 分支，Pages 版静态导出（18 页） |
+| 作品集 /games | <https://stdwang.github.io/penpenWeb/games/> | 含主入口与国内备用入口 |
+| 游戏橱窗主站 | <https://stdwang.github.io/> | 4 款游戏 iframe 打开即玩 |
+| 国内备用入口 | <https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K> | WorkBuddy 应用镜像，根路径为游戏橱窗 |
+| 国内作品集 | <https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/portfolio/?sharecode=QLTHCY272K> | 同一镜像应用的 `/portfolio/` 子路径 |
+
+国内镜像约 193 MB，含 4 款游戏全部构建产物（最大单文件 46.5 MB `index.pck`、39.5 MB `index.wasm`），实测子路径与大文件均返回 200。分享链接必须保留 `?sharecode=` 参数；`games.json` 的 `backupShare` 会把该参数拼到每个备用游戏地址上，避免未访问过首页的浏览器被 403 拦下。镜像自身会自动隐藏「备用入口」按钮。
+
+发布工具把本轮两次发布（游戏橱窗、作品集）收敛到同一个新应用，因此旧链接 `penpen-portfolio.app.workbuddy.host` 仍是上一版内容；新版作品集位于同一新应用的 `/portfolio/` 子路径。所有 README 与仓库 homepage 已改用新链接。
+
+## 其他仓库同步
+
+- `STDwang/STDwang` profile README：加「快速入口」区块（主站、/games、橱窗、国内备用入口）与私有游戏声明。
+- `STDwang/mistloop`、`STDwang/Dreamscape` README：补统一橱窗、作品集游戏档案与国内备用入口。
+- `STDwang/penpenWeb` 仓库 homepage 元数据：由失效的 `https://penpen-web.vercel.app` 改为 Pages 地址。
+
+## 验证
+
+`npm run typecheck` 通过；`/penpenWeb` 与 `/portfolio` 两套 basePath 静态构建各 18 页通过。本地 1440px 首页、`/games`、橱窗、暗色主题与 390px 移动端实拍验证；修掉揭示动画初始 `opacity:0` 导致 `/games` 整页留白、舞台入场发灰、移动端切换条溢出三个问题。浏览器检查经本机代理完成，不能替代大陆无代理网络的手机流量实测。
+
+## 未变更
+
+索引开关仍为 `noindex, nofollow`（构建未设置 `SITE_URL`），桌面简历 PDF 未改，Godot Web 导出保持关闭线程（GitHub Pages 无法设置 COOP/COEP 响应头）。
