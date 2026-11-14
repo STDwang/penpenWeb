@@ -15,11 +15,6 @@ const stages = [
   { id: "contact", label: "关于", index: "03" },
 ];
 
-const ticker = [
-  "C++ / QT", "TRAFFIC SIMULATION", "GODOT 4.7", "BLENDER BPY",
-  "THREE.JS / WEBGL2", "COCOS CREATOR 3.8", "NEXT.JS", "PROCEDURAL ASSETS",
-];
-
 const quickLinks = [
   { label: "工作成果", index: "01 / ENGINEERING", target: 1 },
   { label: "个人项目", index: "02 / PERSONAL LAB", target: 2 },
@@ -158,27 +153,6 @@ export function HomeStage() {
         </section>
 
         <div className="scene-status mono" aria-live="polite"><span className="scene-status-dot" /> CAMERA / {stage === 0 ? "全景" : stage === 1 ? "眼镜视野" : stage === 2 ? "腕表界面" : "耳机投影"}</div>
-
-        <div className="nb-ticker" aria-hidden="true">
-          <div className="nb-ticker-track">
-            {[...ticker, ...ticker].map((word, index) => <span className="nb-ticker-item" key={`${word}-${index}`}>{word}</span>)}
-          </div>
-        </div>
-
-        <nav className="stage-nav" aria-label="首页场景切换">
-          {stages.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              className={stage === index ? "is-active" : ""}
-              aria-pressed={stage === index}
-              onClick={() => go(index)}
-            >
-              <span>{item.index}</span>
-              <strong>{item.label}</strong>
-            </button>
-          ))}
-        </nav>
 
         <noscript>
           <div className="stage-noscript">

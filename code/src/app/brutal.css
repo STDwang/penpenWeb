@@ -220,29 +220,14 @@ html[data-theme="dark"] .future-overline { border-color: var(--nb-line); box-sha
 .scene-status { border: var(--nb-border); border-radius: 0; background: var(--nb-card); color: var(--nb-text); box-shadow: 3px 3px 0 var(--nb-shadow-color); font-weight: 800; }
 .scene-status-dot { background: var(--nb-red); box-shadow: none; border-radius: 0; }
 
-/* 四幕切换台：硬阴影按钮条 */
-.scene-home .stage-nav {
-  height: 76px; grid-template-columns: repeat(4, 1fr);
-  border: var(--nb-border); border-bottom: 0; border-radius: 0;
-  background: var(--nb-card); box-shadow: 0 -4px 0 var(--nb-shadow-color);
-  -webkit-backdrop-filter: none; backdrop-filter: none;
-}
-.scene-home .stage-nav button {
-  border-right: 2px solid var(--nb-line); gap: 10px; padding: 8px 16px;
-  color: var(--nb-text); font-weight: 800;
-}
-.scene-home .stage-nav button:last-child { border-right: 0; border-radius: 0; }
-.scene-home .stage-nav button:first-child { border-radius: 0; }
-.scene-home .stage-nav button::before { height: 4px; background: var(--nb-red); }
-.scene-home .stage-nav button:hover, .scene-home .stage-nav button.is-active { background: var(--nb-yellow); color: #111110; }
-.scene-home .stage-nav button.is-active strong { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.scene-home .stage-nav span { color: var(--nb-red); font-weight: 800; }
-.scene-home .stage-nav strong { font-family: var(--font-sans), sans-serif; font-size: 14px; letter-spacing: 0; }
+/* 四幕切换台已移除：顶部 header 承担导航，底部只保留一条全宽跑马灯。 */
 
 /* 技术栈跑马灯 */
 .nb-ticker {
-  flex: none; height: 32px; overflow: hidden; position: relative; z-index: 4;
+  flex: none; height: 32px; width: 100%; max-width: 100vw; margin: 0;
+  overflow: hidden; position: relative; z-index: 4;
   border-top: 2px solid var(--nb-line); border-bottom: 2px solid var(--nb-line);
+  border-left: 0; border-right: 0;
   background: var(--nb-yellow); color: #111110;
   display: flex; align-items: center;
 }
@@ -323,8 +308,6 @@ html[data-theme="dark"] .future-overline { border-color: var(--nb-line); box-sha
 .scene-home .future-intro-copy h1 { font-size: clamp(40px, 4.3vw, 68px); }
 .future-intro-copy h1 em { background: linear-gradient(transparent 55%, var(--nb-yellow) 55%); }
 .scene-home .scene-status { display: none; }
-.scene-home .stage-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.scene-home .stage-nav button { min-width: 0; }
 
 /* --- 8. 全局交互层 ------------------------------------------------------ */
 .nb-progress { position: fixed; top: 0; left: 0; height: 5px; width: 100%; z-index: 200; transform-origin: left; transform: scaleX(var(--nb-scroll)); background: var(--nb-red); box-shadow: 0 2px 0 var(--nb-shadow-color); pointer-events: none; }
@@ -342,11 +325,15 @@ html.nb-motion [data-reveal].is-visible { opacity: 1; transform: none; transitio
 
 .nb-nav-index { font-size: 9px; font-weight: 800; color: var(--nb-red); margin-right: 7px; letter-spacing: .04em; }
 .main-nav a:hover .nb-nav-index, .main-nav a[aria-current="page"] .nb-nav-index { color: var(--nb-red); }
-.scene-home .stage-nav { margin-top: 0 !important; }
-.scene-home .scene-status { bottom: 118px; }
+/* 底部跑马灯由 layout.tsx 全站统一渲染，位于 footer 之后 */
 .scene-intro-side .button { width: 100%; margin-top: 14px; justify-content: space-between; }
 .scene-intro-side button svg { width: 16px; height: 16px; }
 .future-actions .button { min-width: 168px; }
+
+/* 跑马灯现在位于 body 文档流末尾；让固定一屏的首页让出它的高度，
+   这样桌面首屏底部就能看到这条全宽黄带，而不是需要再滚动一屏。
+   移动端在下面的 @media 中用 height:auto !important 覆盖，不受影响。 */
+.future-home { height: calc(100dvh - 81px - 32px) !important; }
 
 /* --- 9. 响应式 ---------------------------------------------------------- */
 @media (max-width: 1100px) {
@@ -361,18 +348,13 @@ html.nb-motion [data-reveal].is-visible { opacity: 1; transform: none; transitio
   .future-home { height: auto !important; min-height: calc(100dvh - 81px); overflow: visible !important; }
   .future-stage { height: auto !important; min-height: calc(100dvh - 81px); }
   .scene-home .stage-panel { flex: none !important; }
-  .scene-home .intro-panel { display: block; padding: 20px 0 150px; }
+  .scene-home .intro-panel { display: block; padding: 20px 0 32px; }
   .scene-home .future-intro-copy { width: 100%; max-width: 100%; padding: 18px 18px 16px; }
   .scene-home .future-intro-copy h1 { font-size: clamp(34px, 8vw, 48px); }
   .scene-intro-side { display: none; }
   .scene-home .scene-screen { width: min(94%, 700px); }
-  /* 切换台固定在视口底部，不参与文档流，彻底避开移动端的伸缩布局差异 */
-  .scene-home .nb-ticker { position: fixed; left: 0; right: 0; bottom: 62px; width: 100%; z-index: 40; }
-  .scene-home .stage-nav { position: fixed; left: 0; right: 0; bottom: 0; display: flex !important; width: 100% !important; max-width: 100vw; height: 62px; margin: 0 !important; z-index: 41; box-shadow: 0 -4px 0 var(--nb-shadow-color); }
-  .future-home { padding-bottom: 104px; }
-  .scene-home .stage-nav button { flex: 1 1 0 !important; width: 0; min-width: 0 !important; flex-direction: column; justify-content: center; align-items: center; gap: 2px; padding: 5px 2px; overflow: hidden; }
-  .scene-home .stage-nav strong { font-size: 10px; white-space: nowrap; letter-spacing: -.02em; }
-  .scene-home .stage-nav span { font-size: 9px; }
+  /* 不再有固定底栏：跑马灯随文档流到页面最下方，宽度与视口一致 */
+  .nb-ticker { position: relative !important; left: auto; right: auto; bottom: auto; width: 100% !important; max-width: 100vw; }
   .nb-cursor { display: none; }
 }
 @media (max-width: 560px) {

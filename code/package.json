@@ -8,7 +8,10 @@
     "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "games:sync": "node scripts/sync-games.mjs"
+    "games:sync": "node scripts/sync-games.mjs",
+    "games:build": "node scripts/build-games.mjs",
+    "games:publish": "node scripts/publish-games.mjs",
+    "games:obfuscate": "node scripts/obfuscate-cocos.mjs"
   },
   "dependencies": {
     "next": "16.4.2",

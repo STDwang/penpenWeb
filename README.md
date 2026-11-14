@@ -2,7 +2,9 @@
 
 求职作品集、技术内容与个人实验室。面向机器人与智驾仿真岗位，以已有 C++/Qt 商业仿真平台经验为基础。
 
-**当前：Blueprint Brutalism 改版 + 游戏橱窗整合（已上线，2026-11-15）。** 参考 xmmxovo.online 的新粗野语言重做视觉与交互：2px 黑框与硬阴影、按压式按钮、超粗展示字、荧光色块、点阵蓝图底纹、跑马灯、四幕场景切换台、滚动揭示与阅读进度条；新增 `/games` 游戏档案页与导航入口，四款游戏（含两款源码私有）由单一清单 `code/src/content/games.json` 同时驱动作品集与游戏橱窗。所有动效都在 `prefers-reduced-motion` 下降级，内容默认可见、不依赖 JS 才能显示。GitHub Pages 主站与 WorkBuddy 镜像均已同步；国内访问另有独立的游戏橱窗备用入口。
+**当前：Blueprint Brutalism 改版 + 游戏橱窗整合（已上线，2026-11-15）。** 参考 xmmxovo.online 的新粗野语言重做视觉与交互：2px 黑框与硬阴影、按压式按钮、超粗展示字、荧光色块、点阵蓝图底纹、滚动揭示与阅读进度条；顶部 header 承担导航，黄色技术栈跑马灯全宽置于页面最底部（DOM 在 body 层，宽度等于视口）；新增 `/games` 游戏档案页与导航入口，四款游戏（含两款源码私有）由单一清单 `code/src/content/games.json` 同时驱动作品集与游戏橱窗。所有动效都在 `prefers-reduced-motion` 下降级，内容默认可见、不依赖 JS 才能显示。GitHub Pages 主站与 WorkBuddy 镜像均已同步；国内访问另有独立的游戏橱窗备用入口。
+
+**2026-11-15 二次调整：** 移除首页四幕场景切换台；两款源码私有游戏按各自仓库最新 `main` 重新构建部署（黑暗童话 Godot Web 导出、喵饭 Cocos 3.8 release 构建 + 资源自适应量化，并把棋盘说明更新为 7×18）；新增产物发布白名单、公开橱窗仓库的 GitHub Actions 入库拦截、Cocos 逻辑模块混淆与一键重建脚本，详见下方「游戏产物发布与防线」。
 
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）
@@ -11,6 +13,19 @@
 - 游戏橱窗：[https://stdwang.github.io/](https://stdwang.github.io/)（4 款游戏浏览器直接试玩；两款源码私有的游戏只发布构建产物）
 - 国内备用入口：[https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)（WorkBuddy 应用镜像，含全部 4 款游戏构建产物；分享时请保留 `?sharecode=` 参数）
 - 游戏清单：`code/src/content/games.json` 是唯一数据源。修改后运行 `npm run games:sync`（可用 `SHOWCASE_DIR` 指定橱窗仓库路径）同步橱窗的 `games.json` 与封面；`backupBase` / `backupShare` 控制国内备用入口，镜像自身会自动隐藏该链接。
+
+### 游戏产物发布与防线
+
+两款源码私有游戏只把构建产物放进公开橱窗仓库，源码仓库保持 private。以下命令都在 `code/` 目录下运行，路径可用 `SHOWCASE_DIR` / `DFT_REPO` / `MEOW_REPO` / `OUT_DIR` / `IMGTOOL_DIR` 覆盖：
+
+| 命令 | 作用 |
+| --- | --- |
+| `npm run games:build` | 从两个私有仓库最新 `main` 一键重建（Godot headless Web 导出 + Cocos Creator release 构建 + PNG 自适应量化），白名单校验通过后同步到橱窗。可加 `-- --game=darkfairytale` 或 `-- --obfuscate`。 |
+| `npm run games:publish -- --game=<slug> --source=<目录> --apply` | 只同步已有产物；默认 dry-run，仅放行构建产物后缀并扫描凭据。 |
+| `npm run games:obfuscate -- --target=<目录> --apply` | 混淆 Cocos 逻辑模块，保留 `System.register` 注册名，写入前做语法与模块等价性校验。 |
+| `npm run games:sync` | 同步游戏清单与封面到橱窗仓库。 |
+
+公开橱窗仓库的 `.github/workflows/verify-artifacts.yml` 在每次 push / PR 时扫描游戏目录，出现 `.gd` / `.ts` / `project.godot` / sourcemap / 密钥类文件即失败。Godot 与 Cocos Creator 都是本机桌面工具链，CI 无法可靠构建，因此「自动构建」放在本地一键脚本、「入库拦截」放在 GitHub Actions。Cocos 命令行构建需清除 WorkBuddy 注入的 `ELECTRON_RUN_AS_NODE` / `NODE_OPTIONS`，脚本已处理。
 
 ## 本地运行
 

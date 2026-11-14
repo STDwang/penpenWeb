@@ -45,6 +45,12 @@ const monoNb = IBM_Plex_Mono({
   display: "swap",
 });
 
+// 全站底栏跑马灯：放在 body 层而非 .container 内，宽度与浏览器视口一致。
+const techTicker = [
+  "C++ / QT", "TRAFFIC SIMULATION", "GODOT 4.7", "BLENDER BPY",
+  "THREE.JS / WEBGL2", "COCOS CREATOR 3.8", "NEXT.JS", "PROCEDURAL ASSETS",
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "王帅鹏 · C++ / 仿真平台工程师", template: "%s · 王帅鹏" },
@@ -76,6 +82,11 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <div className="nb-ticker" aria-hidden="true">
+          <div className="nb-ticker-track">
+            {[...techTicker, ...techTicker].map((word, index) => <span className="nb-ticker-item" key={`${word}-${index}`}>{word}</span>)}
+          </div>
+        </div>
       </body>
     </html>
   );
