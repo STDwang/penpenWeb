@@ -48,9 +48,9 @@ export default function GamesPage() {
               <span className="game-index">NO.{String(index + 1).padStart(2, "0")}</span>
               <span className="game-route">{game.route}</span>
             </div>
-            <div className="game-cover">
+            <a className="game-cover" href={playUrl(game)} target="_blank" rel="noreferrer" tabIndex={-1}>
               <img src={coverUrl(game)} alt={game.coverAlt} loading={index < 2 ? "eager" : "lazy"} />
-            </div>
+            </a>
             <div className="game-body">
               <div className="game-title">
                 <h2>{game.title}</h2>

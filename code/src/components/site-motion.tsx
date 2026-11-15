@@ -17,8 +17,10 @@ export function SiteMotion() {
     const root = document.documentElement;
     const reveal = !reduce && "IntersectionObserver" in window;
     if (reveal) root.classList.add("nb-motion");
-    // 兜底：观察器未回调、脚本环境异常或资源加载过慢时，1.2s 后强制显示所有内容。
-    const fallback = window.setTimeout(() => root.classList.remove("nb-motion"), 1200);
+    // 兜底：观察器在 1.2s 内一次都没回调（脚本环境异常）时强制显示所有内容。
+    // 观察器正常工作后不再触发，否则首屏以下的元素会在滚动到之前就被提前显示，揭示动效形同虚设。
+    let observed = false;
+    const fallback = window.setTimeout(() => { if (!observed) root.classList.remove("nb-motion"); }, 1200);
     let observer: IntersectionObserver | null = null;
     let raf = 0;
 
@@ -29,6 +31,7 @@ export function SiteMotion() {
     } else {
       observer = new IntersectionObserver(
         (entries) => {
+          observed = true;
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add("is-visible");

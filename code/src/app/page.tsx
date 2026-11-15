@@ -1,5 +1,5 @@
 import { pageMeta } from "@/lib/site";
-import { HomeStage } from "@/components/home-stage";
+import { Home as HomePage } from "@/components/home/home";
 
 export const metadata = pageMeta(
   "C++ / 仿真平台工程师",
@@ -8,5 +8,5 @@ export const metadata = pageMeta(
 );
 
 export default function Home() {
-  return <HomeStage />;
+  return <HomePage />;
 }

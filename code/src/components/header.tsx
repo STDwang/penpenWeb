@@ -9,7 +9,7 @@ import { person } from "@/lib/site";
 const nav = [
   { href: "/work", homeHref: "/#work", label: "工作成果", index: "01" },
   { href: "/lab", homeHref: "/#lab", label: "个人项目", index: "02" },
-  { href: "/games", label: "游戏橱窗", index: "03" },
+  { href: "/games", homeHref: "/#games", label: "游戏橱窗", index: "03" },
   { href: "/about", homeHref: "/#contact", label: "关于", index: "04" },
   { href: person.blog, label: "博客", external: true, index: "05" },
 ];
@@ -17,6 +17,7 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [section, setSection] = useState("");
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
   const pathname = usePathname();
@@ -32,6 +33,26 @@ export function Header() {
     document.dispatchEvent(new Event("portfolio-theme-change"));
     setTheme(next);
   }
+
+  // 首页是一张长页：滚动到哪一段，导航里对应的那一项亮起。
+  useEffect(() => {
+    if (pathname !== "/" || !("IntersectionObserver" in window)) return;
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("main section[id]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setSection(entry.target.id);
+          else setSection((current) => (current === entry.target.id ? "" : current));
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => {
+      observer.disconnect();
+      setSection("");
+    };
+  }, [pathname]);
 
   // A route change must never leave the mobile panel open behind the new page.
   useEffect(() => {
@@ -71,7 +92,7 @@ export function Header() {
         aria-label="主导航"
       >
         {nav.map((item) => pathname === "/" && item.homeHref ? (
-          <a key={item.href} href={`#${item.homeHref.split("#")[1]}`} onClick={() => setOpen(false)}><span className="mono nb-nav-index">{item.index}</span>{item.label}</a>
+          <a key={item.href} href={`#${item.homeHref.split("#")[1]}`} aria-current={section === item.homeHref.split("#")[1] ? "true" : undefined} onClick={() => setOpen(false)}><span className="mono nb-nav-index">{item.index}</span>{item.label}</a>
         ) : (
           <Link
             key={item.href}

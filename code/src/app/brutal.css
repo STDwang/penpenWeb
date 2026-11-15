@@ -366,6 +366,60 @@ html.nb-motion [data-reveal].is-visible { opacity: 1; transform: none; transitio
   .nb-sticker { display: none; }
 }
 
+/* --- 10. 二级页面收口 · 2026-11 ------------------------------------------ */
+/* 案例轮播（/work、/lab）：标题原先压在截图上读不清，改成卡片底部的实色标签条；
+   非当前卡不再半透明叠影，改用去色区分。 */
+.showcase-page .feature-card { background: var(--nb-card) !important; color: var(--nb-text); filter: none; opacity: 1 !important; }
+.showcase-page .feature-card .feature-media { inset: 0 0 76px; border-bottom: 2px solid var(--nb-line); }
+.showcase-page .feature-card .feature-media::after, .showcase-page .feature-card-shade { display: none; }
+.showcase-page .feature-card .feature-media img { filter: grayscale(.85) contrast(1.02); transition: filter var(--nb-base); }
+.showcase-page .feature-card.is-current .feature-media img, .showcase-page .feature-card:hover .feature-media img { filter: none; }
+.showcase-page .feature-card.is-current { box-shadow: 9px 9px 0 var(--nb-shadow-color) !important; }
+.showcase-page .feature-card-index { top: 10px; left: 10px; z-index: 1; padding: 3px 8px; background: var(--nb-yellow); color: #111110; border: 2px solid #111110; font-weight: 800; letter-spacing: .08em; }
+.showcase-page .feature-card-title { left: 14px; right: 14px; bottom: 32px; font-size: clamp(15px, 1.4vw, 20px); font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.showcase-page .feature-card-type { left: 14px; bottom: 12px; color: var(--nb-red); font-weight: 800; }
+.feature-caption { border-bottom: 2px solid var(--nb-line) !important; }
+.feature-caption-main > p:not(.future-overline) { color: var(--nb-muted) !important; }
+.feature-external a { font-weight: 800; color: var(--nb-red); }
+.feature-open { align-self: center; padding: 12px 14px !important; background: var(--nb-yellow); color: #111110 !important; border: var(--nb-border) !important; border-radius: var(--nb-radius); box-shadow: var(--nb-shadow); font-weight: 800; transition: transform var(--nb-fast) ease-out, box-shadow var(--nb-fast) ease-out; }
+.feature-open:hover { transform: translate(3px, 3px); box-shadow: var(--nb-shadow-press); }
+.feature-controls button { width: 40px !important; height: 40px !important; border: var(--nb-border) !important; border-radius: var(--nb-radius) !important; background: var(--nb-card) !important; color: var(--nb-text) !important; box-shadow: 3px 3px 0 var(--nb-shadow-color); font-weight: 800; transition: transform var(--nb-fast) ease-out, box-shadow var(--nb-fast) ease-out, background var(--nb-fast); }
+.feature-controls button:hover { background: var(--nb-yellow) !important; color: #111110 !important; transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--nb-shadow-color); }
+.feature-controls .mono { color: var(--nb-text) !important; font-weight: 800; }
+
+/* 关于页：侧栏与正文标题并入同一套黑框语言 */
+.page-intro h1 { font-size: clamp(34px, 4.6vw, 64px); }
+.about-aside { position: sticky; top: 118px; background: var(--nb-card) !important; border: var(--nb-border) !important; border-radius: var(--nb-radius) !important; box-shadow: var(--nb-shadow-lg); }
+.about-aside hr { border-top: 2px solid var(--nb-line) !important; }
+.about-layout .prose h2 { display: flex; align-items: center; gap: 12px; }
+.about-layout .prose h2::before { content: ""; flex: none; width: 14px; height: 14px; background: var(--nb-yellow); border: 2px solid var(--nb-line); box-shadow: 2px 2px 0 var(--nb-shadow-color); }
+.about-layout .prose section { padding-bottom: 36px; border-bottom: 2px solid var(--nb-line-soft); }
+
+/* 游戏档案页：封面可点、奇数张时首张横向通栏，避免最后一张落单 */
+.game-cover { position: relative; display: block; }
+.game-cover::after { content: "▶ PLAY"; position: absolute; right: 12px; bottom: 12px; padding: 8px 12px; background: var(--nb-red); color: #fff; border: 2px solid #111110; box-shadow: 3px 3px 0 #111110; font: 800 12px/1 var(--font-mono-nb), Consolas, monospace; letter-spacing: .1em; opacity: 0; transform: translateY(8px); transition: opacity var(--nb-fast), transform var(--nb-base) var(--nb-ease); }
+.game-card:hover .game-cover::after, .game-cover:focus-visible::after { opacity: 1; transform: none; }
+.game-actions .is-static { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px; font-size: 12px; font-weight: 800; border: 2px dashed var(--nb-muted); border-radius: var(--nb-radius); }
+@media (min-width: 861px) {
+  .folio-grid > .game-card:first-child:nth-last-child(odd) { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .folio-grid > .game-card:first-child:nth-last-child(odd) .game-top { grid-column: 1 / -1; }
+  .folio-grid > .game-card:first-child:nth-last-child(odd) .game-cover { aspect-ratio: auto; min-height: 100%; border-bottom: 0; border-right: 3px solid var(--nb-line); }
+  .folio-grid > .game-card:first-child:nth-last-child(odd) .game-body { padding: 28px 30px; justify-content: center; }
+  .folio-grid > .game-card:first-child:nth-last-child(odd) .game-desc { flex: none; font-size: 14px; }
+  .folio-grid > .game-card:first-child:nth-last-child(odd) .game-title h2 { font-size: clamp(30px, 3vw, 44px); }
+}
+@media (max-width: 860px) {
+  .about-aside { position: static; }
+}
+/* 平板宽度下导航还没收进菜单，原先会把「简历」按钮挤出视口造成横向滚动 */
+@media (min-width: 768px) and (max-width: 1120px) {
+  .site-header { gap: 12px; padding-inline: 24px; }
+  .main-nav { gap: 2px; }
+  .main-nav a { padding: 8px 7px !important; }
+  .nb-nav-index, .logo > span, .theme-toggle span:last-child { display: none; }
+  .header-resume { margin-left: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nb-ticker-track, .scene-frame, .scene-camera { animation: none !important; transition: none !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }

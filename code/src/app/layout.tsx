@@ -12,6 +12,7 @@ import "./scene.css";
 import "./theme-dark.css";
 // Blueprint Brutalism：最后引入，覆盖前面主题层的边框、阴影与字体。
 import "./brutal.css";
+import "./home.css";
 
 // 原有编辑式字体保留给旧组件；新粗野层使用超粗无衬线展示字与等宽编号。
 const display = Bodoni_Moda({
