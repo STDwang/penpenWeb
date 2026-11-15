@@ -5,13 +5,13 @@ import { Arrow } from "@/components/ui";
 
 export const metadata = pageMeta(
   "游戏橱窗",
-  "王帅鹏用 AI 辅助开发的 4 款游戏：Three.js、Godot + Blender、Cocos Creator 三条技术路线，浏览器直接试玩。",
+  "王帅鹏用 AI 辅助开发的 5 款游戏：Three.js、Godot + Blender、Cocos Creator 与零依赖 Canvas 2.5D 四条技术路线，浏览器直接试玩。",
   "/games",
 );
 
 const ticker = [
   "THREE.JS / WEBGL2", "GODOT 4.7 WEB", "BLENDER BPY", "COCOS CREATOR 3.8",
-  "PROCEDURAL WORLD", "OPEN IN BROWSER", "NO INSTALL",
+  "CANVAS 2.5D", "ZERO DEPENDENCY", "OPEN IN BROWSER", "NO INSTALL",
 ];
 
 export default function GamesPage() {
@@ -23,14 +23,15 @@ export default function GamesPage() {
         <p className="future-overline">03 / GAME ARCADE</p>
         <h1>游戏<span className="hl">橱窗</span></h1>
         <p className="folio-lead">
-          四条不同的技术路线，都是我用 AI 辅助从零做出来的可玩原型：Web 程序化生成、
-          Godot + Blender 建模流水线、Cocos 小游戏工程。打开即玩，不用装任何东西。
+          五款游戏、四条技术路线，都是我用 AI 辅助从零做出来的可玩原型：Web 程序化生成、
+          Godot + Blender 建模流水线、Cocos 小游戏工程，以及把旧作彻底重构成零依赖网页版的 Canvas 2.5D。
+          打开即玩，不用装任何东西。
         </p>
         <div className="folio-meta">
           <span>{games.length} GAMES</span>
-          <span>3 TECH ROUTES</span>
+          <span>4 TECH ROUTES</span>
           <span>PLAY IN BROWSER</span>
-          <span>2 PRIVATE BUILDS</span>
+          <span>3 PRIVATE BUILDS</span>
         </div>
       </section>
 
@@ -87,9 +88,9 @@ export default function GamesPage() {
       <aside className="folio-notice" data-reveal>
         <p><strong>关于试玩与源码。</strong> {catalog.notice}</p>
         <p>
-          公开源码的两款（MISTLOOP、Dreamscape）可点进对应仓库看实现；另外两款源码仓库保持私有，
+          公开源码的两款（MISTLOOP、Dreamscape）可点进对应仓库看实现；另外三款源码仓库保持私有，
           公开站点只放浏览器可直接运行的构建产物。需要键盘与鼠标，建议用桌面浏览器打开；
-          Godot 与 Cocos 的构建包较大（{games.filter((g) => g.private).map((g) => g.size).join(" / ")}），首次加载请稍等。
+          其中几款构建包较大（{games.filter((g) => g.private).map((g) => g.size).join(" / ")}），首次加载请稍等；纯 Canvas 的那款 148 KB，秒开。
         </p>
         <p>
           完整橱窗页面：<a href={showcaseUrl()} target="_blank" rel="noreferrer">{showcaseUrl()}</a>
