@@ -6,7 +6,7 @@
 
 **2026-11-15 二次调整：** 移除首页四幕场景切换台；两款源码私有游戏按各自仓库最新 `main` 重新构建部署（黑暗童话 Godot Web 导出、喵饭 Cocos 3.8 release 构建 + 资源自适应量化，并把棋盘说明更新为 7×18）；新增产物发布白名单、公开橱窗仓库的 GitHub Actions 入库拦截、Cocos 逻辑模块混淆与一键重建脚本，详见下方「游戏产物发布与防线」。
 
-**2026-11-15 三次调整（本地，尚未发布）：** 首页从「单屏舞台 + 棚拍全幅背景」改为可滚动长页：开场 / 工作成果 / 个人项目 / 游戏机厅 / 联系五段，导航随滚动高亮。棚拍背景移除，人像裁成双色调工牌卡片（`design/make-portrait.mjs` 生成 31 KB 的 `portrait-duotone.webp`，取代首屏一次加载的 5 张共约 9 MB PNG）。工作成果是「索引行 + 预览窗」，悬停切换截图；游戏机厅是一块大屏加五张卡带，可点选、方向键切换，进入视口后自动轮播、任何操作后停止。同时修正：滚动揭示兜底会在 1.2s 后提前显示全部内容；`/work`、`/lab` 轮播标题压在截图上读不清；`/games` 奇数张时末张落单；`/about` 侧栏风格不一致；768–1120px 宽度下头部把「简历」按钮挤出视口。截图：[桌面首屏](previews/arcade-home-desktop-hero.png) · [桌面全页](previews/arcade-home-desktop.png) · [手机全页](previews/arcade-home-mobile.png)。三尺寸 12 项浏览器检查在生产静态产物上通过。
+**2026-11-15 三次调整（GitHub Pages 已上线，WorkBuddy 国内镜像尚未同步）：** 首页从「单屏舞台 + 棚拍全幅背景」改为可滚动长页：开场 / 工作成果 / 个人项目 / 游戏机厅 / 联系五段，导航随滚动高亮。棚拍背景移除，人像裁成双色调工牌卡片（`design/make-portrait.mjs` 生成 31 KB 的 `portrait-duotone.webp`，取代首屏一次加载的 5 张共约 9 MB PNG）。工作成果是「索引行 + 预览窗」，悬停切换截图；游戏机厅是一块大屏加五张卡带，可点选、方向键切换，进入视口后自动轮播、任何操作后停止。同时修正：滚动揭示兜底会在 1.2s 后提前显示全部内容；`/work`、`/lab` 轮播标题压在截图上读不清；`/games` 奇数张时末张落单；`/about` 侧栏风格不一致；768–1120px 宽度下头部把「简历」按钮挤出视口。截图：[桌面首屏](previews/arcade-home-desktop-hero.png) · [桌面全页](previews/arcade-home-desktop.png) · [手机全页](previews/arcade-home-mobile.png)。三尺寸 12 项浏览器检查在生产静态产物与实际 Pages 地址上各通过一轮，详见 [发布记录](docs/09-release.md)。
 
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）

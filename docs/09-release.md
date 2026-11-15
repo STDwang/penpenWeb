@@ -74,3 +74,29 @@
 ## 未变更
 
 索引开关仍为 `noindex, nofollow`（构建未设置 `SITE_URL`），桌面简历 PDF 未改，Godot Web 导出保持关闭线程（GitHub Pages 无法设置 COOP/COEP 响应头）。
+
+---
+
+# 2026-11-15 发布记录：首页长页改版与二级页面收口
+
+## 发布范围
+
+- 首页从「单屏舞台 + 棚拍全幅背景」改为可滚动长页（开场 / 工作成果 / 个人项目 / 游戏机厅 / 联系），新增 `code/src/components/home/` 与 `code/src/app/home.css`；人像改为双色调工牌卡片，素材由 `design/make-portrait.mjs` 生成。
+- `/work`、`/lab` 轮播标题改为实色标签条，`/games` 首张通栏与封面可点，`/about` 侧栏并入黑框风格，修正 768–1120px 头部横向溢出与滚动揭示兜底提前显示的问题。
+- 旧的 `home-stage.tsx`、十张棚拍 PNG 与旧舞台样式保留在仓库中但不再被首页引用，尚未清理。
+
+## GitHub 发布
+
+- 应用源码：`cb12a43`，已推送 `main`。
+- Pages 产物：`85fc15f`，已推送 `gh-pages`（`NEXT_PUBLIC_BASE_PATH=/penpenWeb`，18 页，未设置 `SITE_URL`）。GitHub Pages API 返回 `built`，错误为空。
+- 地址：<https://stdwang.github.io/penpenWeb/>。
+
+## 验证
+
+`npm run typecheck` 与静态构建通过。1440、768、390px 共 12 项浏览器检查在本地生产静态产物上通过，随后对实际 Pages 地址再跑一轮同样通过（2.8 分钟）。线上检查经本机网络完成，不能替代大陆无代理网络的实测。
+
+## 未完成与已知问题
+
+- WorkBuddy 国内镜像（`/portfolio/`）未同步，仍是上一版内容；需要用 WorkBuddy 的发布工具以默认 basePath 重新构建并发布。
+- 静态导出下 `Link` 预取的 RSC 分段文件请求 404（导出目录结构与请求路径不一致），导航会回退到整页加载；本轮之前就存在，未处理。
+- 游戏橱窗仓库 `STDwang.github.io` 本轮未改动。
