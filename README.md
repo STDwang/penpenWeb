@@ -11,10 +11,11 @@
 - GitHub：[STDwang/penpenWeb](https://github.com/STDwang/penpenWeb)；代码、文档和实际截图已提交。
 - 在线预览：[https://stdwang.github.io/penpenWeb/](https://stdwang.github.io/penpenWeb/)（GitHub Pages，直接访问）
 - 国内镜像（同一应用同时承载游戏橱窗与作品集）：[作品集 /portfolio/](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/portfolio/?sharecode=QLTHCY272K) ｜ [游戏橱窗 /](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)
-- 游戏档案：[https://stdwang.github.io/penpenWeb/games/](https://stdwang.github.io/penpenWeb/games/)（4 款游戏的技术路线与试玩入口）
-- 游戏橱窗：[https://stdwang.github.io/](https://stdwang.github.io/)（4 款游戏浏览器直接试玩；两款源码私有的游戏只发布构建产物）
-- 国内备用入口：[https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)（WorkBuddy 应用镜像，含全部 4 款游戏构建产物；分享时请保留 `?sharecode=` 参数）
-- 游戏清单：`code/src/content/games.json` 是唯一数据源。修改后运行 `npm run games:sync`（可用 `SHOWCASE_DIR` 指定橱窗仓库路径）同步橱窗的 `games.json` 与封面；`backupBase` / `backupShare` 控制国内备用入口，镜像自身会自动隐藏该链接。
+- 游戏档案：[https://stdwang.github.io/penpenWeb/games/](https://stdwang.github.io/penpenWeb/games/)（6 款游戏的技术路线与试玩入口）
+- 游戏橱窗：[https://stdwang.github.io/](https://stdwang.github.io/)（6 款游戏浏览器直接试玩；三款源码私有的游戏只发布构建产物）
+- 国内备用入口：[https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K](https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/?sharecode=QLTHCY272K)（WorkBuddy 应用镜像，含 5 款游戏构建产物；分享时请保留 `?sharecode=` 参数）
+- APEX · MotorcycleHMI（独立部署）：[在线试玩](https://stdwang.github.io/MotorcycleHMI/) ｜ [国内备用入口](https://wbapp-5qspg4vbu8mo6se3cxxq2a.app.workbuddy.host/?sharecode=S7BRNCGVMQ) ｜ [仓库](https://github.com/STDwang/MotorcycleHMI)。第 6 款游戏由自己的仓库单独发布，橱窗与 `/games` 卡片同时提供主入口与该 WorkBuddy 备用入口。
+- 游戏清单：`code/src/content/games.json` 是唯一数据源。修改后运行 `npm run games:sync`（可用 `SHOWCASE_DIR` 指定橱窗仓库路径）同步橱窗的 `games.json` 与封面；`backupBase` / `backupShare` 控制默认国内备用入口，单个独立部署的游戏可用 `playUrl` / `backupUrl` 覆盖主入口与备用入口，镜像自身会自动隐藏默认备用链接。
 
 ### 游戏产物发布与防线
 

@@ -5,7 +5,7 @@ import { Arrow } from "@/components/ui";
 
 export const metadata = pageMeta(
   "游戏橱窗",
-  "王帅鹏用 AI 辅助开发的 5 款游戏：Three.js、Godot + Blender、Cocos Creator 与零依赖 Canvas 2.5D 四条技术路线，浏览器直接试玩。",
+  "王帅鹏用 AI 辅助开发的 6 款游戏：Three.js、Godot + Blender、Cocos Creator、零依赖 Canvas 2.5D 与实时摩托 HMI 五条技术路线，浏览器直接试玩。",
   "/games",
 );
 
@@ -23,13 +23,14 @@ export default function GamesPage() {
         <p className="future-overline">03 / GAME ARCADE</p>
         <h1>游戏<span className="hl">橱窗</span></h1>
         <p className="folio-lead">
-          五款游戏、四条技术路线，都是我用 AI 辅助从零做出来的可玩原型：Web 程序化生成、
-          Godot + Blender 建模流水线、Cocos 小游戏工程，以及把旧作彻底重构成零依赖网页版的 Canvas 2.5D。
+          六款游戏、五条技术路线，都是我用 AI 辅助从零做出来的可玩原型：Web 程序化生成、
+          Godot + Blender 建模流水线、Cocos 小游戏工程、零依赖 Canvas 2.5D 重构，
+          以及把赛道、模拟 CAN 报文与 TFT 仪表串起来的摩托 HMI 实验台。
           打开即玩，不用装任何东西。
         </p>
         <div className="folio-meta">
           <span>{games.length} GAMES</span>
-          <span>4 TECH ROUTES</span>
+          <span>5 TECH ROUTES</span>
           <span>PLAY IN BROWSER</span>
           <span>3 PRIVATE BUILDS</span>
         </div>
@@ -68,7 +69,7 @@ export default function GamesPage() {
                 <a className="is-primary" href={playUrl(game)} target="_blank" rel="noreferrer" aria-label={`在新窗口试玩${game.title}`}>
                   ▶ 直接试玩
                 </a>
-                {hasBackup ? (
+                {playUrl(game, "backup") ? (
                   <a href={playUrl(game, "backup")} target="_blank" rel="noreferrer" aria-label={`${catalog.backupLabel}试玩${game.title}`}>
                     {catalog.backupLabel} ↗
                   </a>
@@ -88,8 +89,8 @@ export default function GamesPage() {
       <aside className="folio-notice" data-reveal>
         <p><strong>关于试玩与源码。</strong> {catalog.notice}</p>
         <p>
-          公开源码的两款（MISTLOOP、Dreamscape）可点进对应仓库看实现；另外三款源码仓库保持私有，
-          公开站点只放浏览器可直接运行的构建产物。需要键盘与鼠标，建议用桌面浏览器打开；
+          公开源码的三款（MISTLOOP、Dreamscape、APEX MotorcycleHMI）可点进对应仓库看实现；另外三款源码仓库保持私有，
+          公开站点只放浏览器可直接运行的构建产物。APEX 由自己的仓库独立部署，主入口与国内备用入口都指向该项目的线上版本。需要键盘与鼠标，建议用桌面浏览器打开；
           其中几款构建包较大（{games.filter((g) => g.private).map((g) => g.size).join(" / ")}），首次加载请稍等；纯 Canvas 的那款 148 KB，秒开。
         </p>
         <p>

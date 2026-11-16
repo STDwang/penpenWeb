@@ -94,7 +94,7 @@ export function HomeStage() {
             <p className="future-overline">C++ ENGINEER <span>/</span> SIMULATION SYSTEMS</p>
             <p className="future-name">王帅鹏 <span>— STDwang</span></p>
             <h1 id="future-title">让复杂世界，<br /><em>运行得更清晰。</em></h1>
-            <span className="nb-sticker">4 GAMES TO PLAY</span>
+            <span className="nb-sticker">6 GAMES TO PLAY</span>
             <p className="future-intro-text">
               四年 C++ / Qt 商业仿真研发，做过轨道模块、专业编辑器与微中观协同。
               正在把建模、交互与验证经验延伸到机器人和智驾仿真工具链。
@@ -120,7 +120,7 @@ export function HomeStage() {
                 <Arrow />
               </button>
             ))}
-            <Link className="button primary" href="/games">5 款游戏 · 打开即玩 <Arrow /></Link>
+            <Link className="button primary" href="/games">6 款游戏 · 打开即玩 <Arrow /></Link>
             <span className="scene-side-foot mono">BROWSER ONLY / NO INSTALL</span>
           </aside>
         </section>
