@@ -120,7 +120,7 @@ export function HomeStage() {
                 <Arrow />
               </button>
             ))}
-            <Link className="button primary" href="/games">5 款游戏 · 打开即玩 <Arrow /></Link>
+            <Link className="button primary" href="/games">4 款游戏 · 打开即玩 <Arrow /></Link>
             <span className="scene-side-foot mono">BROWSER ONLY / NO INSTALL</span>
           </aside>
         </section>
