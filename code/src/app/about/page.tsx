@@ -50,8 +50,8 @@ export default function About() {
             <h2>用公开作品继续练习</h2>
             <p>
               近期通过 GPUView
-              研究可视化工具中的索引、LOD、异步快照和交互性能，也用 Dreamscape
-              与 MISTLOOP 探索程序化场景和 AI
+              研究可视化工具中的索引、LOD、异步快照和交互性能，也用 Deep Sea Garden
+              探索 WebGPU 程序化场景和 AI
               辅助原型开发。作品中的完成范围和测量条件，都尽量通过代码与文档留下可追溯记录。
             </p>
           </section>

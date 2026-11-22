@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta(
   "个人实验室",
-  "GPUView 性能可视化、Dreamscape 程序化场景、MISTLOOP 交互原型与 ImagePlayer 图像工具。",
+  "GPUView 性能可视化、Deep Sea Garden 程序化海底、ImagePlayer 图像工具与交互原型。",
   "/lab",
 );
 
