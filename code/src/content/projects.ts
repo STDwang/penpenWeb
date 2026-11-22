@@ -267,88 +267,8 @@ export const projects: Project[] = [
     boundary:
       "教学分析工具，与微软同名 GPUView 无隶属关系，不是完整 GPU Profiler。项目说明依据公开 README 与基准文档整理；公开代码不自动代表已核验开源许可证。",
   },
-  {
-    slug: "dreamscape",
-    category: "lab",
-    title: "Dreamscape · 梦境废墟",
-    eyebrow: "个人实验 / 程序化场景",
-    summary: "程序化建模与场景生成的个人探索。",
-    role: "AI 辅助的交互原型探索",
-    stack: ["Godot", "Blender", "GDScript"],
-    image: "/images/dreamscape.webp",
-    imageAlt: "Dreamscape 实际游戏截图：猫骑士、绿植废墟与程序化场景",
-    source: "https://github.com/STDwang/Dreamscape",
-    demo: "https://stdwang.github.io/dreamscape/",
-    demoLabel: "项目展示",
-    demoNote: "浏览器直接试玩；全部游戏合集见游戏橱窗 stdwang.github.io",
-    outcome: "生成脚本 → 场景 → 实机截图迭代",
-    focus: "程序化场景 / 个人原型",
-    sections: [
-      {
-        title: "项目想法",
-        paragraphs: [
-          "一只穿盔甲的小猫骑士，在被绿植覆盖的废弃小镇中探索。这个实验将程序化角色、场景生成、运行时碰撞与交互组合成可运行的原型。",
-        ],
-      },
-      {
-        title: "实现路径",
-        paragraphs: [
-          "README 记录角色由 GDScript 程序化构建，场景由 Blender bpy 脚本生成并导出 GLB。角色具有眨眼、行走、披风和尾巴等程序动画，场景包含动态生态、雾效与水面表现。",
-          "项目通过截图评审与迭代探索视觉效果。公开仓库保留代码和生成脚本，场景资源需要按说明生成，不能将仓库小体积理解为完整美术资源体积。",
-        ],
-      },
-      {
-        title: "可迁移的经验",
-        paragraphs: [
-          "重点在于把想法转成参数、状态、生成脚本和可运行场景，再通过实际画面反馈调整。这些是场景工具与交互原型的探索经验，不等同于机器人动力学或传感器仿真经验。",
-        ],
-      },
-    ],
-    boundary:
-      "画面来自本人项目 README 引用的实机截图。外部站点由独立服务托管，可用性可能变化；README 的工具版本与功能描述以仓库当前记录为准。",
-  },
-  {
-    slug: "mistloop",
-    category: "lab",
-    title: "MISTLOOP / 雾林回环",
-    eyebrow: "个人实验 / 交互原型",
-    summary: "Three.js、程序化场景、状态机制与声音交互。",
-    role: "想法到可运行原型的 AI 辅助实践",
-    stack: ["Three.js", "Vite", "WebGL 2", "程序化音频"],
-    image: "/images/mistloop.webp",
-    imageAlt:
-      "MISTLOOP 在线 Demo 启动后的实际画面：雨雾中的森林、方向提示与圈数状态",
-    source: "https://github.com/STDwang/mistloop",
-    demo: "https://stdwang.github.io/mistloop/",
-    demoLabel: "外部 Demo",
-    outcome: "周期性场景、状态规则与声音联动",
-    focus: "WebGL 交互 / 个人原型",
-    demoNote: "已检查入口与启动画面；未验收完整玩法流程。建议桌面浏览器。",
-    sections: [
-      {
-        title: "空间、状态与声音的联动",
-        paragraphs: [
-          "一个在浓雾森林中行走的第一人称短片游戏。README 描述了周期性场景、视线之外的状态机制，以及随距离变化的环境声与呼吸声。",
-        ],
-      },
-      {
-        title: "工程组织",
-        paragraphs: [
-          "以 Vite + Three.js 组织原型，设计文档、状态规则、数值配置和程序化音频相互对应。交付不仅包含可运行代码，也保留设计说明、任务拆分与 AI 编码上下文。",
-          "周期地形和地标用于构建回环空间，雾控制可见距离，交互事件驱动状态和声音参数。它展示的是可解释的场景规则与交互设计。",
-        ],
-      },
-      {
-        title: "体验方式",
-        paragraphs: [
-          "建议在桌面、支持 WebGL 2 的浏览器中打开外部演示。游戏含恐怖氛围，音频应在用户主动点击后启动；本站不会自动加载该游戏或播放声音。",
-          "截图来自实际打开公开 Demo 并点击“进入林子”后的初始运行画面，没有使用目标参考图。已验证入口和启动画面，未验收完整玩法、通关或声音流程，因此同时保留源码入口。",
-        ],
-      },
-    ],
-    boundary:
-      "个人游戏原型，不作为机器人仿真专业经历。画面来自公开 Demo 的初始运行状态，不是概念图；本次启动检查经过代理，不代表国内直连或完整玩法验收通过。",
-  },
+
+
   {
     slug: "imageplayer",
     category: "lab",
@@ -394,6 +314,47 @@ export const projects: Project[] = [
     ],
     boundary:
       "早期个人图像工具，非医疗诊断软件。示例图片由本人提供，牙片据本人说明来自网上；本地路径与影像内文字已遮盖，玩偶图片原水印保留。图像素材不包含在代码的再授权承诺中；未核验统一许可证，标注为公开代码，不用第三方徽章证明构建状态。",
+  },
+  {
+    slug: "deep-sea-garden",
+    category: "lab",
+    title: "深海花园",
+    eyebrow: "个人实验 / WebGPU",
+    summary: "一片完全由代码实时生成的海底世界，没有一张贴图和一个模型文件。",
+    role: "AI 辅助的交互原型探索",
+    stack: ["WebGPU", "WGSL", "WebAudio", "JavaScript"],
+    image: "/images/deep-sea-garden.webp",
+    imageAlt: "深海花园：阳光穿过海藻森林照进海底峡谷的实际运行画面",
+    source: "https://github.com/STDwang/Deep_Sea_Garden",
+    demo: "https://stdwang.github.io/deep-sea-garden/",
+    demoLabel: "在线试玩",
+    demoNote: "需桌面版 Chrome / Edge（WebGPU）；含外海测绘任务与海底日志。国内备用入口见游戏橱窗。",
+    outcome: "GPU 计算着色器雕刻海床 → 程序化生态 → 可交互潜航",
+    focus: "WebGPU 实时生成 / 个人原型",
+    sections: [
+      {
+        title: "从一条鱼到一个海底世界",
+        paragraphs: [
+          "这是一次纯 GPU 程序化生成的探索：海床峡谷、拱门与洞窟由密度场雕刻，海藻、珊瑚、鱼群和蝠鲼在同一套计算着色器里生成，画面里没有一张贴图、也没有一个模型文件。",
+          "项目以 WebGPU 直接绘制，音景由 Web Audio API 实时合成；潜航、声呐、观景切换与摄影都可在浏览器里完成。",
+        ],
+      },
+      {
+        title: "从场景到可完成的任务",
+        paragraphs: [
+          "早期版本只有六个固定机位触发记录，地点之间缺少持续目标。后来在东部划出航道、加入单拱与双拱地标，可游半径从 150 米扩大到 174 米，并加入一条可完成、可保存的外海测绘任务：用声呐定位潮门与双环测站采样，再返回石鲸尾归档。",
+          "海底日志会在到达观景位置时自动记录，菜单可查阅六处地点与游览线索，记录保存在浏览器本地。",
+        ],
+      },
+      {
+        title: "可迁移的经验",
+        paragraphs: [
+          "重点在于把视觉想法转成密度场、生成脚本、碰撞与状态规则，再通过实际画面和试玩反馈迭代。这些是实时图形与交互原型的探索经验，不等同于机器人或传感器仿真经验。",
+        ],
+      },
+    ],
+    boundary:
+      "画面来自本人项目在浏览器中的实际运行截图。线上演示需要设备支持 WebGPU，桌面 Chrome / Edge 体验最佳；小红书小工具版本依赖宿主 WebView 的 WebGPU 支持，发布前需在目标设备检查启动耗时与稳定性。",
   },
 ];
 

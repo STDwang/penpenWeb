@@ -8,46 +8,23 @@
   "notice": "源码未公开的游戏仅提供构建产物供在线试玩；请勿反编译、二次分发或用于商业用途。",
   "games": [
     {
-      "slug": "mistloop",
-      "title": "雾林回环",
-      "en": "MISTLOOP",
-      "badge": "THREE.JS / WEBGL2",
-      "route": "Web 程序化生成",
-      "tech": ["Three.js", "Vite", "程序化噪声地形", "程序化音频"],
-      "desc": "寂静岭式第一人称恐怖短片：深山老林、浓雾、阴沉天。你在数学上的环面里行走——走了三公里，坐标却回到原点，而雾只让你看见 40 米。雾气深处，那个只在你视线之外移动的身影，正一次次逼近。建议戴耳机。",
-      "keys": ["WASD 移动", "Shift 奔跑", "鼠标 转头", "F 手电筒", "Esc 暂停"],
-      "cover": "covers/mistloop.webp",
-      "coverAlt": "MISTLOOP：浓雾笼罩的程序化森林",
-      "source": "https://github.com/STDwang/mistloop",
-      "private": false,
-      "size": "4.6 MB",
-      "accent": "blue"
-    },
-    {
-      "slug": "dreamscape",
-      "title": "梦境废墟",
-      "en": "DREAMSCAPE",
-      "badge": "GODOT 4.7 + BLENDER",
-      "route": "引擎 + 建模流水线",
-      "tech": ["Godot 4.7.2", "Blender 5.2 bpy", "GLB 程序化资产"],
-      "desc": "一只穿盔甲、扛宝剑的小猫骑士，在被绿植覆盖的废弃小镇梦境里自由探索。约 1800 个物件、12 条锦鲤、萤火虫与流动水面，全部由脚本程序化生成，治愈系废墟美学。",
-      "keys": ["WASD 移动", "Shift 奔跑", "空格 跳跃", "鼠标 视角", "左键/J 挥剑", "右键 冲刺"],
-      "cover": "covers/dreamscape.webp",
-      "coverAlt": "Dreamscape：盔甲小猫骑士在废墟小镇中",
-      "source": "https://github.com/STDwang/Dreamscape",
-      "private": false,
-      "size": "54 MB",
-      "accent": "green"
-    },
-    {
       "slug": "darkfairytale",
       "title": "黑暗童话",
       "en": "DARK FAIRY TALE",
       "badge": "GODOT 4 · WEBGL · 源码未公开",
       "route": "引擎 + 建模流水线",
-      "tech": ["Godot 4.7.2", "幸存者like 自动战斗", "20 分钟试玩目标"],
+      "tech": [
+        "Godot 4.7.2",
+        "幸存者like 自动战斗",
+        "20 分钟试玩目标"
+      ],
       "desc": "小红帽的黑暗童话幸存者原型：月光下的墓园战场，飞刃自动索敌，升级三选一、机制进化、法阵任务与七种妖精敌人轮番压上。撑过 20 分钟就是胜利。",
-      "keys": ["WASD 移动", "1/2/3 选卡", "Esc 暂停", "S 设置"],
+      "keys": [
+        "WASD 移动",
+        "1/2/3 选卡",
+        "Esc 暂停",
+        "S 设置"
+      ],
       "cover": "covers/darkfairytale.webp",
       "coverAlt": "黑暗童话：月夜下的墓园战场",
       "source": "",
@@ -61,9 +38,17 @@
       "en": "MEOWMATCH",
       "badge": "COCOS CREATOR 3.8 · 源码未公开",
       "route": "小游戏工程",
-      "tech": ["Cocos Creator 3.8.8", "TypeScript", "7×18 紧凑对战棋盘"],
+      "tech": [
+        "Cocos Creator 3.8.8",
+        "TypeScript",
+        "7×18 紧凑对战棋盘"
+      ],
       "desc": "猫 vs 鼠的猫粮争夺战：7×18 上下连通棋盘，你操控橘猫在下半区消除抢粮，上方鼠王步步紧逼；12 关三星、特殊棋子与连锁消除，3000 猫粮定胜负。新版压缩棋盘并加入新手引导。",
-      "keys": ["鼠标拖拽 交换", "点击 技能", "暂停 退出按失败结算"],
+      "keys": [
+        "鼠标拖拽 交换",
+        "点击 技能",
+        "暂停 退出按失败结算"
+      ],
       "cover": "covers/meowmatch.webp",
       "coverAlt": "喵饭家族争夺战：猫粮对战结算画面",
       "source": "",
@@ -77,9 +62,22 @@
       "en": "BIG FAT FISH VS PHOEBE",
       "badge": "CANVAS 2.5D · 零依赖 · 源码未公开",
       "route": "Web 重构版",
-      "tech": ["Canvas 2.5D", "WebAudio 实时合成", "程序化矢量角色", "架势 / 失衡战斗"],
+      "tech": [
+        "Canvas 2.5D",
+        "WebAudio 实时合成",
+        "程序化矢量角色",
+        "架势 / 失衡战斗"
+      ],
       "desc": "类魂 Boss 战，对面是优雅的巨大菲比，你是一坨滚来滚去的胖鱼。读地面预警、贴着攻击翻滚触发「鱼跃时机」，打满架势条让菲比失衡跪地；三阶段递进，一局两三分钟。全程序化生成、零外部请求，打开即玩。",
-      "keys": ["WASD 移动", "J 出拳", "K 甩尾", "L 回旋击", "空格 翻滚", "R 喝药", "Esc 暂停"],
+      "keys": [
+        "WASD 移动",
+        "J 出拳",
+        "K 甩尾",
+        "L 回旋击",
+        "空格 翻滚",
+        "R 喝药",
+        "Esc 暂停"
+      ],
       "cover": "covers/bigfatfish.webp",
       "coverAlt": "大肥鱼大战菲比：月下海墟里的类魂 Boss 战，胖鱼面对巨大的菲比",
       "source": "",
@@ -93,9 +91,19 @@
       "en": "APEX MOTORCYCLE HMI",
       "badge": "THREE.JS / CAN / TFT",
       "route": "Web 3D · 实时 HMI",
-      "tech": ["Three.js", "模拟 CAN / DBC", "TFT 仪表状态机", "程序化场景"],
+      "tech": [
+        "Three.js",
+        "模拟 CAN / DBC",
+        "TFT 仪表状态机",
+        "程序化场景"
+      ],
       "desc": "浏览器 3D 摩托骑行与实时 HMI 实验台：从赛道车辆状态，经模拟 CAN 报文、信号解码与仪表状态机，驱动同一块虚拟 TFT。四种模式、四机位、三环境，工程台可查看报文、信号质量、故障注入与诊断导出。",
-      "keys": ["WASD 驾驶", "C 切视角", "Tab 信息页", "Enter 确认告警"],
+      "keys": [
+        "WASD 驾驶",
+        "C 切视角",
+        "Tab 信息页",
+        "Enter 确认告警"
+      ],
       "cover": "covers/motorcycle-hmi.webp",
       "coverAlt": "APEX 摩托 HMI：云岭赛道追尾视角与实时 TFT 仪表",
       "source": "https://github.com/STDwang/MotorcycleHMI",
@@ -104,6 +112,38 @@
       "accent": "blue",
       "playUrl": "https://stdwang.github.io/MotorcycleHMI/",
       "backupUrl": "https://wbapp-5qspg4vbu8mo6se3cxxq2a.app.workbuddy.host/?sharecode=S7BRNCGVMQ"
+    },
+    {
+      "slug": "deep-sea-garden",
+      "title": "深海花园",
+      "en": "DEEP SEA GARDEN",
+      "badge": "WEBGPU · 程序化海底 · 源码公开",
+      "route": "WebGPU 实时生成",
+      "tech": [
+        "WebGPU / WGSL 计算着色器",
+        "程序化海床与洞窟",
+        "程序化海藻与鱼群",
+        "WebAudio 实时合成",
+        "全中文界面"
+      ],
+      "desc": "一片完全由代码生成的海底世界：海藻森林随水流摇曳，光柱穿过水体，沉船静卧在峡谷边，蝠鲼从头顶掠过。地形、体积雾与生态分布全部跑在 GPU 计算着色器里，没有一张图片和一个模型文件。含外海测绘任务与海底日志，需桌面版 Chrome / Edge（WebGPU）。",
+      "keys": [
+        "WASD 游动",
+        "Q/E 下潜上浮",
+        "Shift 加速",
+        "1–6 观景点",
+        "F 声呐",
+        "Esc 菜单",
+        "M 静音"
+      ],
+      "cover": "covers/deep-sea-garden.webp",
+      "coverAlt": "深海花园：阳光穿过海藻森林照进海底峡谷",
+      "source": "https://github.com/STDwang/Deep_Sea_Garden",
+      "private": false,
+      "size": "3.1 MB",
+      "accent": "blue",
+      "playUrl": "https://stdwang.github.io/deep-sea-garden/",
+      "backupUrl": "https://wbapp-zx0xlufukmfj9igvb30etd.app.workbuddy.host/deep-sea-garden/?sharecode=QLTHCY272K"
     }
   ]
 }
