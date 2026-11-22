@@ -57,35 +57,6 @@
       "accent": "yellow"
     },
     {
-      "slug": "bigfatfish",
-      "title": "大肥鱼大战菲比",
-      "en": "BIG FAT FISH VS PHOEBE",
-      "badge": "CANVAS 2.5D · 零依赖 · 源码未公开",
-      "route": "Web 重构版",
-      "tech": [
-        "Canvas 2.5D",
-        "WebAudio 实时合成",
-        "程序化矢量角色",
-        "架势 / 失衡战斗"
-      ],
-      "desc": "类魂 Boss 战，对面是优雅的巨大菲比，你是一坨滚来滚去的胖鱼。读地面预警、贴着攻击翻滚触发「鱼跃时机」，打满架势条让菲比失衡跪地；三阶段递进，一局两三分钟。全程序化生成、零外部请求，打开即玩。",
-      "keys": [
-        "WASD 移动",
-        "J 出拳",
-        "K 甩尾",
-        "L 回旋击",
-        "空格 翻滚",
-        "R 喝药",
-        "Esc 暂停"
-      ],
-      "cover": "covers/bigfatfish.webp",
-      "coverAlt": "大肥鱼大战菲比：月下海墟里的类魂 Boss 战，胖鱼面对巨大的菲比",
-      "source": "",
-      "private": true,
-      "size": "148 KB",
-      "accent": "blue"
-    },
-    {
       "slug": "motorcycle-hmi",
       "title": "APEX · 摩托 HMI",
       "en": "APEX MOTORCYCLE HMI",
